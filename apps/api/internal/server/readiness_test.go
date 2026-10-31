@@ -109,6 +109,9 @@ func reviewLogin(t *testing.T, app *Server) (*http.Cookie, string) {
 }
 func TestReadinessTokenAndSessionBoundaries(t *testing.T) {
 	app, _, sid, aid := reviewServer(t, nil)
+	if app.CheckRuntime(context.Background()) == nil {
+		t.Fatal("administrative database role accepted for runtime")
+	}
 	h := app.Routes()
 	cookie, csrf := reviewLogin(t, app)
 	if !cookie.Secure || !cookie.HttpOnly || cookie.SameSite != http.SameSiteStrictMode || cookie.MaxAge != 28800 || cookie.Domain != "" {

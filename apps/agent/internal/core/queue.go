@@ -160,3 +160,24 @@ func (q *Queue) Ack(ids []string) error {
 func (q *Queue) Attempt() {
 	_, _ = q.DB.Exec(`UPDATE events SET attempts=attempts+1 WHERE uuid IN(SELECT uuid FROM events ORDER BY seq LIMIT 100)`)
 }
+
+// LastObserved preserves collection freshness across restarts, including full
+// legacy queues created before this metadata existed.
+func (q *Queue) LastObserved() (time.Time, error) {
+	var raw string
+	err := q.DB.QueryRow(`SELECT value FROM meta WHERE key='last_observed_at'`).Scan(&raw)
+	if err == sql.ErrNoRows {
+		err = q.DB.QueryRow(`SELECT json_extract(payload,'$.observed_at') FROM events ORDER BY seq DESC LIMIT 1`).Scan(&raw)
+	}
+	if err == sql.ErrNoRows {
+		return time.Time{}, nil
+	}
+	if err != nil {
+		return time.Time{}, err
+	}
+	return time.Parse(time.RFC3339Nano, raw)
+}
+func (q *Queue) RecordObserved(at time.Time) error {
+	_, err := q.DB.Exec(`INSERT INTO meta(key,value) VALUES('last_observed_at',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value`, at.UTC().Format(time.RFC3339Nano))
+	return err
+}

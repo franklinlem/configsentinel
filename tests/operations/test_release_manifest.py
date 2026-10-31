@@ -8,7 +8,7 @@ class ImmutableReleaseGate(unittest.TestCase):
     def test_rejects_mutable_tags_unverified_scans_and_missing_approval(self):
         candidate={'commit':'a'*40,'homologation_passed':True,'production_approved':True}
         for name in ('api','web','db'):candidate[name]={'image':'ghcr.io/franklinlem/configsentinel-'+name+'@sha256:'+'b'*64,'sbom_sha256':'c'*64,'scan_high':0,'scan_critical':0,'provenance_verified':True}
-        candidate['db']['image']='postgres:17-alpine@sha256:'+'d'*64
+        candidate['db']['image']='ghcr.io/franklinlem/configsentinel-db@sha256:'+'d'*64
         self.assertEqual(validate(candidate),[])
         self.assertTrue(validate([]))
         self.assertTrue(validate({'api':None}))

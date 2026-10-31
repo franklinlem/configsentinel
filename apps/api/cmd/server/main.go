@@ -3,7 +3,9 @@ package main
 import (
 	"context"
 	"flag"
+	"fmt"
 	"github.com/franklinlem/configsentinel/apps/api/internal/server"
+	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"log/slog"
 	"net/http"
@@ -21,6 +23,7 @@ func main() {
 	}
 }
 func run() error {
+	migrate := flag.Bool("migrate", false, "one-shot migration and bootstrap using the migrator role")
 	reset := flag.Bool("reset-password", false, "operator-only reset using ADMIN_EMAIL and ADMIN_PASSWORD")
 	flag.Parse()
 	dbURL, origin, secure, e := server.Config()
@@ -34,28 +37,52 @@ func run() error {
 		return e
 	}
 	cfg.MaxConns = 10
+	if *migrate {
+		cfg.AfterConnect = func(ctx context.Context, conn *pgx.Conn) error {
+			var role string
+			if err := conn.QueryRow(ctx, "SELECT session_user").Scan(&role); err != nil {
+				return err
+			}
+			if role != "configsentinel_migrator" {
+				return fmt.Errorf("migrator credential required")
+			}
+			_, err := conn.Exec(ctx, "SET ROLE configsentinel_owner")
+			return err
+		}
+	}
 	db, e := pgxpool.NewWithConfig(ctx, cfg)
 	if e != nil {
 		return e
 	}
 	defer db.Close()
-	migration := os.Getenv("MIGRATION_FILE")
-	if migration == "" {
-		migration = "/app/migrations/001_initial.sql"
-	}
-	sql, e := os.ReadFile(migration)
-	if e != nil {
-		return e
-	}
 	app := server.New(db, origin, secure)
-	if e = app.Migrate(ctx, string(sql)); e != nil {
+	if *migrate {
+		migration := os.Getenv("MIGRATION_FILE")
+		if migration == "" {
+			migration = "/app/migrations/001_initial.sql"
+		}
+		sql, err := os.ReadFile(migration)
+		if err != nil {
+			return err
+		}
+		if err = app.Migrate(ctx, string(sql)); err != nil {
+			return err
+		}
+		if err = app.Bootstrap(ctx, os.Getenv("ADMIN_EMAIL"), os.Getenv("ADMIN_PASSWORD")); err != nil {
+			return err
+		}
+		grants, err := os.ReadFile("/app/roles/runtime-grants.sql")
+		if err != nil {
+			return err
+		}
+		_, err = db.Exec(ctx, string(grants))
+		return err
+	}
+	if e = app.CheckRuntime(ctx); e != nil {
 		return e
 	}
 	if *reset {
 		return app.ResetPassword(ctx, os.Getenv("ADMIN_EMAIL"), os.Getenv("ADMIN_PASSWORD"))
-	}
-	if e = app.Bootstrap(ctx, os.Getenv("ADMIN_EMAIL"), os.Getenv("ADMIN_PASSWORD")); e != nil {
-		return e
 	}
 	go app.Maintenance(ctx)
 	httpServer := &http.Server{Addr: ":8081", Handler: app.Routes(), ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 15 * time.Second, WriteTimeout: 30 * time.Second, IdleTimeout: 60 * time.Second, MaxHeaderBytes: 16384}

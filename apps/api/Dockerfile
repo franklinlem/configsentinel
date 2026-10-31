@@ -9,6 +9,7 @@ RUN apk add --no-cache ca-certificates && addgroup -g 10001 app && adduser -D -u
 WORKDIR /app
 COPY --from=build /out/server /app/server
 COPY db/migrations /app/migrations
+COPY db/roles /app/roles
 USER 10001:10001
 EXPOSE 8081 9090
 CMD ["/app/server"]

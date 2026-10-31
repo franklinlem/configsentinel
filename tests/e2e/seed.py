@@ -1,7 +1,7 @@
 """Synthetic API fixtures for browser CI; actual agent is tested separately."""
-import datetime,hashlib,http.cookiejar,json,urllib.request,uuid
+import os,datetime,hashlib,http.cookiejar,json,urllib.request,uuid
 from pathlib import Path
-values=dict(l.split('=',1) for l in Path('.local/dev.env').read_text().splitlines());base='http://localhost:8080';csrf=''
+values=dict(l.split('=',1) for l in Path(os.environ.get('E2E_ENV_FILE','.local/dev.env')).read_text().splitlines());base=os.environ.get('E2E_BASE_URL','http://localhost:8080');csrf=''
 opener=urllib.request.build_opener(urllib.request.HTTPCookieProcessor(http.cookiejar.CookieJar()))
 def req(path,body=None,token=None):
  headers={'Content-Type':'application/json','Origin':base,'X-CSRF-Token':csrf}

@@ -1,0 +1,9 @@
+[Unit]
+Description=ConfigSentinel independent encrypted backup integrity and freshness
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 %h/.local/bin/monitor-backups.py
+TimeoutStartSec=150
+KillMode=control-group
+UMask=0077
+NoNewPrivileges=true

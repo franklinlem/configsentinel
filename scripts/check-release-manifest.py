@@ -20,8 +20,7 @@ def validate(manifest):
         if not isinstance(item, dict):
             errors.append(name + ': image record must be an object')
             continue
-        repository = ('postgres:17-alpine' if name == 'db' else
-                      'ghcr.io/franklinlem/configsentinel-' + name)
+        repository = 'ghcr.io/franklinlem/configsentinel-' + name
         if not re.fullmatch(re.escape(repository) + r'@sha256:[0-9a-f]{64}',
                             str(item.get('image', ''))):
             errors.append(name + ': exact approved repository digest required')

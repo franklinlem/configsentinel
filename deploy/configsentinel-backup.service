@@ -5,3 +5,5 @@ Type=oneshot
 ExecStart=/usr/bin/python3 %h/.local/bin/configsentinel-offsite-backup.py
 UMask=0077
 NoNewPrivileges=true
+TimeoutStartSec=360
+KillMode=control-group

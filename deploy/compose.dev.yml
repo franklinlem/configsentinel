@@ -1,11 +1,14 @@
 name: configsentinel-dev
 services:
   db:
-    image: postgres:17-alpine
+    image: configsentinel-candidate-db:local
+    build: {context: .., dockerfile: deploy/postgres/Dockerfile}
     environment:
       POSTGRES_DB: configsentinel
       POSTGRES_USER: configsentinel
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?required}
+      CONFIGSENTINEL_RUNTIME_PASSWORD: ${RUNTIME_DB_PASSWORD:?required}
+      CONFIGSENTINEL_MIGRATOR_PASSWORD: ${MIGRATOR_DB_PASSWORD:?required}
     volumes: [postgres_data:/var/lib/postgresql/data]
     networks: [database]
     healthcheck:
@@ -13,27 +16,41 @@ services:
       interval: 5s
       timeout: 3s
       retries: 20
-  api:
+  migrate:
+    image: configsentinel-dev-api:latest
     build: {context: .., dockerfile: apps/api/Dockerfile}
+    command: [/app/server, --migrate]
     environment:
-      DATABASE_URL: postgresql://configsentinel:${POSTGRES_PASSWORD}@db:5432/configsentinel?sslmode=disable
+      DATABASE_URL: postgresql://configsentinel_migrator:${MIGRATOR_DB_PASSWORD}@db:5432/configsentinel?sslmode=disable
       PUBLIC_URL: ${PUBLIC_URL:-http://localhost:8080}
       COOKIE_SECURE: ${COOKIE_SECURE:-false}
       ADMIN_EMAIL: ${ADMIN_EMAIL:?required}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:?required}
-    networks: [database, app]
+    networks: [database]
     depends_on: {db: {condition: service_healthy}}
+    read_only: true
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+  api:
+    image: configsentinel-dev-api:latest
+    build: {context: .., dockerfile: apps/api/Dockerfile}
+    environment:
+      DATABASE_URL: postgresql://configsentinel_runtime:${RUNTIME_DB_PASSWORD}@db:5432/configsentinel?sslmode=disable
+      PUBLIC_URL: ${PUBLIC_URL:-http://localhost:8080}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+    networks: [database, app]
+    depends_on: {migrate: {condition: service_completed_successfully}}
     healthcheck:
       test: [CMD, wget, -q, -O, /dev/null, 'http://127.0.0.1:8081/api/health/ready']
-      interval: 10s
+      interval: 5s
       timeout: 3s
-      retries: 10
+      retries: 15
     read_only: true
     security_opt: [no-new-privileges:true]
     cap_drop: [ALL]
   web:
     build: {context: .., dockerfile: apps/web/Dockerfile}
-    ports: ['127.0.0.1:8080:8080']
+    ports: ['127.0.0.1:${HTTP_PORT:-8080}:8080']
     networks: [app]
     depends_on: {api: {condition: service_healthy}}
     healthcheck:

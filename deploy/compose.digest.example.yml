@@ -8,6 +8,8 @@ services:
       POSTGRES_DB: configsentinel
       POSTGRES_USER: configsentinel
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?required}
+      CONFIGSENTINEL_RUNTIME_PASSWORD: ${RUNTIME_DB_PASSWORD:?required}
+      CONFIGSENTINEL_MIGRATOR_PASSWORD: ${MIGRATOR_DB_PASSWORD:?required}
     volumes: [postgres_data:/var/lib/postgresql/data]
     networks: [database]
     mem_limit: 256m
@@ -18,18 +20,31 @@ services:
       retries: 15
     labels:
       - traefik.enable=false
-  api:
+  migrate:
     image: ${CONFIGSENTINEL_API_IMAGE:?reviewed api digest required}
-    restart: unless-stopped
+    command: [/app/server, --migrate]
     environment:
-      DATABASE_URL: postgresql://configsentinel:${POSTGRES_PASSWORD}@db:5432/configsentinel?sslmode=disable
+      DATABASE_URL: postgresql://configsentinel_migrator:${MIGRATOR_DB_PASSWORD}@db:5432/configsentinel?sslmode=disable
       PUBLIC_URL: https://configsentinel-dev.franklem.uk
       COOKIE_SECURE: 'true'
       ADMIN_EMAIL: ${ADMIN_EMAIL:?required}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:?required}
+    networks: [database]
+    depends_on: {db: {condition: service_healthy}}
+    read_only: true
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    labels: [traefik.enable=false]
+  api:
+    image: ${CONFIGSENTINEL_API_IMAGE:?reviewed api digest required}
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://configsentinel_runtime:${RUNTIME_DB_PASSWORD}@db:5432/configsentinel?sslmode=disable
+      PUBLIC_URL: https://configsentinel-dev.franklem.uk
+      COOKIE_SECURE: 'true'
     networks: [database, app]
     mem_limit: 384m
-    depends_on: {db: {condition: service_healthy}}
+    depends_on: {migrate: {condition: service_completed_successfully}}
     healthcheck:
       test: [CMD, wget, -q, -O, /dev/null, 'http://127.0.0.1:8081/api/health/ready']
       interval: 10s

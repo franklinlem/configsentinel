@@ -17,7 +17,7 @@ def check(base, max_age_hours=26, now=None, service_result='success'):
         stamp, filename = (base/'last-success.txt').read_text().strip().split()
         observed = dt.datetime.fromisoformat(stamp)
         if observed.tzinfo is None:return fail('marker_timezone_missing')
-        if not re.fullmatch(r'\d{4}-\d{2}-\d{2}\.dump\.gpg', filename):return fail('invalid_backup_filename')
+        if not re.fullmatch(r'\d{4}-\d{2}-\d{2}(?:T\d{12}Z)?\.dump\.gpg', filename):return fail('invalid_backup_filename')
         age=(now-observed).total_seconds()
         if age < -300:return fail('marker_in_future')
         if age > max_age_hours*3600:return fail('backup_overdue',age_seconds=round(age))

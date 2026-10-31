@@ -7,11 +7,11 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"flag"
 	"github.com/franklinlem/configsentinel/apps/agent/internal/core"
 	"golang.org/x/sys/unix"
 	"log/slog"
-	"math/rand/v2"
 	"os"
 	"os/signal"
 	"path/filepath"
@@ -59,9 +59,16 @@ func run() error {
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer stop()
 	transport := core.NewTransport(c)
-	var observed time.Time
-	var nextSend time.Time
-	backoff := time.Second
+	observed, e := q.LastObserved()
+	if e != nil {
+		return e
+	}
+	wake := make(chan struct{}, 1)
+	done := make(chan struct{})
+	if !*once {
+		go func() { defer close(done); transport.RunFlush(ctx, q, wake) }()
+		defer func() { stop(); <-done }()
+	}
 	for {
 		start := time.Now().UTC()
 		ok := true
@@ -76,24 +83,24 @@ func run() error {
 			}
 		}
 		if ok {
+			if e = q.RecordObserved(start); e != nil {
+				return e
+			}
 			observed = start
 		}
-		if !time.Now().Before(nextSend) {
-			e = transport.Flush(ctx, q)
-			if e == nil {
-				e = transport.Heartbeat(ctx, q, observed)
-			}
-			if e != nil {
-				slog.Warn("delivery deferred", "error", e)
-				nextSend = time.Now().Add(backoff + time.Duration(rand.Int64N(int64(backoff/2+1))))
-				backoff = min(backoff*2, 5*time.Minute)
-			} else {
-				backoff = time.Second
-				nextSend = time.Time{}
-			}
-		}
 		if *once {
-			return e
+			// Even one-shot lab runs exercise delivery and heartbeat independently.
+			result := make(chan error, 1)
+			go func() { result <- transport.Flush(ctx, q) }()
+			heartbeatError := transport.Heartbeat(ctx, q, observed)
+			return errors.Join(heartbeatError, <-result)
+		}
+		select {
+		case wake <- struct{}{}:
+		default:
+		}
+		if err := transport.Heartbeat(ctx, q, observed); err != nil && ctx.Err() == nil {
+			slog.Warn("heartbeat deferred", "error", err)
 		}
 		timer := time.NewTimer(time.Duration(c.Agent.Interval) * time.Second)
 		select {

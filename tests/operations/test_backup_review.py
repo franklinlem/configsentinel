@@ -1,48 +1,59 @@
-"""Exercise the unchanged backup program only in synthetic temporary directories."""
-import io
+"""Real process/lock/deadline checks use only synthetic temporary paths."""
+import datetime as dt
+import fcntl
+import hashlib
 from pathlib import Path
 import runpy
+import subprocess
 import tempfile
-import types
+import time
 import unittest
 from unittest.mock import patch
 
-SCRIPT = Path(__file__).resolve().parents[2] / 'scripts/offsite-backup.py'
+SCRIPTS=Path(__file__).resolve().parents[2]/'scripts'
+backup=runpy.run_path(str(SCRIPTS/'offsite-backup.py'))
+check=runpy.run_path(str(SCRIPTS/'check-backup-health.py'))['check']
+
 
 class BackupReview(unittest.TestCase):
-    def test_transport_failure_preserves_previous_backup_and_marker(self):
+    def test_fail_closed_lock_timeout_and_previous_backup(self):
         with tempfile.TemporaryDirectory(prefix='configsentinel-backup-review-') as folder:
-            home = Path(folder)
-            base = home / '.local/share/configsentinel-backups'
-            (base / 'daily').mkdir(parents=True)
-            previous = base / 'daily/2000-01-01.dump.gpg'
-            previous.write_bytes(b'synthetic-encrypted-backup')
-            marker = base / 'last-success.txt'
-            marker.write_text('2000-01-01T00:00:00+00:00 previous.dump.gpg\n')
-            fake_ssh = types.SimpleNamespace(stdout=io.BytesIO(b''), stderr=io.BytesIO(b'fixture transport failure'), wait=lambda: 255)
-            def fake_gpg(args, **kwargs):
-                Path(args[args.index('--output')+1]).write_bytes(b'synthetic-partial')
-                return types.SimpleNamespace(returncode=0)
-            with patch('pathlib.Path.home', return_value=home), patch('subprocess.Popen', return_value=fake_ssh), patch('subprocess.run', side_effect=fake_gpg):
-                with self.assertRaisesRegex(RuntimeError, 'pipeline failed'):
-                    runpy.run_path(str(SCRIPT), run_name='__main__')
-            self.assertEqual(previous.read_bytes(), b'synthetic-encrypted-backup')
-            self.assertTrue(marker.read_text().startswith('2000-01-01'))
-            self.assertFalse(list((base / 'daily').glob('.pending-*')))
-            self.assertFalse((base / 'last-failure.txt').exists())  # Characterization: no failure/age monitor is emitted.
+            base=Path(folder)/'backup';base.mkdir();config=Path(folder)/'config';config.mkdir()
+            marker=base/'last-success.txt';marker.write_text('previous recovery point')
+            with self.assertRaises(RuntimeError):backup['perform_backup'](base,config)
+            self.assertFalse((config/'encryption.key').exists())
+            key=config/'encryption.key';key.write_text('synthetic fixture '*4);key.chmod(0o600)
+            with (base/'.backup.lock').open('w') as lock:
+                fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+                with self.assertRaisesRegex(RuntimeError,'already running'):
+                    backup['perform_backup'](base,config)
+            fake=Path(folder)/'process.py'
+            fake.write_text('import time; time.sleep(20)')
+            original=subprocess.Popen
+            def sleeping(*args,**kwargs):
+                return original(['python3',str(fake)],**kwargs)
+            start=time.monotonic()
+            with patch('subprocess.Popen',side_effect=sleeping):
+                with self.assertRaisesRegex(RuntimeError,'deadline'):
+                    backup['perform_backup'](base,config,timeout=0.1)
+            self.assertLess(time.monotonic()-start,3)
+            self.assertEqual(marker.read_text(),'previous recovery point')
+            self.assertFalse(list(base.glob('daily/.pending-*')))
+            def failing(*args,**kwargs):
+                return original(['python3','-c','raise SystemExit(255)'],**kwargs)
+            with patch('subprocess.Popen',side_effect=failing):
+                with self.assertRaisesRegex(RuntimeError,'pipeline failed'):
+                    backup['perform_backup'](base,config)
+            self.assertEqual(marker.read_text(),'previous recovery point')
 
 
 class BackupHealthProbe(unittest.TestCase):
     def test_health_age_checksum_and_service_status(self):
-        import datetime as dt
-        import hashlib
-        module = runpy.run_path(str(SCRIPT.parent/'check-backup-health.py'))
-        check = module['check']
         now=dt.datetime(2026,10,31,18,0,tzinfo=dt.timezone.utc)
-        with tempfile.TemporaryDirectory(prefix='configsentinel-backup-probe-') as folder:
+        with tempfile.TemporaryDirectory() as folder:
             base=Path(folder);(base/'daily').mkdir()
             self.assertEqual(check(base,now=now)['status'],'error')
-            dump=base/'daily/2026-10-31.dump.gpg';dump.write_bytes(b'synthetic encrypted fixture'*100)
+            dump=base/'daily/2026-10-31T180000000001Z.dump.gpg';dump.write_bytes(b'synthetic encrypted fixture'*100)
             dump.with_suffix('.gpg.sha256').write_text(hashlib.sha256(dump.read_bytes()).hexdigest()+'  '+dump.name+'\n')
             marker=base/'last-success.txt';marker.write_text(now.isoformat()+' '+dump.name+'\n')
             self.assertEqual(check(base,now=now)['status'],'ok')
@@ -51,5 +62,17 @@ class BackupHealthProbe(unittest.TestCase):
             dump.write_bytes(b'corrupt synthetic encrypted fixture'*100)
             self.assertEqual(check(base,now=now)['reason'],'checksum_mismatch')
 
-if __name__ == '__main__':
-    unittest.main()
+
+class MonitorDelivery(unittest.TestCase):
+    def test_up_down_delivery_and_secret_url_redaction(self):
+        import json
+        import io
+        notify=runpy.run_path(str(SCRIPTS/'monitor-backups.py'))['notify']
+        class Reply(io.BytesIO):status=200
+        def reply(*args,**kwargs):return Reply(json.dumps({'ok':True}).encode())
+        with patch('urllib.request.urlopen',side_effect=reply) as request:
+            for status in ['ok','error']:
+                notify('https://status.franklem.uk/api/push/synthetic-monitor',{'status':status,'reason':'backup_overdue'})
+            self.assertIn('status=up',request.call_args_list[0].args[0])
+            self.assertIn('status=down',request.call_args_list[1].args[0])
+        with self.assertRaises(ValueError):notify('http://elsewhere/api/push/synthetic',{'status':'ok'})
