@@ -1,0 +1,18 @@
+{
+  "agent": {
+    "signed_sbom_matches_recorded_file": true,
+    "checksum_matches_manifest": true
+  },
+  "api": {
+    "signed_sbom_matches_recorded_file": true,
+    "checksum_matches_manifest": true
+  },
+  "web": {
+    "signed_sbom_matches_recorded_file": true,
+    "checksum_matches_manifest": true
+  },
+  "db": {
+    "signed_sbom_matches_recorded_file": true,
+    "checksum_matches_manifest": true
+  }
+}

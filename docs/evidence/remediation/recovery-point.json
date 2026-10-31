@@ -27,5 +27,22 @@
     "acknowledgements": 1
   },
   "traffic_unchanged": true,
-  "production_approved": false
+  "production_approved": false,
+  "archive_checksums": {
+    "api": {
+      "sha256": "21f78c9b3d4f4959fa9a38605d2872cd236f4643d3e833d6c2c2659abaa9e0c8",
+      "mode": "0600",
+      "location": "local ignored recovery storage"
+    },
+    "web": {
+      "sha256": "339b1a60b12a056a68737f017bfa038a009bf811acd4f6b7fc421f44f36da846",
+      "mode": "0600",
+      "location": "local ignored recovery storage"
+    },
+    "db": {
+      "sha256": "2ec71f485ddeb1a51eef6b1860878bf964c9cc3016527ce05a7615020bf87d58",
+      "mode": "0600",
+      "location": "local ignored recovery storage"
+    }
+  }
 }

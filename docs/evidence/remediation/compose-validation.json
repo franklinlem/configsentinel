@@ -1,0 +1,10 @@
+{
+  "real_digests_rendered": true,
+  "services": 4,
+  "builds": false,
+  "published_ports": false,
+  "database_internal": true,
+  "runtime_has_admin_password": false,
+  "runtime_and_migrator_separate": true,
+  "deployed": false
+}

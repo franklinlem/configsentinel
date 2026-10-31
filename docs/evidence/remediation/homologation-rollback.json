@@ -1,0 +1,54 @@
+{
+  "prefix": "configsentinel-rehearsal-9e8f62fc71",
+  "isolated": true,
+  "live_volumes_attached": false,
+  "public_ports": false,
+  "volume_preserved": true,
+  "all_containers_stopped": true,
+  "stages": [
+    {
+      "stage": "candidate",
+      "ready": true,
+      "unauthenticated_status": 401,
+      "counts": {
+        "schema": 1,
+        "events": 4,
+        "acknowledgements": 2,
+        "version": "17.11"
+      }
+    },
+    {
+      "stage": "rollback-app",
+      "ready": true,
+      "unauthenticated_status": 401,
+      "counts": {
+        "schema": 1,
+        "events": 4,
+        "acknowledgements": 2,
+        "version": "17.11"
+      }
+    },
+    {
+      "stage": "rollback-db",
+      "ready": true,
+      "unauthenticated_status": 401,
+      "counts": {
+        "schema": 1,
+        "events": 4,
+        "acknowledgements": 2,
+        "version": "17.11"
+      }
+    },
+    {
+      "stage": "return-candidate",
+      "ready": true,
+      "unauthenticated_status": 401,
+      "counts": {
+        "schema": 1,
+        "events": 4,
+        "acknowledgements": 2,
+        "version": "17.11"
+      }
+    }
+  ]
+}

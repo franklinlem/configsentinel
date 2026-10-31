@@ -38,7 +38,7 @@ def env(name,items):
 p=c['passwords'];common={'PUBLIC_URL':'https://configsentinel-dev.franklem.uk','COOKIE_SECURE':'true'}
 env('db',{'POSTGRES_USER':'configsentinel','POSTGRES_DB':'configsentinel','POSTGRES_PASSWORD':p['admin'],'CONFIGSENTINEL_RUNTIME_PASSWORD':p['runtime'],'CONFIGSENTINEL_MIGRATOR_PASSWORD':p['migrator']})
 for name in ['runtime','migrator']:env(name,dict(common,DATABASE_URL='postgresql://configsentinel_'+name+':'+p[name]+'@db:5432/configsentinel?sslmode=disable'))
-for cmd in [['docker','network','create','--internal',prefix],['docker','volume','create',prefix+'-data'],['docker','run','-d','--name',prefix+'-db-candidate','--label','io.configsentinel.scope=rehearsal','--network',prefix,'--network-alias','db','--env-file',str(root/'db.env'),'--mount','type=volume,source='+prefix+'-data,target=/var/lib/postgresql/data',c['images']['db']]]:subprocess.run(cmd,check=True,capture_output=True)
+for cmd in [['docker','network','create','--internal',prefix],['docker','volume','create',prefix+'-data'],['docker','run','-d','--name',prefix+'-db-candidate','--label','io.configsentinel.scope=rehearsal','--network',prefix,'--network-alias','db','--memory','256m','--cpus','0.5','--env-file',str(root/'db.env'),'--mount','type=volume,source='+prefix+'-data,target=/var/lib/postgresql/data',c['images']['db']]]:subprocess.run(cmd,check=True,capture_output=True)
 print(json.dumps({'prefix':prefix}))
 '''
     remote(setup,settings)
@@ -54,13 +54,13 @@ print(json.dumps({'prefix':prefix}))
     # Credentials and plaintext dump are streamed only; no plaintext dump file.
     source=subprocess.Popen(['ssh','frank-note2','python3 -c '+shlex.quote(decrypt)],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
     restored=subprocess.run(['ssh','contabo','docker exec -i '+prefix+'-db-candidate pg_restore -U configsentinel -d configsentinel --no-owner --no-acl --exit-on-error'],stdin=source.stdout,capture_output=True,timeout=120)
-    source.stdout.close();source.communicate(timeout=120)
+    source.stdout.close();source.wait(timeout=120);source.stderr.close()
     if source.returncode or restored.returncode:raise RuntimeError('Isolated encrypted restore failed')
     remote(r'''
 import json,sys,subprocess,pathlib
 c=json.load(sys.stdin);p=c['prefix'];root=pathlib.Path.home()/'.config'/p
 subprocess.run(['docker','exec',p+'-db-candidate','psql','-U','configsentinel','-d','configsentinel','-v','ON_ERROR_STOP=1','-f','/opt/configsentinel/provision.sql'],capture_output=True,check=True)
-subprocess.run(['docker','run','--rm','--name',p+'-migrate','--network',p,'--env-file',str(root/'migrator.env'),c['images']['api'],'/app/server','--migrate'],capture_output=True,check=True)
+subprocess.run(['docker','run','--rm','--name',p+'-migrate','--memory','384m','--cpus','0.5','--network',p,'--env-file',str(root/'migrator.env'),c['images']['api'],'/app/server','--migrate'],capture_output=True,check=True)
 ''',settings)
     exercise=r'''
 import json,sys,subprocess,pathlib,time
@@ -68,6 +68,7 @@ c=json.load(sys.stdin);p=c['prefix'];root=pathlib.Path.home()/'.config'/p;stage=
 def command(args):return subprocess.run(['docker']+args,capture_output=True,text=True,check=True).stdout.strip()
 for n in ['api','web']:
  args=['run','-d','--name',p+'-'+n+'-'+stage,'--label','io.configsentinel.scope=rehearsal','--network',p,'--cap-drop=ALL','--security-opt=no-new-privileges:true']
+ args+=['--memory','384m' if n=='api' else '96m','--cpus','0.5']
  if n=='api':args+=['--network-alias','api','--read-only','--env-file',str(root/'runtime.env')]
  args+=[c['images'][n] if role=='candidate' else c['previous'][n]]
  command(args)
@@ -89,7 +90,7 @@ print(json.dumps({'stage':stage,'ready':True,'unauthenticated_status':401,'count
 import json,sys,subprocess,pathlib
 c=json.load(sys.stdin);p=c['prefix'];root=pathlib.Path.home()/'.config'/p
 subprocess.run(['docker','stop',p+'-db-candidate'],capture_output=True,check=True)
-subprocess.run(['docker','run','-d','--name',p+'-db-rollback','--label','io.configsentinel.scope=rehearsal','--network',p,'--network-alias','db','--env-file',str(root/'db.env'),'--mount','type=volume,source='+p+'-data,target=/var/lib/postgresql/data',c['previous']['db']],capture_output=True,check=True)
+subprocess.run(['docker','run','-d','--name',p+'-db-rollback','--label','io.configsentinel.scope=rehearsal','--network',p,'--network-alias','db','--memory','256m','--cpus','0.5','--env-file',str(root/'db.env'),'--mount','type=volume,source='+p+'-data,target=/var/lib/postgresql/data',c['previous']['db']],capture_output=True,check=True)
 ''',settings)
     db_ready('rollback')
     evidence.append(remote(exercise,{**settings,'stage':'rollback-db','role':'previous','database':'rollback'}))
