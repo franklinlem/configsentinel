@@ -61,6 +61,9 @@ func (t *Transport) post(ctx context.Context, path string, body any, out any) er
 	if e = d.Decode(out); e != nil {
 		return errors.New("resposta incompatível; comandos e campos desconhecidos não são aceitos")
 	}
+	if d.Decode(&struct{}{}) != io.EOF {
+		return errors.New("resposta contém dados adicionais não permitidos")
+	}
 	return nil
 }
 func (t *Transport) Flush(ctx context.Context, q *Queue) error {

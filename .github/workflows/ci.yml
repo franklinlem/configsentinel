@@ -11,7 +11,7 @@ jobs:
         env:
           POSTGRES_PASSWORD: configsentinel-ci-only
           POSTGRES_DB: configsentinel_test
-        ports: ['5432:5432']
+        ports: ["5432:5432"]
         options: >-
           --health-cmd "pg_isready -U postgres" --health-interval 5s
           --health-timeout 5s --health-retries 10
@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
-          go-version: '1.27.3'
+          go-version: "1.27.3"
           cache-dependency-path: apps/${{ matrix.module }}/go.sum
       - run: test -z "$(gofmt -l cmd internal)"
         working-directory: apps/${{ matrix.module }}
@@ -50,7 +50,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: "24"
           cache: npm
           cache-dependency-path: apps/web/package-lock.json
       - run: npm ci --prefix apps/web

@@ -2,6 +2,10 @@
 
 Referência: documento mestre na raiz, v1.0 (31/10/2026). Execução autorizada por Franklin em 31/10/2026, incluindo GitHub, SSH, Coolify e Uptime Kuma.
 
+## Estado atual
+
+MVP implementado e publicado em homologação. GitHub/CI, TLS, piloto sintético, fila offline com reinício, monitor e backup offsite recorrente com restore foram exercitados. Evidências e limites: [validation.md](validation.md). Produção continua condicionada ao aceite e aos gates registrados.
+
 ## Sequência e aceite
 
 1. Fundação: monorepo, ADRs, PostgreSQL privado, API Go/Chi, React/TS, contrato OpenAPI e Compose.
