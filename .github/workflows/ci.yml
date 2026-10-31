@@ -59,5 +59,30 @@ jobs:
       - run: npm audit --prefix apps/web --audit-level=high
       - name: Build central images
         run: |
-          docker build -f apps/api/Dockerfile -t configsentinel-api:ci .
-          docker build -f apps/web/Dockerfile -t configsentinel-web:ci .
+          docker build -f apps/api/Dockerfile -t configsentinel-dev-api:latest .
+          docker build -f apps/web/Dockerfile -t configsentinel-dev-web:latest .
+      - name: Prepare isolated browser environment
+        run: |
+          mkdir -p .local
+          python3 - <<'PYCODE'
+          import secrets
+          from pathlib import Path
+          Path('.local/dev.env').write_text('POSTGRES_PASSWORD='+secrets.token_hex(24)+'\nADMIN_EMAIL=ci@example.com\nADMIN_PASSWORD='+secrets.token_urlsafe(24)+'\nPUBLIC_URL=http://localhost:8080\nCOOKIE_SECURE=false\n')
+          PYCODE
+          docker compose --env-file .local/dev.env -f deploy/compose.dev.yml up -d --wait
+          python3 tests/e2e/seed.py
+      - run: cd apps/web && npx playwright install --with-deps chromium
+      - name: Browser journey and accessibility
+        run: E2E_ENV_FILE="$PWD/.local/dev.env" apps/web/node_modules/.bin/playwright test --config apps/web/playwright.config.ts
+      - name: Stop isolated environment
+        if: always()
+        run: docker compose --env-file .local/dev.env -f deploy/compose.dev.yml down -v
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

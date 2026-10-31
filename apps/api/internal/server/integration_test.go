@@ -156,4 +156,50 @@ func TestPostgresAuthorizationAndIngestion(t *testing.T) {
 	if e = db.QueryRow(ctx, "SELECT count(*) FROM change_events").Scan(&count); e != nil || count != 2 {
 		t.Fatalf("persisted events = %d, err=%v", count, e)
 	}
+	// Project-scoped admins cannot cross another project in the same organization.
+	var originalProject string
+	if e = db.QueryRow(ctx, "SELECT project_id FROM environments WHERE id=$1", env).Scan(&originalProject); e != nil {
+		t.Fatal(e)
+	}
+	adminID, secondProject, secondEnv, secondServer := id(), id(), id(), id()
+	for _, v := range []struct {
+		q string
+		a []any
+	}{
+		{`INSERT INTO users(id,email,password_hash) VALUES($1,'project-admin@example.com',$2)`, []any{adminID, passwordHash("project-admin-password-long-enough")}},
+		{`INSERT INTO memberships VALUES($1,$2,'admin',$3)`, []any{org, adminID, originalProject}},
+		{`INSERT INTO projects VALUES($1,$2,'second','Second')`, []any{secondProject, org}},
+		{`INSERT INTO environments VALUES($1,$2,'second','Second')`, []any{secondEnv, secondProject}},
+		{`INSERT INTO servers(id,environment_id,display_name) VALUES($1,$2,'second-host')`, []any{secondServer, secondEnv}},
+	} {
+		if _, e = db.Exec(ctx, v.q, v.a...); e != nil {
+			t.Fatal(e)
+		}
+	}
+	cookie = nil
+	login = request("POST", "/auth/login", map[string]string{"email": "project-admin@example.com", "password": "project-admin-password-long-enough"}, "", 200)
+	csrf = login["csrf_token"].(string)
+	request("GET", "/servers/"+server, nil, "", 200)
+	request("GET", "/servers/"+secondServer, nil, "", 404)
+	request("POST", "/environments/"+secondEnv+"/servers", map[string]string{"display_name": "forbidden"}, "", 404)
+	request("GET", "/organizations/"+org+"/audit-logs", nil, "", 403)
+	request("POST", "/organizations/"+org+"/projects", map[string]string{"name": "forbidden", "slug": "forbidden"}, "", 403)
+	scoped := request("GET", "/servers", nil, "", 200)["items"].([]any)
+	if len(scoped) != 1 {
+		t.Fatal("project admin scope leak")
+	}
+	// Retention removes old events and their acknowledgements, preserving administrative audit.
+	if _, e = db.Exec(ctx, `UPDATE change_events SET received_at=now()-interval '91 days'`); e != nil {
+		t.Fatal(e)
+	}
+	if e = app.Retain(ctx); e != nil {
+		t.Fatal(e)
+	}
+	if e = db.QueryRow(ctx, "SELECT count(*) FROM change_events").Scan(&count); e != nil || count != 0 {
+		t.Fatal("retention failed")
+	}
+	if e = db.QueryRow(ctx, "SELECT count(*) FROM audit_logs").Scan(&count); e != nil || count == 0 {
+		t.Fatal("administrative audit erased")
+	}
+
 }

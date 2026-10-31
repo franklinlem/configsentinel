@@ -4,6 +4,9 @@ package main
 
 import (
 	"context"
+	"crypto/sha256"
+	"encoding/hex"
+	"encoding/json"
 	"flag"
 	"github.com/franklinlem/configsentinel/apps/agent/internal/core"
 	"golang.org/x/sys/unix"
@@ -50,7 +53,9 @@ func run() error {
 		return e
 	}
 	defer q.DB.Close()
-	slog.Info("local policy loaded", "files", len(c.Monitoring.Files), "hash_only", true)
+	policyJSON, _ := json.Marshal(c.Monitoring)
+	policyHash := sha256.Sum256(policyJSON)
+	slog.Info("local policy loaded", "files", len(c.Monitoring.Files), "hash_only", true, "policy_sha256", hex.EncodeToString(policyHash[:]))
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer stop()
 	transport := core.NewTransport(c)

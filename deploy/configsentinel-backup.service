@@ -1,0 +1,7 @@
+[Unit]
+Description=ConfigSentinel encrypted offsite PostgreSQL backup
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 %h/.local/bin/configsentinel-offsite-backup.py
+UMask=0077
+NoNewPrivileges=true

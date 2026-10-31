@@ -26,6 +26,7 @@ type Server struct {
 	Origin       string
 	Secure       bool
 	loginLimit   *rate.Limiter
+	dummyHash    string
 	ingestLimit  *rate.Limiter
 	ingested     atomic.Int64
 	ingestErrors atomic.Int64
@@ -36,7 +37,7 @@ type principal struct{ User, Email, Session, Agent string }
 type contextKey struct{}
 
 func New(db *pgxpool.Pool, origin string, secure bool) *Server {
-	return &Server{DB: db, Origin: strings.TrimRight(origin, "/"), Secure: secure, loginLimit: rate.NewLimiter(rate.Every(3*time.Second), 10), ingestLimit: rate.NewLimiter(50, 100)}
+	return &Server{dummyHash: passwordHash("nonexistent-account-placeholder"), DB: db, Origin: strings.TrimRight(origin, "/"), Secure: secure, loginLimit: rate.NewLimiter(rate.Every(3*time.Second), 10), ingestLimit: rate.NewLimiter(50, 100)}
 }
 func problem(w http.ResponseWriter, status int, msg string) {
 	w.Header().Set("Content-Type", "application/problem+json")
@@ -210,7 +211,7 @@ func (s *Server) login(w http.ResponseWriter, r *http.Request) {
 	var uid, h string
 	e := s.DB.QueryRow(r.Context(), `SELECT id,password_hash FROM users WHERE email=$1 AND disabled_at IS NULL`, strings.ToLower(strings.TrimSpace(b.Email))).Scan(&uid, &h)
 	if e != nil {
-		h = passwordHash("dummy-password-constant-time")
+		h = s.dummyHash
 	}
 	ok := passwordOK(b.Password, h)
 	if e != nil || !ok {

@@ -154,3 +154,50 @@ func TestTransportRejectsCommands(t *testing.T) {
 		t.Fatal("event lost")
 	}
 }
+
+func TestConfigurationValidation(t *testing.T) {
+	valid := func() Config {
+		var c Config
+		c.Agent.ID = uuid.NewString()
+		c.Agent.URL = "https://example.test/api/v1"
+		c.Agent.TokenFile = "/etc/configsentinel/agent.token"
+		c.Agent.QueueDB = "/var/lib/configsentinel/queue.sqlite"
+		c.Monitoring.Files = []File{{Path: "/opt/configsentinel-lab/demo.conf", Alias: "demo", HashOnly: true}}
+		return c
+	}
+	c := valid()
+	if e := c.Validate(); e != nil {
+		t.Fatal(e)
+	}
+	for _, change := range []func(*Config){func(c *Config) { c.Agent.URL = "http://example.test/api/v1" }, func(c *Config) { c.Agent.MaxQueue = -1 }, func(c *Config) { c.Agent.Batch = 101 }, func(c *Config) { c.Agent.ID = "invalid" }, func(c *Config) { c.Agent.QueueDB = "relative" }, func(c *Config) { c.Monitoring.Files[0].HashOnly = false }, func(c *Config) { c.Monitoring.Files = append(c.Monitoring.Files, c.Monitoring.Files[0]) }, func(c *Config) { c.Monitoring.Files[0].Path = "/tmp/.env" }, func(c *Config) { c.Agent.URL = "https://user:password@example.test/api/v1" }, func(c *Config) { c.Agent.URL = "https://example.test/api/v1?token=secret" }} {
+		c := valid()
+		change(&c)
+		if c.Validate() == nil {
+			t.Fatal("unsafe configuration accepted")
+		}
+	}
+	c = valid()
+	c.Agent.URL = "http://127.0.0.1:8080/api/v1"
+	c.Agent.InsecureLoopback = true
+	if e := c.Validate(); e != nil {
+		t.Fatal(e)
+	}
+}
+func TestSymlinkSwapDoesNotReadTarget(t *testing.T) {
+	d := t.TempDir()
+	path := filepath.Join(d, "watched.conf")
+	canary := filepath.Join(d, "canary.conf")
+	os.WriteFile(canary, []byte("synthetic-canary-not-to-be-read"), 0600)
+	for i := 0; i < 100; i++ {
+		os.Remove(path)
+		os.Symlink(canary, path)
+		if s := Scan(path, 1024); s.Hash != "" || s.State != "unreadable" {
+			t.Fatal("symlink canary read")
+		}
+		os.Remove(path)
+		os.WriteFile(path, []byte("synthetic-allowed"), 0600)
+		if s := Scan(path, 1024); s.State != "present" {
+			t.Fatal("regular fixture rejected")
+		}
+	}
+}

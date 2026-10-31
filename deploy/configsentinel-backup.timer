@@ -1,0 +1,8 @@
+[Unit]
+Description=Daily ConfigSentinel offsite backup (03:35 Sao Paulo)
+[Timer]
+OnCalendar=*-*-* 03:35:00 America/Sao_Paulo
+Persistent=true
+RandomizedDelaySec=120
+[Install]
+WantedBy=timers.target

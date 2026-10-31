@@ -14,7 +14,7 @@ org=req('/organizations')['items'][0]['id'];project=req('/organizations/'+org+'/
 server=req('/environments/'+env+'/servers',{'display_name':'laboratorio-local'})['id'];creds=req('/servers/'+server+'/agents',{})
 token=root/'.local/agent.token';token.write_text(creds['token']);token.chmod(0o600)
 fixture=Path(tempfile.mkdtemp(prefix='configsentinel-lab-'))/'demo.conf';fixture.write_text('synthetic=true\nrevision=1\n')
-config={'agent':{'server_url':'http://127.0.0.1:8080/api/v1','agent_id':creds['agent_id'],'token_file':str(token),'queue_db':str(root/'.local/demo-queue.sqlite'),'interval_seconds':5,'send_batch_size':100,'allow_insecure_loopback':True},'monitoring':{'files':[{'path':str(fixture),'alias':'laboratorio-demo','hash_only':True}]}}
+config={'agent':{'server_url':'http://127.0.0.1:8080/api/v1','agent_id':creds['agent_id'],'token_file':str(token),'queue_db':str(root/('.local/demo-'+creds['agent_id']+'.sqlite')),'interval_seconds':5,'send_batch_size':100,'allow_insecure_loopback':True},'monitoring':{'files':[{'path':str(fixture),'alias':'laboratorio-demo','hash_only':True}]}}
 config_file=root/'.local/agent.yaml';config_file.write_text(json.dumps(config));config_file.chmod(0o600)
 def cycle():subprocess.run([str(root/'bin/configsentinel-agent'),'-config',str(config_file),'-once'],check=True)
 cycle();fixture.write_text('synthetic=true\nrevision=2\n');cycle();fixture.unlink();cycle();fixture.write_text('synthetic=true\nrevision=3\n');cycle()
