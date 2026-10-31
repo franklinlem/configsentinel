@@ -1,0 +1,32 @@
+[Unit]
+Description=ConfigSentinel hash-only agent
+After=network-online.target
+Wants=network-online.target
+[Service]
+Type=simple
+User=configsentinel
+Group=configsentinel
+ExecStart=/usr/local/bin/configsentinel-agent -config /etc/configsentinel/agent.yaml
+Restart=on-failure
+RestartSec=10
+StateDirectory=configsentinel
+StateDirectoryMode=0700
+UMask=0077
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+SystemCallArchitectures=native
+MemoryMax=160M
+CPUQuota=15%
+[Install]
+WantedBy=multi-user.target

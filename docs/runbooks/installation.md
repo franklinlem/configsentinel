@@ -1,0 +1,25 @@
+# Instalação e operação
+
+## Central
+
+Use Compose local para desenvolvimento; Coolify Raw para homologação. Consulte deploy/coolify.md. Bootstrap apenas em banco sem usuários. Cadastre projetos/ambientes/servidor e provisione o agente pelo painel. Nunca envie o token ao Git ou a sistemas de mensagens.
+
+## Agente Linux
+
+Compatível com Linux com openat2 (kernel >= 5.6). Sem fallback para symlinks. Requer filesystem local estável; não use mounts de rede ou arquivos hostis que possam bloquear leitura. Binários independentes para amd64 e arm64. Instalação é manual; os comandos seguintes dependem de autorização do administrador do host.
+
+1. Criar usuário de sistema `configsentinel` sem shell e sem sudo, grupos privilegiados ou Docker socket.
+2. Instalar binário em `/usr/local/bin/configsentinel-agent` (root:root 0755), unit distribuída e `/etc/configsentinel` (root:configsentinel 0750).
+3. Configuração root:configsentinel 0640 e token configsentinel:configsentinel 0600. Paths absolutos individuais; aliases únicos; hash_only obrigatório. Denylists padrão são cumulativas e não podem ser desativadas.
+4. Fixture piloto: `/opt/configsentinel-lab/demo.conf`, texto inteiramente sintético, root:root 0644. O agente tem somente leitura; o administrador altera a fixture para ensaios.
+5. `systemctl daemon-reload` e `systemctl enable --now configsentinel-agent`. Validar journal, estado online e baseline no painel.
+
+Não monitorar `/home`, `/root`, `/proc`, `/sys`, `/dev`, segredos, `.env`, PEM/keys ou diretórios inteiros. Nunca alterar permissões de configurações reais para acelerar piloto. Arquivos regulares com múltiplos hardlinks são recusados. Arquivos podem mudar e voltar entre polls sem detecção. Root comprometido pode adulterar evidências.
+
+## Rotação
+
+Emita token novo, instale atomicamente com 0600, valide comunicação e revogue o anterior. Rotação não muda agent_id nem fila. Nova instalação muda agent_id e exige outro banco de fila; nunca apagar fila pendente para resolver conflito.
+
+## Recuperar acesso
+
+Use procedimento administrativo por SSH com acesso ao banco dedicado. Gere novo hash Argon2id pela ferramenta administrativa da aplicação e revogue todas as sessões do usuário; não editar hashes manualmente. O bootstrap não substitui senha de usuário existente. Não há recuperação por e-mail nesta versão.

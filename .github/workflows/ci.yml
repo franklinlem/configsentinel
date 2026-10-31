@@ -1,0 +1,63 @@
+name: CI
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  go:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_PASSWORD: configsentinel-ci-only
+          POSTGRES_DB: configsentinel_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 5s
+          --health-timeout 5s --health-retries 10
+    strategy:
+      matrix:
+        module: [api, agent]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.27.3'
+          cache-dependency-path: apps/${{ matrix.module }}/go.sum
+      - run: test -z "$(gofmt -l cmd internal)"
+        working-directory: apps/${{ matrix.module }}
+      - run: go vet ./...
+        working-directory: apps/${{ matrix.module }}
+      - run: go test -race -coverprofile=coverage.out ./...
+        working-directory: apps/${{ matrix.module }}
+        env:
+          TEST_DATABASE_URL: postgres://postgres:configsentinel-ci-only@localhost:5432/configsentinel_test?sslmode=disable
+      - run: go run golang.org/x/vuln/cmd/govulncheck@latest ./...
+        working-directory: apps/${{ matrix.module }}
+      - name: Linux builds
+        run: |
+          for arch in amd64 arm64; do
+            CGO_ENABLED=0 GOOS=linux GOARCH=$arch go build -trimpath -o ../../bin/${{ matrix.module }}-linux-$arch ./cmd/...
+          done
+        working-directory: apps/${{ matrix.module }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.module }}-linux
+          path: bin/
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - run: npm ci --prefix apps/web
+      - run: npm run build --prefix apps/web
+      - run: node scripts/validate-openapi.mjs
+      - run: npm audit --prefix apps/web --audit-level=high
+      - name: Build central images
+        run: |
+          docker build -f apps/api/Dockerfile -t configsentinel-api:ci .
+          docker build -f apps/web/Dockerfile -t configsentinel-web:ci .

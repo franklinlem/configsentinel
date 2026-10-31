@@ -1,0 +1,14 @@
+FROM golang:1.27.3-alpine@sha256:d200d2dd76b03a99b52651fd1325aff7dcd35422c35c01bac56571b0507f3deb AS build
+WORKDIR /src
+COPY apps/api/go.* ./
+RUN go mod download
+COPY apps/api/ ./
+RUN CGO_ENABLED=0 go build -trimpath -ldflags='-s -w' -o /out/server ./cmd/server
+FROM alpine:3.23@sha256:ff7f0c727dd796aa36787bfcd9a64bf35a6ce72a73451b3359fde849b6703d63
+RUN apk add --no-cache ca-certificates && addgroup -g 10001 app && adduser -D -u 10001 -G app app
+WORKDIR /app
+COPY --from=build /out/server /app/server
+COPY db/migrations /app/migrations
+USER 10001:10001
+EXPOSE 8081 9090
+CMD ["/app/server"]

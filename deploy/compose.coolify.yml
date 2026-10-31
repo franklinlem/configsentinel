@@ -1,0 +1,71 @@
+services:
+  db:
+    image: postgres:17-alpine@sha256:266d3c257594e195b309ae9d1805e54c788f1d7b375f56bf6c367aac6c917e7b
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: configsentinel
+      POSTGRES_USER: configsentinel
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?required}
+    volumes: [postgres_data:/var/lib/postgresql/data]
+    networks: [database]
+    mem_limit: 256m
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U configsentinel -d configsentinel']
+      interval: 10s
+      timeout: 5s
+      retries: 15
+    labels:
+      - traefik.enable=false
+  api:
+    build: {context: .., dockerfile: apps/api/Dockerfile}
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://configsentinel:${POSTGRES_PASSWORD}@db:5432/configsentinel?sslmode=disable
+      PUBLIC_URL: https://configsentinel-dev.franklem.uk
+      COOKIE_SECURE: 'true'
+      ADMIN_EMAIL: ${ADMIN_EMAIL:?required}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?required}
+    networks: [database, app]
+    mem_limit: 384m
+    depends_on: {db: {condition: service_healthy}}
+    healthcheck:
+      test: [CMD, wget, -q, -O, /dev/null, 'http://127.0.0.1:8081/api/health/ready']
+      interval: 10s
+      timeout: 5s
+      retries: 15
+    read_only: true
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    labels:
+      - traefik.enable=false
+  web:
+    build: {context: .., dockerfile: apps/web/Dockerfile}
+    restart: unless-stopped
+    networks: [app, coolify]
+    mem_limit: 96m
+    depends_on: {api: {condition: service_healthy}}
+    healthcheck:
+      test: [CMD, wget, -q, -O, /dev/null, 'http://127.0.0.1:8080/healthz']
+      interval: 10s
+      timeout: 5s
+      retries: 15
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=coolify
+      - traefik.http.routers.configsentinel-dev-http.rule=Host(`configsentinel-dev.franklem.uk`)
+      - traefik.http.routers.configsentinel-dev-http.entrypoints=http
+      - traefik.http.routers.configsentinel-dev-http.middlewares=redirect-to-https@docker
+      - traefik.http.routers.configsentinel-dev.rule=Host(`configsentinel-dev.franklem.uk`)
+      - traefik.http.routers.configsentinel-dev.entrypoints=https
+      - traefik.http.routers.configsentinel-dev.tls=true
+      - traefik.http.routers.configsentinel-dev.tls.certresolver=letsencrypt
+      - traefik.http.routers.configsentinel-dev.service=configsentinel-dev
+      - traefik.http.services.configsentinel-dev.loadbalancer.server.port=8080
+networks:
+  database: {internal: true}
+  app: {}
+  coolify: {external: true}
+volumes:
+  postgres_data: {}

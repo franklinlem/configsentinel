@@ -1,0 +1,14 @@
+.local/
+.env
+.env.*
+!.env.example
+node_modules/
+dist/
+bin/
+*.sqlite*
+*.dump
+*.token
+playwright-report/
+test-results/
+*.tsbuildinfo
+coverage.out

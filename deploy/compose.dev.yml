@@ -1,0 +1,50 @@
+name: configsentinel-dev
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: configsentinel
+      POSTGRES_USER: configsentinel
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?required}
+    volumes: [postgres_data:/var/lib/postgresql/data]
+    networks: [database]
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U configsentinel -d configsentinel']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  api:
+    build: {context: .., dockerfile: apps/api/Dockerfile}
+    environment:
+      DATABASE_URL: postgresql://configsentinel:${POSTGRES_PASSWORD}@db:5432/configsentinel?sslmode=disable
+      PUBLIC_URL: ${PUBLIC_URL:-http://localhost:8080}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:?required}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?required}
+    networks: [database, app]
+    depends_on: {db: {condition: service_healthy}}
+    healthcheck:
+      test: [CMD, wget, -q, -O, /dev/null, 'http://127.0.0.1:8081/api/health/ready']
+      interval: 10s
+      timeout: 3s
+      retries: 10
+    read_only: true
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+  web:
+    build: {context: .., dockerfile: apps/web/Dockerfile}
+    ports: ['127.0.0.1:8080:8080']
+    networks: [app]
+    depends_on: {api: {condition: service_healthy}}
+    healthcheck:
+      test: [CMD, wget, -q, -O, /dev/null, 'http://127.0.0.1:8080/healthz']
+      interval: 10s
+      timeout: 3s
+      retries: 10
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+networks:
+  database: {internal: true}
+  app: {}
+volumes:
+  postgres_data: {}
