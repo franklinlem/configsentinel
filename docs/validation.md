@@ -102,3 +102,5 @@ Base inspecionada: `5819b7fce93c10cceabbe59fde5fac4f647b707c`; alterações de r
 - Release imutável: exemplos de Compose/manifest e validador preparados, incluindo banco. Renderização com digests sintéticos passou, sem builds/portas. Manifest de exemplo retorna NO-GO esperado; não publicou registry/atestação nem executou deploy.
 
 Bloqueadores: imagens vulneráveis, API com superusuário PostgreSQL, heartbeat acoplado a Flush, alerta de backup/cópia independente da chave e promoção imutável/rollback ainda não ensaiados. Pendências menores e critérios de encerramento constam no relatório. Aguarda aprovação para correções; nenhuma aprovação de produção foi inferida.
+
+Verificação final de segredos: Gitleaks passou no commit de revisão e nos 5 commits do histórico examinado, sem leaks versionados. A varredura inclui testes, documentação e SBOMs; arquivos locais ignorados com credenciais não foram publicados.
