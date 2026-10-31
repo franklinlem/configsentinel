@@ -10,6 +10,7 @@ on:
         "deploy/postgres/**",
         ".github/workflows/candidate.yml",
         "scripts/registry-pull-only.py",
+        "scripts/request-registry-pull.py",
       ]
 permissions:
   contents: read
