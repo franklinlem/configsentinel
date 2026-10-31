@@ -17,7 +17,7 @@ services:
     labels:
       - traefik.enable=false
   api:
-    build: {context: .., dockerfile: apps/api/Dockerfile}
+    build: {context: ., dockerfile: apps/api/Dockerfile}
     restart: unless-stopped
     environment:
       DATABASE_URL: postgresql://configsentinel:${POSTGRES_PASSWORD}@db:5432/configsentinel?sslmode=disable
@@ -39,7 +39,7 @@ services:
     labels:
       - traefik.enable=false
   web:
-    build: {context: .., dockerfile: apps/web/Dockerfile}
+    build: {context: ., dockerfile: apps/web/Dockerfile}
     restart: unless-stopped
     networks: [app, coolify]
     mem_limit: 96m

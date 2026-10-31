@@ -22,4 +22,4 @@ Emita token novo, instale atomicamente com 0600, valide comunicação e revogue 
 
 ## Recuperar acesso
 
-Use procedimento administrativo por SSH com acesso ao banco dedicado. Gere novo hash Argon2id pela ferramenta administrativa da aplicação e revogue todas as sessões do usuário; não editar hashes manualmente. O bootstrap não substitui senha de usuário existente. Não há recuperação por e-mail nesta versão.
+Via SSH, atualize ADMIN_EMAIL/ADMIN_PASSWORD nas variáveis exclusivas do recurso e execute `/app/server --reset-password` no container da API usando essas variáveis. A ferramenta gera Argon2id, revoga todas as sessões do usuário e audita o reset em transação. Não editar hashes manualmente. O bootstrap não substitui senha de usuário existente. Não há recuperação por e-mail nesta versão.

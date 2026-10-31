@@ -10,14 +10,14 @@ $routes=[
  'application'=>[App\Http\Controllers\Api\ApplicationsController::class,'create_private_gh_app_application'],
  'update'=>[App\Http\Controllers\Api\ApplicationsController::class,'update_by_uuid'],
  'envs'=>[App\Http\Controllers\Api\ApplicationsController::class,'create_bulk_envs'],
- 'deploy'=>[App\Http\Controllers\Api\DeployController::class,'deploy_by_uuid'],
+ 'deploy'=>[App\Http\Controllers\Api\DeployController::class,'deploy'],
 ];
 if(!isset($routes[$input['action']]))throw new RuntimeException('Unknown action');
 $token=App\Models\PersonalAccessToken::findOrFail(explode('|',file_get_contents('/tmp/configsentinel-api-token'))[0]);
 $user=App\Models\User::findOrFail(0)->withAccessToken($token);
 Illuminate\Support\Facades\Auth::setUser($user);
 session()->put('currentTeam',App\Models\Team::findOrFail(0));
-$r=Illuminate\Http\Request::create('/api/v1/operator','POST',$input['body']??[]);
+$r=Illuminate\Http\Request::create('/api/v1/operator','POST',$input['body']??[],[],[],['CONTENT_TYPE'=>'application/json'],json_encode($input['body']??new stdClass()));
 $r->setJson(new Symfony\Component\HttpFoundation\InputBag($input['body']??[]));
 $r->headers->set('Accept','application/json');$r->headers->set('Content-Type','application/json');
 $r->setUserResolver(fn()=>$user);
@@ -27,5 +27,5 @@ $r->setRouteResolver(fn()=>$route);
 $app->instance('request',$r);
 [$class,$method]=$routes[$input['action']];
 $response=$app->make($class)->$method($r);
-if($input['action']==='envs'){echo json_encode(['status'=>$response->getStatusCode()]);}else{echo $response->getContent();}
+if($input['action']==='envs'){echo json_encode(['status'=>$response->getStatusCode(),'error'=>$response->getStatusCode()>=400?json_decode($response->getContent(),true):null]);}else{echo $response->getContent();}
 if($response->getStatusCode()>=400)exit(1);

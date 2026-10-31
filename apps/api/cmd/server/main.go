@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"github.com/franklinlem/configsentinel/apps/api/internal/server"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"log/slog"
@@ -20,6 +21,8 @@ func main() {
 	}
 }
 func run() error {
+	reset := flag.Bool("reset-password", false, "operator-only reset using ADMIN_EMAIL and ADMIN_PASSWORD")
+	flag.Parse()
 	dbURL, origin, secure, e := server.Config()
 	if e != nil {
 		return e
@@ -47,6 +50,9 @@ func run() error {
 	app := server.New(db, origin, secure)
 	if e = app.Migrate(ctx, string(sql)); e != nil {
 		return e
+	}
+	if *reset {
+		return app.ResetPassword(ctx, os.Getenv("ADMIN_EMAIL"), os.Getenv("ADMIN_PASSWORD"))
 	}
 	if e = app.Bootstrap(ctx, os.Getenv("ADMIN_EMAIL"), os.Getenv("ADMIN_PASSWORD")); e != nil {
 		return e

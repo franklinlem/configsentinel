@@ -29,6 +29,8 @@ type Server struct {
 	ingestLimit  *rate.Limiter
 	ingested     atomic.Int64
 	ingestErrors atomic.Int64
+	ingestNanos  atomic.Int64
+	ingestCount  atomic.Int64
 }
 type principal struct{ User, Email, Session, Agent string }
 type contextKey struct{}
@@ -127,8 +129,16 @@ func (s *Server) Routes() http.Handler {
 func (s *Server) Metrics() http.Handler {
 	r := http.NewServeMux()
 	r.HandleFunc("/metrics", func(w http.ResponseWriter, r *http.Request) {
+		ctx, cancel := context.WithTimeout(r.Context(), 2*time.Second)
+		defer cancel()
+		var offline, alerts, queue int64
+		err := s.DB.QueryRow(ctx, `SELECT (SELECT count(*) FROM agents WHERE revoked_at IS NULL AND (last_seen_at IS NULL OR last_seen_at<now()-interval '5 minutes')),(SELECT count(*) FROM change_events e WHERE kind<>'baseline' AND NOT EXISTS(SELECT 1 FROM acknowledgements a WHERE a.event_id=e.id)),(SELECT coalesce(sum(queue_depth),0) FROM agents WHERE revoked_at IS NULL)`).Scan(&offline, &alerts, &queue)
+		if err != nil {
+			problem(w, 503, "Métricas indisponíveis")
+			return
+		}
 		w.Header().Set("Content-Type", "text/plain; version=0.0.4")
-		fmt.Fprintf(w, "# TYPE events_ingested_total counter\nevents_ingested_total %d\n# TYPE event_ingest_errors_total counter\nevent_ingest_errors_total %d\n", s.ingested.Load(), s.ingestErrors.Load())
+		fmt.Fprintf(w, "# TYPE events_ingested_total counter\nevents_ingested_total %d\n# TYPE event_ingest_errors_total counter\nevent_ingest_errors_total %d\n# TYPE ingest_duration_seconds summary\ningest_duration_seconds_sum %f\ningest_duration_seconds_count %d\n# TYPE agents_offline_total gauge\nagents_offline_total %d\n# TYPE alerts_open_total gauge\nalerts_open_total %d\n# TYPE agent_queue_depth gauge\nagent_queue_depth %d\n# TYPE postgres_pool_in_use gauge\npostgres_pool_in_use %d\n", s.ingested.Load(), s.ingestErrors.Load(), float64(s.ingestNanos.Load())/1e9, s.ingestCount.Load(), offline, alerts, queue, s.DB.Stat().AcquiredConns())
 	})
 	return r
 }

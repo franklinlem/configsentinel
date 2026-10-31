@@ -40,6 +40,8 @@ func (e Event) valid() bool {
 	return false
 }
 func (s *Server) batch(w http.ResponseWriter, r *http.Request) {
+	start := time.Now()
+	defer func() { s.ingestNanos.Add(int64(time.Since(start))); s.ingestCount.Add(1) }()
 	var b struct {
 		Batch   string  `json:"batch_id"`
 		Version int     `json:"schema_version"`
