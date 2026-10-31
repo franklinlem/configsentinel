@@ -3,7 +3,14 @@ on:
   workflow_dispatch:
   push:
     branches: [fix/production-blockers]
-    paths: ['apps/**', 'db/**', 'deploy/postgres/**', '.github/workflows/candidate.yml', 'scripts/registry-pull-only.py']
+    paths:
+      [
+        "apps/**",
+        "db/**",
+        "deploy/postgres/**",
+        ".github/workflows/candidate.yml",
+        "scripts/registry-pull-only.py",
+      ]
 permissions:
   contents: read
   packages: write
@@ -81,9 +88,9 @@ jobs:
           predicate={'buildDefinition':{'buildType':'https://github.com/franklinlem/configsentinel/.github/workflows/candidate.yml@v1','externalParameters':{'repository':'https://github.com/franklinlem/configsentinel','commit':os.environ['GITHUB_SHA'],'component':os.environ['COMPONENT'],'platform':'linux/amd64'},'resolvedDependencies':[]},'runDetails':{'builder':{'id':'https://github.com/franklinlem/configsentinel/actions/runs/'+os.environ['GITHUB_RUN_ID']}}}
           pathlib.Path('.local/candidate-artifact/provenance.json').write_text(json.dumps(predicate))
           PYCODE
-          /tmp/cosign sign --yes --key env://COSIGN_PRIVATE_KEY --tlog-upload=false "$ref"
-          /tmp/cosign attest --yes --key env://COSIGN_PRIVATE_KEY --tlog-upload=false --type slsaprovenance1 --predicate .local/candidate-artifact/provenance.json "$ref"
-          /tmp/cosign attest --yes --key env://COSIGN_PRIVATE_KEY --tlog-upload=false --type cyclonedx --predicate .local/candidate-artifact/sbom.cdx.json "$ref"
+          /tmp/cosign sign --yes --key env://COSIGN_PRIVATE_KEY --signing-config deploy/signing-config.private.json "$ref"
+          /tmp/cosign attest --yes --key env://COSIGN_PRIVATE_KEY --signing-config deploy/signing-config.private.json --type slsaprovenance1 --predicate .local/candidate-artifact/provenance.json "$ref"
+          /tmp/cosign attest --yes --key env://COSIGN_PRIVATE_KEY --signing-config deploy/signing-config.private.json --type cyclonedx --predicate .local/candidate-artifact/sbom.cdx.json "$ref"
           /tmp/cosign verify --key deploy/release-signing.pub --insecure-ignore-tlog "$ref" > .local/candidate-artifact/verified-signature.json
           /tmp/cosign verify-attestation --key deploy/release-signing.pub --insecure-ignore-tlog --type slsaprovenance1 "$ref" > .local/candidate-artifact/verified-provenance.json
           /tmp/cosign verify-attestation --key deploy/release-signing.pub --insecure-ignore-tlog --type cyclonedx "$ref" > .local/candidate-artifact/verified-sbom.json
