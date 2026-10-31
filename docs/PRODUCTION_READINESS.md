@@ -127,7 +127,7 @@ Não há `down -v`, downgrade destrutivo ou restore sobre banco ativo neste proc
 | Axe e responsividade | 0 violações A/AA nas sete páginas; jornada e larguras 390/768/1280 exercitadas |
 | Segurança de dependências | npm audit 0; Go zero alcançáveis, um advisory de módulo não usado pela API; Trivy na tabela acima |
 | Build/contrato | Build web e OpenAPI com 24 paths passaram |
-| Tokens/segredos | Nenhum token/cookie nos padrões examinados nas últimas 2 h dos logs; credenciais locais 0600; traces E2E desligados; Gitleaks registrado em validation.md |
+| Tokens/segredos | Nenhum token/cookie nos padrões examinados nas últimas 2 h dos logs; credenciais locais 0600; traces E2E desligados; Gitleaks final: zero vazamentos no histórico versionado |
 | Backup/restore/alertas | Lock, ausência de chave, falha de transporte, timeout, atraso e corrupção testados; restore e rollback remoto passaram |
 | CI completo | [41253986449](https://github.com/franklinlem/configsentinel/actions/runs/41253986449): API, agente, web e segredos verdes |
 

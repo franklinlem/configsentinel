@@ -124,3 +124,5 @@ Branch `fix/production-blockers`, baseada em `0524bee`; imagens finais construí
 **Decisão atual: NO-GO para produção; candidato pronto para revisão.** Próxima etapa exige revisão de Franklin antes de promover qualquer candidato. Coolify ativo ainda é RC1; configurar pull somente leitura e procedimento de roles no recurso somente na promoção aprovada. Nenhum serviço de outro projeto, Traefik, DNS, firewall ou porta pública alterado. Produção não foi criada ou implantada.
 
 Repetição final local sem cache: API race passou em 12,121 s; agente/core em 1,412 s, além do runner. Playwright final isolado: 4 testes em 21,1 s, axe sem violações, mantendo limite de 30 s e mesmas asserções. Uma execução concorrente aos checks de compilação atingiu esse limite no axe; não houve relaxamento de timeout ou de regras para a repetição.
+
+Gitleaks final no histórico versionado, incluindo SBOMs/provas de assinatura e documentação: **zero vazamentos**. Arquivos ignorados de credenciais não foram publicados. Inspeção final confirmou os mesmos IDs de imagem do RC1 e todos os containers ativos saudáveis; evidência em `evidence/remediation/active-homologation-final-check.json`.
