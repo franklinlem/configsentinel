@@ -122,7 +122,8 @@ Hipótese prioritária: custo linear de round trips, validação e operações p
 | Erro inicial `/me` 503 | Lacuna reproduzida: apresenta login sem informar indisponibilidade |
 | `npm run build` / contrato OpenAPI | PASSOU; 24 paths validados |
 | `govulncheck` / `npm audit` | Resultados e limites na seção de vulnerabilidades |
-| Gitleaks | Sem vazamento encontrado na revisão do histórico; verificação final do commit registrada em validation.md |
+| Gitleaks | Sem vazamento encontrado no histórico versionado; arquivos ignorados de credenciais não publicados. Verificação final registrada em validation.md |
+| CI remoto | [41230354166](https://github.com/franklinlem/configsentinel/actions/runs/41230354166): todos os jobs passaram (API, agente, web/E2E/axe/operação e segredos), commit `74d41fb`. |
 | Compose por digest | Renderizado com digests sintéticos: 3 serviços, sem build/portas do host, banco interno. Nenhum `up` executado |
 | Manifest de exemplo | NO-GO esperado: placeholders, scans/atestação e aprovações ausentes. Não autoriza release |
 
