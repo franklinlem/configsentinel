@@ -85,3 +85,20 @@ Fixtures contêm apenas texto sintético. Testes não leem configurações reais
 ```
 
 Medição local específica desta máquina; não extrapolar para SLO de produção.
+
+## Revisão final de prontidão — 31/10/2026
+
+O MVP v0.1.0-rc.1 recebeu aceite visual de Franklin, conforme instrução desta revisão. Isso substitui a pendência de aceite visual acima, sem autorizar produção. Revisão técnica completa em [PRODUCTION_READINESS.md](PRODUCTION_READINESS.md): **NO-GO**.
+
+Base inspecionada: `5819b7fce93c10cceabbe59fde5fac4f647b707c`; alterações de revisão em `review/production-readiness`. Arquitetura e implantação de homologação preservadas. Produção não criada/deployada, demais serviços e proxy preservados.
+
+- API e agente: testes completos com race e vet passaram; integração em PostgreSQL descartável sem rede/portas. Casos novos verificam tokens/CSRF/sessão, alertas, leituras seguras, fila sem bearer e falha de heartbeat após erro de ingestão.
+- Operação: 3 testes passaram (backup com transporte falhando preserva último sucesso; idade/checksum/serviço; rejeição de manifest não aprovado).
+- Playwright: 4 testes passaram; zero violações axe A/AA nas sete páginas, larguras 390/768/1280, erro 503 de eventos visível e credencial sintética fora dos storages. `/me` 503 mostrando login permanece lacuna caracterizada. Traces desabilitados para evitar persistência de credenciais.
+- Build web e OpenAPI passaram (24 paths). npm audit: 0; govulncheck: zero alcançáveis, um advisory de módulo x/crypto/openpgp não importado pela API.
+- **Complemento obrigatório à tabela histórica de dependências:** Trivy das imagens exatas de homologação identificou web com 1 CRITICAL/46 HIGH e banco com 1 CRITICAL/25 HIGH, este último no gosu. API sem HIGH/CRITICAL. Instalação de pacote não prova caminho explorável. Inventário completo e SBOMs em [evidence](evidence/production-readiness-2026-10-31.json). Resultado anterior de npm/Go não abrangia esses componentes de imagem.
+- Benchmark repetido: p95 364,53 / 303,83 / 280,71 ms, 7.500 eventos sintéticos novos, zero erros. Meta de 300 ms sem evidência consistente; 304 comandos SQL por lote de 100 eventos, índices presentes. Nenhuma otimização funcional aplicada.
+- Backup criptografado recente, checksum válido; restore novamente passou em banco isolado: schema 1, organização 1, eventos 4, reconhecimentos 1. Monitor Kuma continua readiness, sem alerta de frescor/falha do backup. Probe somente leitura preparado e testado uma vez, não instalado/agendado.
+- Release imutável: exemplos de Compose/manifest e validador preparados, incluindo banco. Renderização com digests sintéticos passou, sem builds/portas. Manifest de exemplo retorna NO-GO esperado; não publicou registry/atestação nem executou deploy.
+
+Bloqueadores: imagens vulneráveis, API com superusuário PostgreSQL, heartbeat acoplado a Flush, alerta de backup/cópia independente da chave e promoção imutável/rollback ainda não ensaiados. Pendências menores e critérios de encerramento constam no relatório. Aguarda aprovação para correções; nenhuma aprovação de produção foi inferida.

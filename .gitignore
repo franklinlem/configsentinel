@@ -12,3 +12,4 @@ playwright-report/
 test-results/
 *.tsbuildinfo
 coverage.out
+__pycache__/

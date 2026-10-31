@@ -5,7 +5,8 @@ export default defineConfig({
   use: {
     baseURL: process.env.E2E_URL || "http://localhost:8080",
     headless: true,
-    trace: "retain-on-failure",
+    // Authentication requests and one-time credentials must never be persisted in traces.
+    trace: "off",
   },
   reporter: "list",
 });

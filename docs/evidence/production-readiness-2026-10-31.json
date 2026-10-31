@@ -1,0 +1,3033 @@
+{
+  "review_date": "2026-10-31",
+  "baseline_commit": "5819b7fce93c10cceabbe59fde5fac4f647b707c",
+  "scanner": "Trivy 0.76.1",
+  "vulnerability_db_updated_at": "2026-10-31T13:09:00Z",
+  "images": {
+    "api": {
+      "image_id": "sha256:6fefcaaa9c78137a0f85b0f911c878d4c8099ac7fa7976cfdc27b559bd0c1ab7",
+      "name": "oi6lvzwzomwtbbgzf5uzofuh-api:latest",
+      "created": "2026-10-31T14:59:08.06334785-03:00",
+      "counts": {
+        "UNKNOWN": 1
+      },
+      "unique_advisories": 1,
+      "sbom_file": "api-sbom-2026-10-31.cdx.json",
+      "sbom_sha256": "52e7a6a214346f66a2c45b2d002f6ccc26dcb280fd5c0a15c16eac3f0f91be77",
+      "findings": [
+        {
+          "target": "app/server",
+          "VulnerabilityID": "GO-2026-5932",
+          "PkgName": "golang.org/x/crypto",
+          "InstalledVersion": "v0.58.0",
+          "FixedVersion": null,
+          "Severity": "UNKNOWN",
+          "Title": "The golang.org/x/crypto/openpgp package is unmaintained, unsafe by design, and has known security issues",
+          "PrimaryURL": null
+        }
+      ]
+    },
+    "web": {
+      "image_id": "sha256:ccd8ea30cfda12fcf19d8dbe0211af7d0012ce329c397860f4c5945630ae56bc",
+      "name": "oi6lvzwzomwtbbgzf5uzofuh-web:latest",
+      "created": "2026-10-31T14:58:45.323681515-03:00",
+      "counts": {
+        "CRITICAL": 1,
+        "HIGH": 46,
+        "MEDIUM": 82,
+        "LOW": 96,
+        "UNKNOWN": 4
+      },
+      "unique_advisories": 136,
+      "sbom_file": "web-sbom-2026-10-31.cdx.json",
+      "sbom_sha256": "3c64b4d43e7070b7cd3627eea7c95ab581702a0a2610c8ed52d348030784e0cc",
+      "findings": [
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-111497",
+          "PkgName": "brotli-libs",
+          "InstalledVersion": "1.2.0-r0",
+          "FixedVersion": "1.2.1-r0",
+          "Severity": "CRITICAL",
+          "Title": "brotli: Out-of-Bounds Write in Google Brotli Decoder",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-111497"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-33630",
+          "PkgName": "c-ares",
+          "InstalledVersion": "1.34.6-r0",
+          "FixedVersion": "1.34.8-r0",
+          "Severity": "HIGH",
+          "Title": "c-ares: c-ares: Use-after-free / double-free in query-completion handling",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-33630"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-11352",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "HIGH",
+          "Title": "curl: libcurl: curl/libcurl: Remote denial of service via QUIC UDP receive function vulnerability",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-11352"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-11586",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "HIGH",
+          "Title": "curl: curl: Denial of Service via WebSocket PING flood",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-11586"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-12064",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "HIGH",
+          "Title": "curl: curl: SSH host verification bypass when using schemeless URLs with SFTP/SCP",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-12064"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-5773",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.20.0-r0",
+          "Severity": "HIGH",
+          "Title": "curl: libcurl: Wrong file transfer due to incorrect SMB connection reuse",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-5773"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-6276",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.20.0-r0",
+          "Severity": "HIGH",
+          "Title": "curl: libcurl: Information disclosure due to cookie leak when reusing connections with custom Host headers",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-6276"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-8286",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "HIGH",
+          "Title": "curl: curl: Insecure connection establishment due to TLS configuration mismatch",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-8286"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-8458",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "HIGH",
+          "Title": "curl: libcurl: Unauthorized connection reuse due to a logical error",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-8458"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-8925",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "HIGH",
+          "Title": "curl: curl: Double-free vulnerability in SASL authentication",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-8925"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-8927",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "HIGH",
+          "Title": "curl: Information disclosure due to uncleared proxy authentication state",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-8927"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-92392",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "HIGH",
+          "Title": "curl: curl: HTTP/2 upload Use-After-Free",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-92392"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-9547",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "HIGH",
+          "Title": "curl: curl: Man-in-the-middle attack via SSH host key bypass",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-9547"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2025-14017",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.18.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: curl: Security bypass due to global TLS option changes in multi-threaded LDAPS transfers",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-14017"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-10536",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "libcurl: libcurl: Use-after-free vulnerability leading to Denial of Service",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-10536"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-11564",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "libcurl: libcurl: Certificate validation bypass due to incorrect connection reuse",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-11564"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-11856",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: curl: Information disclosure via incorrect Digest authentication header reuse",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-11856"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-1965",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.19.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: curl: Authentication bypass due to incorrect connection reuse with Negotiate authentication",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-1965"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-19931",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: libcurl: Information disclosure via incorrect connection reuse with Negotiate authentication",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-19931"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-3783",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.19.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: curl: Information disclosure via OAuth2 bearer token leakage during HTTP(S) redirect",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-3783"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-3784",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.19.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: curl: Unauthorized access due to improper HTTP proxy connection reuse",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-3784"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-3805",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.19.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: curl: Arbitrary code execution or Denial of Service via use-after-free in SMB request handling",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-3805"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-4873",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.20.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: curl: Information disclosure due to incorrect TLS connection reuse",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-4873"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-5545",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.20.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: libcurl: Authentication bypass due to incorrect HTTP Negotiate connection reuse",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-5545"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-6253",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.20.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: curl: Proxy credential disclosure via redirects to unauthenticated proxies",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-6253"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-6429",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.20.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: libcurl: Credential leak via reused proxy connection during HTTP redirects",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-6429"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-7009",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.20.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: Curl: Certificate validation bypass due to OCSP stapling flaw",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-7009"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-7168",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.20.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: libcurl: Information disclosure via incorrect Proxy-Authorization header reuse",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-7168"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-82208",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: libcurl: Improper certificate validation when using wolfSSL CA cache",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-82208"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-8924",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: curl: Cookie injection via malicious HTTP server using super cookies",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-8924"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-8926",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: curl: Information disclosure via incorrect .netrc password lookup",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-8926"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-8932",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "libcurl: libcurl: Security feature bypass due to improper mTLS connection reuse",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-8932"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-9079",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "libcurl: libcurl: Information disclosure due to failure to clear proxy authentication credentials",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-9079"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-9080",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "libcurl: libcurl: Use-after-free via curl_easy_pause() in CURLMOPT_SOCKETFUNCTION callback",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-9080"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-92388",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: curl: FTP wildcard write callback mixup",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-92388"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-9545",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "libcurl: libcurl: Information disclosure via cached SSL session and early data",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-9545"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-9546",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "libcurl: libcurl: Information disclosure due to persistent Referer header",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-9546"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2025-14524",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.18.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: Information disclosure via cross-protocol redirect with OAuth2 bearer token",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-14524"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2025-14819",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.18.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: libcurl: Improper certificate validation due to cached TLS settings reuse",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-14819"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-107928",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: info leak uploading over WebSockets with GnuTLS",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-107928"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-107929",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: local interface connection reuse mixup",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-107929"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-13608",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: Authentication bypass in OpenLDAP SASL negotiation via Man-in-the-Middle (MITM) attack",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-13608"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-18924",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: libcurl: Use-after-free in HTTP/2 Server Push with shared connections",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-18924"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-80229",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: libcurl: Memory corruption vulnerability via OpenSSL 3 provider use-after-free",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-80229"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-80230",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: Public key pinning bypass allows unauthenticated connections",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-80230"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-80231",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: Incorrect HTTPS connection reuse with Native CA Store",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-80231"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-80255",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: Information disclosure due to secure cookie attribute bypass",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-80255"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-82209",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: libcurl: Information disclosure via improper Public Suffix List boundary check",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-82209"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-86409",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: stale SigV4 headers sent unintended",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-86409"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-86410",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: redirect to SFTP or SCP bypasses host verification",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-86410"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-86411",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: FTP connection reuse inherits client-certificate",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-86411"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-86412",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: server-set cookie erases cookie jar",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-86412"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-86413",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: Negotiate credentials sent to redirected origin",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-86413"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-86414",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: leaking host credentials to HTTP proxy",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-86414"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-86415",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: auto client cert connection reuse mixup",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-86415"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-87861",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: cross-origin reuse of a Negotiate connection",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-87861"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-87862",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: HSTS cache import drops longer-lived child",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-87862"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-87863",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: Hsts Response Erases Persisted Entries",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-87863"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-87864",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: IMAP APPEND plus CRLF conversion command injection",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-87864"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-87865",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: knownhost callback mismatches key as missing",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-87865"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-87866",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: wolfSSL public-key pinning bypass",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-87866"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-92386",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: server-set cookie aborts cookie jar load",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-92386"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-92387",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: never-ending loop via server response omission",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-92387"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-92389",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: TFTP direction confusion",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-92389"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-92390",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: -J no-clobber guarantee bypassed with 103 early hints",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-92390"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-92391",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: curl_mime_free stack overflow by recursion",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-92391"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-94265",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: Authorization: Negotiate sent to foreign origin",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-94265"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-94266",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: password leak in CURLINFO_EFFECTIVE_URL",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-94266"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-80256",
+          "PkgName": "curl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "UNKNOWN",
+          "Title": "Title Not Available",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-80256"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-14456",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.8-r0",
+          "Severity": "HIGH",
+          "Title": "openssl: OpenSSL: Denial of Service via unbounded memory growth in QUIC server",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-14456"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-45447",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "HIGH",
+          "Title": "openssl: Heap Use-After-Free in OpenSSL PKCS7_verify()",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-45447"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-18798",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.8-r0",
+          "Severity": "MEDIUM",
+          "Title": "openssl: QUIC server may trigger double free when processing INITIAL packet",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-18798"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-34182",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "MEDIUM",
+          "Title": "openssl: CMS AuthEnvelopedData Processing May Accept Forged Messages",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-34182"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-34183",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "MEDIUM",
+          "Title": "openssl: Unbounded Memory Growth in the QUIC PATH_CHALLENGE Handler",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-34183"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-42764",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "MEDIUM",
+          "Title": "openssl: NULL pointer dereference in QUIC server initial packet handling",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42764"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-45445",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "MEDIUM",
+          "Title": "openssl: AES-OCB IV Ignored on EVP_Cipher() Path",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-45445"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-63072",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.8-r0",
+          "Severity": "MEDIUM",
+          "Title": "openssl: heap buffer overflow in CMS key unwrapping",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-63072"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-63076",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.8-r0",
+          "Severity": "MEDIUM",
+          "Title": "openssl: invalid pointer dereference in CMP server via crafted protectionAlg",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-63076"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-14457",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.8-r0",
+          "Severity": "LOW",
+          "Title": "openssl: RPK server signature algorithm selection can dereference a missing certificate",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-14457"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-34180",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "LOW",
+          "Title": "openssl: OpenSSL: Heap buffer over-read in ASN.1 decoding can lead to denial of service or information disclosure.",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-34180"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-34181",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "LOW",
+          "Title": "openssl: PKCS#12 Files with PBMAC1 Are Accepted with Short HMAC Keys",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-34181"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-42766",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "LOW",
+          "Title": "openssl: Possible NULL Dereference in Password-Based CMS Decryption",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42766"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-42767",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "LOW",
+          "Title": "openssl: NULL Pointer Dereference in CRMF EncryptedValue Decryption",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42767"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-42768",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "LOW",
+          "Title": "openssl: Multi-RecipientInfo Bleichenbacher Oracle in CMS_decrypt() and PKCS7_decrypt()",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42768"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-42769",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "LOW",
+          "Title": "openssl: Trust-Anchor Substitution via cert/issuer Typo in CMP rootCaKeyUpdate",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42769"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-42770",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "LOW",
+          "Title": "openssl: FFC-DH Peer Validation Uses Attacker-Supplied q",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42770"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-45446",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "LOW",
+          "Title": "openssl: Incorrect Tag Processing for Empty Messages in AES-GCM-SIV and AES-SIV modes",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-45446"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-54874",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.8-r0",
+          "Severity": "LOW",
+          "Title": "openssl: excessive memory use buffering DTLS records for a future epoch",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-54874"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-63073",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.8-r0",
+          "Severity": "LOW",
+          "Title": "openssl: untrusted sender DN used as format string in CMP response validation",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-63073"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-63074",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.8-r0",
+          "Severity": "LOW",
+          "Title": "openssl: CMP indefinite cache growth of ExtraCerts",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-63074"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-63075",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.8-r0",
+          "Severity": "LOW",
+          "Title": "openssl: QUIC ACK-only packet retention can cause memory exhaustion",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-63075"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-7383",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "LOW",
+          "Title": "openssl: OpenSSL: Heap buffer overflow due to signed integer overflow in Unicode output sizing",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-7383"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-75803",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.8-r0",
+          "Severity": "LOW",
+          "Title": "openssl: openssl: AEAD forgeries possible with empty ciphertext in EVP_Cipher()",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-75803"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-9076",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "LOW",
+          "Title": "openssl: OpenSSL: Denial of Service due to heap out-of-bounds read in CMS password-based decryption",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-9076"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-11352",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "HIGH",
+          "Title": "curl: libcurl: curl/libcurl: Remote denial of service via QUIC UDP receive function vulnerability",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-11352"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-11586",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "HIGH",
+          "Title": "curl: curl: Denial of Service via WebSocket PING flood",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-11586"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-12064",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "HIGH",
+          "Title": "curl: curl: SSH host verification bypass when using schemeless URLs with SFTP/SCP",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-12064"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-5773",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.20.0-r0",
+          "Severity": "HIGH",
+          "Title": "curl: libcurl: Wrong file transfer due to incorrect SMB connection reuse",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-5773"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-6276",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.20.0-r0",
+          "Severity": "HIGH",
+          "Title": "curl: libcurl: Information disclosure due to cookie leak when reusing connections with custom Host headers",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-6276"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-8286",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "HIGH",
+          "Title": "curl: curl: Insecure connection establishment due to TLS configuration mismatch",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-8286"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-8458",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "HIGH",
+          "Title": "curl: libcurl: Unauthorized connection reuse due to a logical error",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-8458"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-8925",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "HIGH",
+          "Title": "curl: curl: Double-free vulnerability in SASL authentication",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-8925"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-8927",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "HIGH",
+          "Title": "curl: Information disclosure due to uncleared proxy authentication state",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-8927"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-92392",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "HIGH",
+          "Title": "curl: curl: HTTP/2 upload Use-After-Free",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-92392"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-9547",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "HIGH",
+          "Title": "curl: curl: Man-in-the-middle attack via SSH host key bypass",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-9547"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2025-14017",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.18.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: curl: Security bypass due to global TLS option changes in multi-threaded LDAPS transfers",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-14017"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-10536",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "libcurl: libcurl: Use-after-free vulnerability leading to Denial of Service",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-10536"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-11564",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "libcurl: libcurl: Certificate validation bypass due to incorrect connection reuse",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-11564"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-11856",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: curl: Information disclosure via incorrect Digest authentication header reuse",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-11856"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-1965",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.19.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: curl: Authentication bypass due to incorrect connection reuse with Negotiate authentication",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-1965"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-19931",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: libcurl: Information disclosure via incorrect connection reuse with Negotiate authentication",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-19931"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-3783",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.19.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: curl: Information disclosure via OAuth2 bearer token leakage during HTTP(S) redirect",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-3783"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-3784",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.19.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: curl: Unauthorized access due to improper HTTP proxy connection reuse",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-3784"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-3805",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.19.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: curl: Arbitrary code execution or Denial of Service via use-after-free in SMB request handling",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-3805"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-4873",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.20.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: curl: Information disclosure due to incorrect TLS connection reuse",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-4873"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-5545",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.20.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: libcurl: Authentication bypass due to incorrect HTTP Negotiate connection reuse",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-5545"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-6253",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.20.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: curl: Proxy credential disclosure via redirects to unauthenticated proxies",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-6253"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-6429",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.20.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: libcurl: Credential leak via reused proxy connection during HTTP redirects",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-6429"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-7009",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.20.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: Curl: Certificate validation bypass due to OCSP stapling flaw",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-7009"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-7168",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.20.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: libcurl: Information disclosure via incorrect Proxy-Authorization header reuse",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-7168"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-82208",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: libcurl: Improper certificate validation when using wolfSSL CA cache",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-82208"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-8924",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: curl: Cookie injection via malicious HTTP server using super cookies",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-8924"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-8926",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: curl: Information disclosure via incorrect .netrc password lookup",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-8926"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-8932",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "libcurl: libcurl: Security feature bypass due to improper mTLS connection reuse",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-8932"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-9079",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "libcurl: libcurl: Information disclosure due to failure to clear proxy authentication credentials",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-9079"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-9080",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "libcurl: libcurl: Use-after-free via curl_easy_pause() in CURLMOPT_SOCKETFUNCTION callback",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-9080"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-92388",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "curl: curl: FTP wildcard write callback mixup",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-92388"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-9545",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "libcurl: libcurl: Information disclosure via cached SSL session and early data",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-9545"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-9546",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "libcurl: libcurl: Information disclosure due to persistent Referer header",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-9546"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2025-14524",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.18.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: Information disclosure via cross-protocol redirect with OAuth2 bearer token",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-14524"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2025-14819",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.18.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: libcurl: Improper certificate validation due to cached TLS settings reuse",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-14819"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-107928",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: info leak uploading over WebSockets with GnuTLS",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-107928"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-107929",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: local interface connection reuse mixup",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-107929"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-13608",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: Authentication bypass in OpenLDAP SASL negotiation via Man-in-the-Middle (MITM) attack",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-13608"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-18924",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: libcurl: Use-after-free in HTTP/2 Server Push with shared connections",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-18924"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-80229",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: libcurl: Memory corruption vulnerability via OpenSSL 3 provider use-after-free",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-80229"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-80230",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: Public key pinning bypass allows unauthenticated connections",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-80230"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-80231",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: Incorrect HTTPS connection reuse with Native CA Store",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-80231"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-80255",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: Information disclosure due to secure cookie attribute bypass",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-80255"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-82209",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: libcurl: Information disclosure via improper Public Suffix List boundary check",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-82209"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-86409",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: stale SigV4 headers sent unintended",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-86409"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-86410",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: redirect to SFTP or SCP bypasses host verification",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-86410"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-86411",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: FTP connection reuse inherits client-certificate",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-86411"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-86412",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: server-set cookie erases cookie jar",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-86412"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-86413",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: Negotiate credentials sent to redirected origin",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-86413"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-86414",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: leaking host credentials to HTTP proxy",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-86414"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-86415",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: auto client cert connection reuse mixup",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-86415"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-87861",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: cross-origin reuse of a Negotiate connection",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-87861"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-87862",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: HSTS cache import drops longer-lived child",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-87862"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-87863",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: Hsts Response Erases Persisted Entries",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-87863"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-87864",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: IMAP APPEND plus CRLF conversion command injection",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-87864"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-87865",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: knownhost callback mismatches key as missing",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-87865"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-87866",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: wolfSSL public-key pinning bypass",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-87866"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-92386",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: server-set cookie aborts cookie jar load",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-92386"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-92387",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: never-ending loop via server response omission",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-92387"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-92389",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: TFTP direction confusion",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-92389"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-92390",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: -J no-clobber guarantee bypassed with 103 early hints",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-92390"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-92391",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: curl_mime_free stack overflow by recursion",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-92391"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-94265",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: Authorization: Negotiate sent to foreign origin",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-94265"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-94266",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.23.0-r0",
+          "Severity": "LOW",
+          "Title": "curl: curl: password leak in CURLINFO_EFFECTIVE_URL",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-94266"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-80256",
+          "PkgName": "libcurl",
+          "InstalledVersion": "8.17.0-r1",
+          "FixedVersion": "8.22.0-r0",
+          "Severity": "UNKNOWN",
+          "Title": "Title Not Available",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-80256"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-45186",
+          "PkgName": "libexpat",
+          "InstalledVersion": "2.7.5-r0",
+          "FixedVersion": "2.8.1-r0",
+          "Severity": "HIGH",
+          "Title": "libexpat: denial of service via crafted XML input",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-45186"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-66046",
+          "PkgName": "libexpat",
+          "InstalledVersion": "2.7.5-r0",
+          "FixedVersion": "2.8.4-r0",
+          "Severity": "HIGH",
+          "Title": "expat: Expat: Denial of Service via quadratic complexity in attribute processing",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-66046"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-76641",
+          "PkgName": "libexpat",
+          "InstalledVersion": "2.7.5-r0",
+          "FixedVersion": "2.8.4-r0",
+          "Severity": "HIGH",
+          "Title": "expat: Expat: Denial of Service via XML external entity parsing",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-76641"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-76956",
+          "PkgName": "libexpat",
+          "InstalledVersion": "2.7.5-r0",
+          "FixedVersion": "2.8.4-r0",
+          "Severity": "HIGH",
+          "Title": "libexpat: libexpat: Denial of Service via hash flooding attack with crafted XML",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-76956"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-76957",
+          "PkgName": "libexpat",
+          "InstalledVersion": "2.7.5-r0",
+          "FixedVersion": "2.8.4-r0",
+          "Severity": "HIGH",
+          "Title": "libexpat: libexpat: Memory corruption vulnerability allows arbitrary code execution or denial of service",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-76957"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-77214",
+          "PkgName": "libexpat",
+          "InstalledVersion": "2.7.5-r0",
+          "FixedVersion": "2.9.0-r0",
+          "Severity": "HIGH",
+          "Title": "expat: expat: Information disclosure via heap buffer over-read in XML_ParseBuffer",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-77214"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-93990",
+          "PkgName": "libexpat",
+          "InstalledVersion": "2.7.5-r0",
+          "FixedVersion": "2.8.5-r0",
+          "Severity": "HIGH",
+          "Title": "expat: Expat: XML Injection via Malformed UTF-16 Input",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-93990"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-102633",
+          "PkgName": "libexpat",
+          "InstalledVersion": "2.7.5-r0",
+          "FixedVersion": "2.9.0-r0",
+          "Severity": "MEDIUM",
+          "Title": "expat: expat: Denial of Service via integer overflow in expat_realloc",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-102633"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-50219",
+          "PkgName": "libexpat",
+          "InstalledVersion": "2.7.5-r0",
+          "FixedVersion": "2.8.2-r0",
+          "Severity": "MEDIUM",
+          "Title": "expat: libexpat: Use-after-free vulnerability due to improper handler call depth tracking",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-50219"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-56131",
+          "PkgName": "libexpat",
+          "InstalledVersion": "2.7.5-r0",
+          "FixedVersion": "2.8.2-r0",
+          "Severity": "MEDIUM",
+          "Title": "libexpat: libexpat: Use-after-free vulnerability due to insufficient handler call depth tracking",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-56131"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-56132",
+          "PkgName": "libexpat",
+          "InstalledVersion": "2.7.5-r0",
+          "FixedVersion": "2.8.2-r0",
+          "Severity": "MEDIUM",
+          "Title": "expat: libexpat: Arbitrary Code Execution via Heap-based Buffer Overflow",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-56132"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-56403",
+          "PkgName": "libexpat",
+          "InstalledVersion": "2.7.5-r0",
+          "FixedVersion": "2.8.2-r0",
+          "Severity": "MEDIUM",
+          "Title": "libexpat: libexpat: Arbitrary code execution due to integer overflow in storeAtts",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-56403"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-56404",
+          "PkgName": "libexpat",
+          "InstalledVersion": "2.7.5-r0",
+          "FixedVersion": "2.8.2-r0",
+          "Severity": "MEDIUM",
+          "Title": "libexpat: libexpat: Arbitrary Code Execution via integer overflow in addBinding",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-56404"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-56405",
+          "PkgName": "libexpat",
+          "InstalledVersion": "2.7.5-r0",
+          "FixedVersion": "2.8.2-r0",
+          "Severity": "MEDIUM",
+          "Title": "libexpat: libexpat: Information disclosure and arbitrary code execution via integer overflow",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-56405"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-56406",
+          "PkgName": "libexpat",
+          "InstalledVersion": "2.7.5-r0",
+          "FixedVersion": "2.8.2-r0",
+          "Severity": "MEDIUM",
+          "Title": "libexpat: libexpat: Arbitrary code execution via integer overflow in XML_ParseBuffer",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-56406"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-56407",
+          "PkgName": "libexpat",
+          "InstalledVersion": "2.7.5-r0",
+          "FixedVersion": "2.8.2-r0",
+          "Severity": "MEDIUM",
+          "Title": "libexpat: libexpat: Arbitrary code execution due to integer overflow",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-56407"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-56408",
+          "PkgName": "libexpat",
+          "InstalledVersion": "2.7.5-r0",
+          "FixedVersion": "2.8.2-r0",
+          "Severity": "MEDIUM",
+          "Title": "libexpat: libexpat: Information disclosure and arbitrary code execution via integer overflow",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-56408"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-56409",
+          "PkgName": "libexpat",
+          "InstalledVersion": "2.7.5-r0",
+          "FixedVersion": "2.8.2-r0",
+          "Severity": "MEDIUM",
+          "Title": "libexpat: libexpat: Integer overflow in xmlwf may lead to information disclosure or arbitrary code execution",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-56409"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-56410",
+          "PkgName": "libexpat",
+          "InstalledVersion": "2.7.5-r0",
+          "FixedVersion": "2.8.2-r0",
+          "Severity": "MEDIUM",
+          "Title": "libexpat: libexpat: Integer overflow in xmlwf can lead to information disclosure and arbitrary code execution.",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-56410"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-56411",
+          "PkgName": "libexpat",
+          "InstalledVersion": "2.7.5-r0",
+          "FixedVersion": "2.8.2-r0",
+          "Severity": "MEDIUM",
+          "Title": "expat: libexpat: Integer Overflow Vulnerability Leading to Information Disclosure or Code Execution",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-56411"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-56412",
+          "PkgName": "libexpat",
+          "InstalledVersion": "2.7.5-r0",
+          "FixedVersion": "2.8.2-r0",
+          "Severity": "MEDIUM",
+          "Title": "libexpat: libexpat: Use-after-free vulnerability due to improper handling of XML CDATA sections",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-56412"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-41080",
+          "PkgName": "libexpat",
+          "InstalledVersion": "2.7.5-r0",
+          "FixedVersion": "2.8.1-r0",
+          "Severity": "LOW",
+          "Title": "libexpat: expat: libexpat: Denial of Service via hash flooding with crafted XML",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-41080"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-40930",
+          "PkgName": "libpng",
+          "InstalledVersion": "1.6.57-r0",
+          "FixedVersion": "1.6.58-r1",
+          "Severity": "MEDIUM",
+          "Title": "libpng: libpng: Data integrity and availability impact due to improper APNG chunk handling",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-40930"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-46675",
+          "PkgName": "libpng",
+          "InstalledVersion": "1.6.57-r0",
+          "FixedVersion": "1.6.59-r0",
+          "Severity": "MEDIUM",
+          "Title": "libpng: libpng: Use-after-free in sequential reader when png_read_end called without reading image rows",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-46675"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-14456",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.8-r0",
+          "Severity": "HIGH",
+          "Title": "openssl: OpenSSL: Denial of Service via unbounded memory growth in QUIC server",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-14456"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-45447",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "HIGH",
+          "Title": "openssl: Heap Use-After-Free in OpenSSL PKCS7_verify()",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-45447"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-18798",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.8-r0",
+          "Severity": "MEDIUM",
+          "Title": "openssl: QUIC server may trigger double free when processing INITIAL packet",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-18798"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-34182",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "MEDIUM",
+          "Title": "openssl: CMS AuthEnvelopedData Processing May Accept Forged Messages",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-34182"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-34183",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "MEDIUM",
+          "Title": "openssl: Unbounded Memory Growth in the QUIC PATH_CHALLENGE Handler",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-34183"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-42764",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "MEDIUM",
+          "Title": "openssl: NULL pointer dereference in QUIC server initial packet handling",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42764"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-45445",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "MEDIUM",
+          "Title": "openssl: AES-OCB IV Ignored on EVP_Cipher() Path",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-45445"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-63072",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.8-r0",
+          "Severity": "MEDIUM",
+          "Title": "openssl: heap buffer overflow in CMS key unwrapping",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-63072"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-63076",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.8-r0",
+          "Severity": "MEDIUM",
+          "Title": "openssl: invalid pointer dereference in CMP server via crafted protectionAlg",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-63076"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-14457",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.8-r0",
+          "Severity": "LOW",
+          "Title": "openssl: RPK server signature algorithm selection can dereference a missing certificate",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-14457"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-34180",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "LOW",
+          "Title": "openssl: OpenSSL: Heap buffer over-read in ASN.1 decoding can lead to denial of service or information disclosure.",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-34180"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-34181",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "LOW",
+          "Title": "openssl: PKCS#12 Files with PBMAC1 Are Accepted with Short HMAC Keys",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-34181"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-42766",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "LOW",
+          "Title": "openssl: Possible NULL Dereference in Password-Based CMS Decryption",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42766"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-42767",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "LOW",
+          "Title": "openssl: NULL Pointer Dereference in CRMF EncryptedValue Decryption",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42767"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-42768",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "LOW",
+          "Title": "openssl: Multi-RecipientInfo Bleichenbacher Oracle in CMS_decrypt() and PKCS7_decrypt()",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42768"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-42769",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "LOW",
+          "Title": "openssl: Trust-Anchor Substitution via cert/issuer Typo in CMP rootCaKeyUpdate",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42769"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-42770",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "LOW",
+          "Title": "openssl: FFC-DH Peer Validation Uses Attacker-Supplied q",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42770"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-45446",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "LOW",
+          "Title": "openssl: Incorrect Tag Processing for Empty Messages in AES-GCM-SIV and AES-SIV modes",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-45446"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-54874",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.8-r0",
+          "Severity": "LOW",
+          "Title": "openssl: excessive memory use buffering DTLS records for a future epoch",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-54874"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-63073",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.8-r0",
+          "Severity": "LOW",
+          "Title": "openssl: untrusted sender DN used as format string in CMP response validation",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-63073"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-63074",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.8-r0",
+          "Severity": "LOW",
+          "Title": "openssl: CMP indefinite cache growth of ExtraCerts",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-63074"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-63075",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.8-r0",
+          "Severity": "LOW",
+          "Title": "openssl: QUIC ACK-only packet retention can cause memory exhaustion",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-63075"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-7383",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "LOW",
+          "Title": "openssl: OpenSSL: Heap buffer overflow due to signed integer overflow in Unicode output sizing",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-7383"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-75803",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.8-r0",
+          "Severity": "LOW",
+          "Title": "openssl: openssl: AEAD forgeries possible with empty ciphertext in EVP_Cipher()",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-75803"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-9076",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.5.6-r0",
+          "FixedVersion": "3.5.7-r0",
+          "Severity": "LOW",
+          "Title": "openssl: OpenSSL: Denial of Service due to heap out-of-bounds read in CMS password-based decryption",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-9076"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-53612",
+          "PkgName": "libuuid",
+          "InstalledVersion": "2.41.4-r0",
+          "FixedVersion": "2.41.6-r0",
+          "Severity": "HIGH",
+          "Title": "util-linux: util-linux: TOCTOU in the mount program when applying post-mount ownership/mode changes",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-53612"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-53613",
+          "PkgName": "libuuid",
+          "InstalledVersion": "2.41.4-r0",
+          "FixedVersion": "2.41.6-r0",
+          "Severity": "HIGH",
+          "Title": "util-linux: TOCTOU in the mount program via ancestor directory swap on target path",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-53613"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-53614",
+          "PkgName": "libuuid",
+          "InstalledVersion": "2.41.4-r0",
+          "FixedVersion": "2.41.6-r0",
+          "Severity": "HIGH",
+          "Title": "util-linux: util-linux: SUID mount(8) allows nosuid/noexec bypass via LIBMOUNT_FORCE_MOUNT2",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-53614"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-76642",
+          "PkgName": "libuuid",
+          "InstalledVersion": "2.41.4-r0",
+          "FixedVersion": "2.41.6-r0",
+          "Severity": "HIGH",
+          "Title": "util-linux: util-linux: failed external mount helper still runs privileged X-mount post-hooks",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-76642"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-78408",
+          "PkgName": "libuuid",
+          "InstalledVersion": "2.41.4-r0",
+          "FixedVersion": "2.41.6-r1",
+          "Severity": "HIGH",
+          "Title": "util-linux: util-linux: nsenter --join-cgroup leaks root cgroup migration authority",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-78408"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-78410",
+          "PkgName": "libuuid",
+          "InstalledVersion": "2.41.4-r0",
+          "FixedVersion": "2.41.6-r0",
+          "Severity": "HIGH",
+          "Title": "util-linux: util-linux: restricted bind mounts do not pin the source, allowing X-mount.owner/group/mode redirection",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-78410"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-6732",
+          "PkgName": "libxml2",
+          "InstalledVersion": "2.13.9-r0",
+          "FixedVersion": "2.13.9-r1",
+          "Severity": "HIGH",
+          "Title": "libxml2: libxml2: Denial of Service via crafted XSD-validated document",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-6732"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-107891",
+          "PkgName": "musl",
+          "InstalledVersion": "1.2.5-r23",
+          "FixedVersion": "1.2.5-r24",
+          "Severity": "UNKNOWN",
+          "Title": "Title Not Available",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-107891"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-107891",
+          "PkgName": "musl-utils",
+          "InstalledVersion": "1.2.5-r23",
+          "FixedVersion": "1.2.5-r24",
+          "Severity": "UNKNOWN",
+          "Title": "Title Not Available",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-107891"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-103111",
+          "PkgName": "pcre2",
+          "InstalledVersion": "10.47-r0",
+          "FixedVersion": "10.49-r0",
+          "Severity": "HIGH",
+          "Title": "pcre2: pcre2: Out-of-bounds write via crafted regular expression",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-103111"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-86145",
+          "PkgName": "pcre2",
+          "InstalledVersion": "10.47-r0",
+          "FixedVersion": "10.48-r0",
+          "Severity": "HIGH",
+          "Title": "pcre2: PCRE2: Out-of-bounds write allows arbitrary code execution via crafted regular expressions",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-86145"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-89157",
+          "PkgName": "pcre2",
+          "InstalledVersion": "10.47-r0",
+          "FixedVersion": "10.48-r0",
+          "Severity": "HIGH",
+          "Title": "pcre2: PCRE2: Out-of-bounds write via large pattern input",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-89157"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-89161",
+          "PkgName": "pcre2",
+          "InstalledVersion": "10.47-r0",
+          "FixedVersion": "10.48-r0",
+          "Severity": "HIGH",
+          "Title": "pcre2: PCRE2: Memory corruption vulnerability in pcre2_jit_match",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-89161"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-89156",
+          "PkgName": "pcre2",
+          "InstalledVersion": "10.47-r0",
+          "FixedVersion": "10.48-r0",
+          "Severity": "MEDIUM",
+          "Title": "PCRE2: PCRE2: Out-of-bounds read via invalid UTF data during JIT fallback",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-89156"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-89158",
+          "PkgName": "pcre2",
+          "InstalledVersion": "10.47-r0",
+          "FixedVersion": "10.48-r0",
+          "Severity": "MEDIUM",
+          "Title": "PCRE2: PCRE2: Out-of-bounds write via integer overflow on 32-bit platforms",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-89158"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-89160",
+          "PkgName": "pcre2",
+          "InstalledVersion": "10.47-r0",
+          "FixedVersion": "10.48-r0",
+          "Severity": "MEDIUM",
+          "Title": "pcre2: PCRE2: Denial of Service via out-of-bounds read during invalid UTF matching",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-89160"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-89162",
+          "PkgName": "pcre2",
+          "InstalledVersion": "10.47-r0",
+          "FixedVersion": "10.48-r0",
+          "Severity": "LOW",
+          "Title": "pcre2: PCRE2: Information disclosure via pcre2_serialize_encode",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-89162"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-4775",
+          "PkgName": "tiff",
+          "InstalledVersion": "4.7.1-r0",
+          "FixedVersion": "4.7.2-r0",
+          "Severity": "HIGH",
+          "Title": "libtiff: libtiff: Arbitrary code execution or denial of service via signed integer overflow in TIFF file processing",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-4775"
+        },
+        {
+          "target": "web-image.tar (alpine 3.23.4)",
+          "VulnerabilityID": "CVE-2026-85091",
+          "PkgName": "zlib",
+          "InstalledVersion": "1.3.2-r0",
+          "FixedVersion": "1.3.2-r1",
+          "Severity": "MEDIUM",
+          "Title": "zlib versions 1.3.1.2 through 1.3.2 contain a heap buffer overflow vul ...",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-85091"
+        }
+      ]
+    },
+    "db": {
+      "image_id": "sha256:266d3c257594e195b309ae9d1805e54c788f1d7b375f56bf6c367aac6c917e7b",
+      "name": "postgres:17-alpine@sha256:266d3c257594e195b309ae9d1805e54c788f1d7b375f56bf6c367aac6c917e7b",
+      "created": "2026-10-21T22:57:32.570372382Z",
+      "counts": {
+        "MEDIUM": 31,
+        "UNKNOWN": 1,
+        "CRITICAL": 1,
+        "HIGH": 25,
+        "LOW": 3
+      },
+      "unique_advisories": 61,
+      "sbom_file": "db-sbom-2026-10-31.cdx.json",
+      "sbom_sha256": "8f4a8dcf827dc36ac6c8271d28daa2c61f2ece83e27d9aa6823c750adb8fc61b",
+      "findings": [
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-61801",
+          "PkgName": "github.com/moby/sys/user",
+          "InstalledVersion": "v0.1.0",
+          "FixedVersion": "0.4.1",
+          "Severity": "MEDIUM",
+          "Title": "github.com/moby/sys/user: moby/sys/user: Denial of Service via crafted user or group database files",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-61801"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-39824",
+          "PkgName": "golang.org/x/sys",
+          "InstalledVersion": "v0.1.0",
+          "FixedVersion": "0.44.0",
+          "Severity": "UNKNOWN",
+          "Title": "Invoking integer overflow in NewNTUnicodeString in golang.org/x/sys/windows",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-39824"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2025-68121",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.24.13, 1.25.7, 1.26.0-rc.3",
+          "Severity": "CRITICAL",
+          "Title": "crypto/tls: crypto/tls: Incorrect certificate validation during TLS session resumption",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-68121"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2025-61726",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.24.12, 1.25.6",
+          "Severity": "HIGH",
+          "Title": "golang: net/url: Memory exhaustion in query parameter parsing in net/url",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-61726"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2025-61729",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.24.11, 1.25.5",
+          "Severity": "HIGH",
+          "Title": "crypto/x509: golang: Denial of Service due to excessive resource consumption via crafted certificate",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-61729"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-111943",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.26.10, 1.27.3",
+          "Severity": "HIGH",
+          "Title": "crypto/x509: golang: crypto/x509: Man-in-the-middle attacks via untrusted intermediate certificates",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-111943"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-25679",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.8, 1.26.1",
+          "Severity": "HIGH",
+          "Title": "net/url: Incorrect parsing of IPv6 host literals in net/url",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-25679"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-27145",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.11, 1.26.4",
+          "Severity": "HIGH",
+          "Title": "crypto/x509: golang: golang crypto/x509: Denial of Service via excessive processing of DNS SAN entries",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-27145"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-32280",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.9, 1.26.2",
+          "Severity": "HIGH",
+          "Title": "crypto/x509: crypto/tls: golang: Go: Denial of Service vulnerability in certificate chain building",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-32280"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-32281",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.9, 1.26.2",
+          "Severity": "HIGH",
+          "Title": "crypto/x509: golang: Go crypto/x509: Denial of Service via inefficient certificate chain validation",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-32281"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-32283",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.9, 1.26.2",
+          "Severity": "HIGH",
+          "Title": "crypto/tls: golang: Go crypto/tls: Denial of Service via multiple TLS 1.3 key update messages",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-32283"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-33811",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.10, 1.26.3",
+          "Severity": "HIGH",
+          "Title": "net: golang: Go net package: Denial of Service via long CNAME response in LookupCNAME",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-33811"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-33814",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.10, 1.26.3",
+          "Severity": "HIGH",
+          "Title": "net/http/internal/http2: golang: golang.org/x/net: Go HTTP/2: Denial of Service via malformed SETTINGS_MAX_FRAME_SIZE frame",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-33814"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-33818",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.13, 1.26.6, 1.27.0-rc.3",
+          "Severity": "HIGH",
+          "Title": "encoding/asn1: golang: Go encoding/asn1: Denial of Service via excessive recursion in Unmarshal",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-33818"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-39820",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.10, 1.26.3",
+          "Severity": "HIGH",
+          "Title": "net/mail: golang: Go net/mail: Denial of Service via crafted email inputs",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-39820"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-39821",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.13, 1.26.6, 1.27.0-rc.3",
+          "Severity": "HIGH",
+          "Title": "golang.org/x/net/idna: golang: net/http: golang.org/x/net/idna: Privilege escalation via incorrect Punycode label processing",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-39821"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-39822",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.12, 1.26.5, 1.27.0-rc.2",
+          "Severity": "HIGH",
+          "Title": "golang: Go os.Root: Symlink following vulnerability allows directory traversal",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-39822"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-39836",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.10, 1.26.3",
+          "Severity": "HIGH",
+          "Title": "net: golang: Go net package: Denial of Service via NUL byte in Dial and LookupPort on Windows",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-39836"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-42499",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.10, 1.26.3",
+          "Severity": "HIGH",
+          "Title": "net/mail: golang: net/mail: Denial of Service via pathological email address parsing",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42499"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-42504",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.11, 1.26.4",
+          "Severity": "HIGH",
+          "Title": "mime: golang: Golang MIME: Denial of Service via maliciously-crafted MIME header",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42504"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-56853",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.13, 1.26.6, 1.27.0-rc.3",
+          "Severity": "HIGH",
+          "Title": "net/http: golang: Go net/http: Unencrypted HTTP/2 connections vulnerable to Denial of Service",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-56853"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-56858",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.13, 1.26.6, 1.27.0-rc.3",
+          "Severity": "HIGH",
+          "Title": "html/template: golang: Go html/template: Cross-Site Scripting via pathological input",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-56858"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-56859",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.13, 1.26.6, 1.27.0-rc.3",
+          "Severity": "HIGH",
+          "Title": "encoding/xml: golang: Go: Denial of Service via XML decoding recursion depth issue",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-56859"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-56860",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.13, 1.26.6, 1.27.0-rc.3",
+          "Severity": "HIGH",
+          "Title": "net/url: golang: golang net/url: Denial of Service from quadratic complexity in path resolution",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-56860"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-56862",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.13, 1.26.6, 1.27.0-rc.3",
+          "Severity": "HIGH",
+          "Title": "crypto/tls: golang: Golang crypto/tls: Denial of Service via indefinite KeyUpdate messages",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-56862"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-78667",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.26.9, 1.27.2",
+          "Severity": "HIGH",
+          "Title": "net/http: golang: golang: Denial of Service via crafted HTTP Range headers",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-78667"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-78669",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.26.9, 1.27.2",
+          "Severity": "HIGH",
+          "Title": "net/http: net/http/internal/http2: golang.org/x/net/http2: net/http: Denial of Service via excessive HTTP/2 SETTINGS frames",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-78669"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-97031",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.26.9, 1.27.2",
+          "Severity": "HIGH",
+          "Title": "crypto/tls: golang: crypto/tls: Denial of Service via multiple ECH outer extension references",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-97031"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2025-47912",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.24.8, 1.25.2",
+          "Severity": "MEDIUM",
+          "Title": "net/url: Insufficient validation of bracketed IPv6 hostnames in net/url",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-47912"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2025-58183",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.24.8, 1.25.2",
+          "Severity": "MEDIUM",
+          "Title": "golang: archive/tar: Unbounded allocation when parsing GNU sparse map",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-58183"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2025-58185",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.24.8, 1.25.2",
+          "Severity": "MEDIUM",
+          "Title": "encoding/asn1: Parsing DER payload can cause memory exhaustion in encoding/asn1",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-58185"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2025-58187",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.24.9, 1.25.3",
+          "Severity": "MEDIUM",
+          "Title": "crypto/x509: Quadratic complexity when checking name constraints in crypto/x509",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-58187"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2025-58188",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.24.8, 1.25.2",
+          "Severity": "MEDIUM",
+          "Title": "crypto/x509: golang: Panic when validating certificates with DSA public keys in crypto/x509",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-58188"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2025-58189",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.24.8, 1.25.2",
+          "Severity": "MEDIUM",
+          "Title": "crypto/tls: go crypto/tls ALPN negotiation error contains attacker controlled information",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-58189"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2025-61723",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.24.8, 1.25.2",
+          "Severity": "MEDIUM",
+          "Title": "encoding/pem: Quadratic complexity when parsing some invalid inputs in encoding/pem",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-61723"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2025-61724",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.24.8, 1.25.2",
+          "Severity": "MEDIUM",
+          "Title": "net/textproto: Excessive CPU consumption in Reader.ReadResponse in net/textproto",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-61724"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2025-61725",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.24.8, 1.25.2",
+          "Severity": "MEDIUM",
+          "Title": "net/mail: Excessive CPU consumption in ParseAddress in net/mail",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-61725"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2025-61727",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.24.11, 1.25.5",
+          "Severity": "MEDIUM",
+          "Title": "golang: crypto/x509: excluded subdomain constraint does not restrict wildcard SANs",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-61727"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2025-61728",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.24.12, 1.25.6",
+          "Severity": "MEDIUM",
+          "Title": "golang: archive/zip: Excessive CPU consumption when building archive index in archive/zip",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-61728"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2025-61730",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.24.12, 1.25.6",
+          "Severity": "MEDIUM",
+          "Title": "crypto/tls: Handshake messages may be processed at the incorrect encryption level in crypto/tls",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-61730"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-27142",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.8, 1.26.1",
+          "Severity": "MEDIUM",
+          "Title": "html/template: URLs in meta content attribute actions are not escaped in html/template",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-27142"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-32282",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.9, 1.26.2",
+          "Severity": "MEDIUM",
+          "Title": "golang: internal/syscall/unix: Root.Chmod can follow symlinks out of the root",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-32282"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-32288",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.9, 1.26.2",
+          "Severity": "MEDIUM",
+          "Title": "archive/tar: golang: Go's archive/tar package: Denial of Service via maliciously-crafted archive",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-32288"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-32289",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.9, 1.26.2",
+          "Severity": "MEDIUM",
+          "Title": "html/template: golang: html/template: Cross-Site Scripting (XSS) via improper context and brace depth tracking in JS template literals",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-32289"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-39823",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.10, 1.26.3",
+          "Severity": "MEDIUM",
+          "Title": "html/template: golang: Go html/template: Cross-Site Scripting via improper URL escaping in meta tag content",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-39823"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-39825",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.10, 1.26.3",
+          "Severity": "MEDIUM",
+          "Title": "net/http/httputil: golang: net/http/httputil: ReverseProxy forwards hidden query parameters, potentially bypassing security controls",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-39825"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-39826",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.10, 1.26.3",
+          "Severity": "MEDIUM",
+          "Title": "html/template: golang: html/template: Cross-site scripting due to incorrect script tag escaping",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-39826"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-42505",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.12, 1.26.5, 1.27.0-rc.2",
+          "Severity": "MEDIUM",
+          "Title": "crypto/tls: golang: Go crypto/tls: Information disclosure in Encrypted Client Hello",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42505"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-42507",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.11, 1.26.4",
+          "Severity": "MEDIUM",
+          "Title": "net/textproto: golang: Golang net/textproto: Misleading error messages via input injection",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42507"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-56866",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.26.9, 1.27.2",
+          "Severity": "MEDIUM",
+          "Title": "net/http: golang: golang: Cross-user response poisoning via desynchronized HTTP CONNECT connections",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-56866"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-78659",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.26.9, 1.27.2",
+          "Severity": "MEDIUM",
+          "Title": "net/http: golang.org/x/net/http2: golang: net/http: Denial of Service via HTTP/2 trailer header memory exhaustion",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-78659"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-78660",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.26.9, 1.27.2",
+          "Severity": "MEDIUM",
+          "Title": "net/http: golang: golang.org/x/net/http2: net/http: HTTP response smuggling via malformed HTTP/2 framing headers",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-78660"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-78663",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.26.9, 1.27.2",
+          "Severity": "MEDIUM",
+          "Title": "net/http: net/http/internal/http2: golang: golang.org/x/net/http2: golang: flow control limit bypass via double refund in HTTP/2 server",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-78663"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-94439",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.26.9, 1.27.2",
+          "Severity": "MEDIUM",
+          "Title": "net/http: golang: net/http: HTTP request smuggling via improper handling of HTTP/1 CONNECT responses",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-94439"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-94440",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.26.9, 1.27.2",
+          "Severity": "MEDIUM",
+          "Title": "net/textproto: mime/multipart: golang: golang: Denial of Service via memory limit bypass in multipart form parsing",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-94440"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-94448",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.26.9, 1.27.2",
+          "Severity": "MEDIUM",
+          "Title": "html/template: golang: golang: cross-site scripting via consecutive expressions in JavaScript template literals",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-94448"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-97030",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.26.9, 1.27.2",
+          "Severity": "MEDIUM",
+          "Title": "html/template: golang: html/template: Cross-site scripting via improper escaping of yield keyword",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-97030"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-97032",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.26.9, 1.27.2",
+          "Severity": "MEDIUM",
+          "Title": "net/http: net/http/internal/http2: golang: golang.org/x/net/http2: net/http: Denial of Service via concurrent HPACK encoder modification",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-97032"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2025-58186",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.24.8, 1.25.2",
+          "Severity": "LOW",
+          "Title": "golang.org/net/http: Lack of limit when parsing cookies can cause memory exhaustion in net/http",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-58186"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-27139",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.25.8, 1.26.1",
+          "Severity": "LOW",
+          "Title": "os: FileInfo can escape from a Root in golang os module",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-27139"
+        },
+        {
+          "target": "usr/local/bin/gosu",
+          "VulnerabilityID": "CVE-2026-56857",
+          "PkgName": "stdlib",
+          "InstalledVersion": "v1.24.6",
+          "FixedVersion": "1.26.9, 1.27.2",
+          "Severity": "LOW",
+          "Title": "os: golang: golang: Directory traversal via Windows junction handling",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-56857"
+        }
+      ]
+    }
+  },
+  "benchmark": {
+    "original_reference_p95_ms": 349.86,
+    "replicates": [
+      {
+        "environment": "local Docker; five concurrent batches",
+        "agents": 25,
+        "events": 2500,
+        "batch_size": 100,
+        "duration_seconds": 1.268,
+        "p50_batch_ms": 218.71,
+        "p95_batch_ms": 364.53,
+        "max_batch_ms": 365.19,
+        "errors": 0
+      },
+      {
+        "environment": "local Docker; five concurrent batches",
+        "agents": 25,
+        "events": 2500,
+        "batch_size": 100,
+        "duration_seconds": 1.325,
+        "p50_batch_ms": 245.06,
+        "p95_batch_ms": 303.83,
+        "max_batch_ms": 306.31,
+        "errors": 0
+      },
+      {
+        "environment": "local Docker; five concurrent batches",
+        "agents": 25,
+        "events": 2500,
+        "batch_size": 100,
+        "duration_seconds": 1.231,
+        "p50_batch_ms": 235.28,
+        "p95_batch_ms": 280.71,
+        "max_batch_ms": 283.99,
+        "errors": 0
+      }
+    ],
+    "notes": "same existing localhost Docker endpoint, no deployed resources modified; 25 agents x 100 events each, concurrency 5; no warm-up exclusion"
+  },
+  "live_audit": {
+    "checked_at": "2026-10-31T18:28:00.402733+00:00",
+    "central_log_agent_token_matches": 0,
+    "central_log_session_cookie_matches": 0,
+    "agent_log_agent_token_matches": 0,
+    "agent_log_session_cookie_matches": 0,
+    "local_secret_file_modes": {
+      ".local/homolog.env": "0o600",
+      ".local/homolog-agent.json": "0o600",
+      ".local/lab-install/agent.token": "0o600"
+    },
+    "backup": {
+      "last_success": "2026-10-31T17:55:32.874891+00:00",
+      "age_seconds": 1924,
+      "daily": [
+        {
+          "name": "2026-10-31.dump.gpg",
+          "bytes": 7187,
+          "checksum_ok": true
+        }
+      ],
+      "key_mode": "0o600"
+    }
+  },
+  "backup_probe": {
+    "status": "ok",
+    "age_seconds": 2130,
+    "checksum": "verified"
+  }
+}

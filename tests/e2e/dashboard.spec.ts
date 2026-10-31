@@ -43,16 +43,15 @@ test("login, navigation, event recognition and responsive dashboard", async ({
     fullPage: true,
   });
   if (await page.locator(".event-button").count()) {
+    const acknowledgement = "Reconhecimento sintético da revisão " + Date.now();
     await page.locator(".event-button").first().click();
     await expect(page.getByRole("dialog")).toBeVisible();
-    await page
-      .getByLabel("Comentário de investigação")
-      .fill("Reconhecimento sintético confirmado pelo navegador.");
+    await page.getByLabel("Comentário de investigação").fill(acknowledgement);
     await page
       .getByRole("button", { name: "Reconhecer evento", exact: true })
       .click();
     await expect(
-      page.getByText("Reconhecimento sintético confirmado pelo navegador.", {
+      page.getByText(acknowledgement, {
         exact: true,
       }),
     ).toBeVisible();

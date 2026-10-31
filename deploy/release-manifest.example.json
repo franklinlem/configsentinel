@@ -1,0 +1,26 @@
+{
+  "commit": "REPLACE_WITH_REVIEWED_FULL_COMMIT",
+  "api": {
+    "image": "ghcr.io/franklinlem/configsentinel-api@sha256:REPLACE_WITH_DIGEST",
+    "sbom_sha256": "REPLACE_WITH_SBOM_SHA256",
+    "scan_high": null,
+    "scan_critical": null,
+    "provenance_verified": false
+  },
+  "web": {
+    "image": "ghcr.io/franklinlem/configsentinel-web@sha256:REPLACE_WITH_DIGEST",
+    "sbom_sha256": "REPLACE_WITH_SBOM_SHA256",
+    "scan_high": null,
+    "scan_critical": null,
+    "provenance_verified": false
+  },
+  "homologation_passed": false,
+  "production_approved": false,
+  "db": {
+    "image": "postgres:17-alpine@sha256:REPLACE_WITH_DIGEST",
+    "sbom_sha256": "REPLACE_WITH_SBOM_SHA256",
+    "scan_high": null,
+    "scan_critical": null,
+    "provenance_verified": false
+  }
+}
