@@ -1,0 +1,8 @@
+{
+  "exit_code": 0,
+  "no_syntax_errors_reported": true,
+  "parse_error_reported": false,
+  "dummy_values_only": true,
+  "configuration_executed": false,
+  "scope": "dry syntax check of sanitized copy only; actual J5 failure cause remains unconfirmed"
+}

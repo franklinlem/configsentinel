@@ -1,0 +1,79 @@
+{
+  "checked_at": "2026-11-01T13:05:36.452026+00:00",
+  "authorization": "user explicitly authorized J4-J8 target only",
+  "restore_matches_current_baseline": true,
+  "encrypted_snapshot_and_key": true,
+  "backup_sha256_verified": true,
+  "api_web_stopped": true,
+  "no_concurrent_deployment": true,
+  "volume_networks_capacity_verified": true,
+  "coolify": "4.5.3",
+  "compose": "5.6.1",
+  "cache": [
+    {
+      "reference": "ghcr.io/franklinlem/configsentinel-api@sha256:ea0a14eda7478d9b4a5091effbb7a990a40594fd56085dd0c483809201a16ec4",
+      "id": "sha256:ea0a14eda7478d9b4a5091effbb7a990a40594fd56085dd0c483809201a16ec4"
+    },
+    {
+      "reference": "ghcr.io/franklinlem/configsentinel-web@sha256:e7604db734053aed8834c0c4025001fcafab1026e50bca1f8b02aee1fb6cd8d3",
+      "id": "sha256:e7604db734053aed8834c0c4025001fcafab1026e50bca1f8b02aee1fb6cd8d3"
+    },
+    {
+      "reference": "ghcr.io/franklinlem/configsentinel-db@sha256:ceeafd17328e0a09fa2999be01ccdec407e3318306d392c00646cf1dc74b4447",
+      "id": "sha256:ceeafd17328e0a09fa2999be01ccdec407e3318306d392c00646cf1dc74b4447"
+    },
+    {
+      "reference": "ghcr.io/franklinlem/configsentinel-api@sha256:cacace0b74ddb9bdef72109436035c59305e4c6bb02c063fe0788ce069cffc66",
+      "id": "sha256:cacace0b74ddb9bdef72109436035c59305e4c6bb02c063fe0788ce069cffc66"
+    }
+  ],
+  "database": {
+    "counts": {
+      "schema_migrations": 1,
+      "organizations": 1,
+      "users": 1,
+      "projects": 1,
+      "memberships": 1,
+      "environments": 1,
+      "servers": 1,
+      "agents": 3,
+      "agent_tokens": 3,
+      "user_sessions": 6,
+      "change_events": 4,
+      "file_observations": 1,
+      "acknowledgements": 2,
+      "audit_logs": 6
+    },
+    "resource": {
+      "commit": "5819b7fce93c10cceabbe59fde5fac4f647b707c",
+      "branch": "main",
+      "compose": "/deploy/compose.coolify.yml",
+      "auto_deploy": false,
+      "raw": true,
+      "build_server": false,
+      "queue": 0
+    },
+    "containers": {
+      "api": {
+        "status": "exited",
+        "health": "unhealthy",
+        "volumes": []
+      },
+      "web": {
+        "status": "exited",
+        "health": "unhealthy",
+        "volumes": []
+      },
+      "db": {
+        "status": "running",
+        "health": "healthy",
+        "volumes": [
+          "oi6lvzwzomwtbbgzf5uzofuh_postgres_data"
+        ]
+      },
+      "proxy_connected": true,
+      "disk_free": 77158268928,
+      "mem_available_kib": 5033916
+    }
+  }
+}

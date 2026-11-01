@@ -6,6 +6,9 @@
 
 **Resultado atual de J3:** PASS em restore isolado do backup final, com checksum, decriptação em streaming e `pg_restore --exit-on-error` bem-sucedidos. Schema 1, 14 contagens, quatro eventos e dois reconhecimentos coincidem com a baseline; banco ativo e containers preservados. Duração do streaming/restore: 3,479 s. O resultado pertence ao backup e à baseline testados; a promoção exige nova autorização e reconferência de frescor. [Evidência](evidence/active-rc2-window/j3-authorized-restore/result.json). RC2 não implantado, API/web paradas e produção NO-GO.
 
+
+**Retomada posterior interrompida em J5 — NO-GO.** API/web continuam paradas; PostgreSQL ativo saudável. Prechecks e J4 passaram: três roles restritas aplicadas, dez negações de privilégio verificadas e dados originais preservados. O helper J5 retornou saída não interpretável; inspeção confirma configuração e variáveis originais do Coolify, sem deploy em fila. Causa ainda não comprovada. J6/J7 e deploy não ocorreram. [Evidência](evidence/active-rc2-resume/summary.json). Produção continua não autorizada.
+
 ## Estado operacional — janela autorizada de 01/11/2026
 
 **NO-GO para aceite da homologação e para produção. API/web estão paradas desde 09:41:52 -03; banco RC1 permanece healthy e íntegro. RC2 não foi implantado.** Janela interrompida em J3 conforme o procedimento aprovado, antes da aplicação de roles/configuração/deploy.

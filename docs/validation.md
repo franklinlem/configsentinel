@@ -187,3 +187,10 @@ O harness desta repetição falhou com SyntaxError antes da criação do destino
 Checksum do backup final e sidecar conferidos. Em recursos novos com rede interna, sem portas e sem volume ativo, PostgreSQL endurecido iniciou e passou `pg_isready`. `empty-init` modo 0755 e pais visíveis acessíveis ao UID 70; credencial em arquivo 0600, diretório 0700. Descriptografia por pipe e `pg_restore --exit-on-error` retornaram 0 em 3,479 s; sem dump plaintext persistido. Schema 1, 14 contagens e registros originais de quatro eventos/dois reconhecimentos coincidem. Banco ativo verificado antes e depois em leitura; containers ativos sem mudanças. [Recursos e logs sanitizados](evidence/active-rc2-window/j3-authorized-restore/result.json). Container, rede e volume isolados preservados.
 
 J3 PASS para o backup ensaiado; J4–J8 e deploy não executados. Homologação continua parada; produção não autorizada. Antes de promoção futura, reconferir estado e frescor e obter autorização específica.
+
+
+## Nova janela J4–J8 — interrompida em J5
+
+Prechecks passaram: restore J3 corresponde à baseline atual, 14 contagens e registros originais conferidos, backup/snapshot/chave acessíveis, cache/rede/volume/capacidade OK. [Verificação 41309355528](https://github.com/franklinlem/configsentinel/actions/runs/41309355528) passou em assinaturas, SBOM, provenance, scans e pull de cinco digests no SHA aprovado.
+
+J4 aplicou roles/grants transacionalmente; runtime TCP e dez negativas 42501 passaram, sem alteração das 14 contagens e eventos/ACKs. J5 parou ao receber resposta não interpretável como JSON. A causa ainda não está estabelecida; a saída original não foi preservada e o teste de sintaxe com dados fictícios não reproduziu a falha. Consulta read-only confirmou Coolify no commit/Compose RC1 e variáveis originais, sem deploy concorrente ou solicitado. Banco healthy, API/web paradas; roles J4 persistem. J6/J7, smokes e backup pós-RC2 não executados. Kuma 20 DOWN/503 e 21 UP. [Resumo](evidence/active-rc2-resume/summary.json). Produção NO-GO.

@@ -1,0 +1,42 @@
+{
+  "checked_at": "2026-11-01T13:06:34.968734+00:00",
+  "transactional": true,
+  "all_14_counts_unchanged": true,
+  "schema": 1,
+  "runtime_tcp_login": true,
+  "audit_insert_rolled_back": true,
+  "denied_operations_42501": 10,
+  "roles": [
+    {
+      "name": "configsentinel_owner",
+      "login": false,
+      "inherit": true,
+      "superuser": false,
+      "createdb": false,
+      "createrole": false,
+      "replication": false,
+      "bypassrls": false
+    },
+    {
+      "name": "configsentinel_migrator",
+      "login": true,
+      "inherit": false,
+      "superuser": false,
+      "createdb": false,
+      "createrole": false,
+      "replication": false,
+      "bypassrls": false
+    },
+    {
+      "name": "configsentinel_runtime",
+      "login": true,
+      "inherit": false,
+      "superuser": false,
+      "createdb": false,
+      "createrole": false,
+      "replication": false,
+      "bypassrls": false
+    }
+  ],
+  "runtime_no_owner_migrator_membership": true
+}

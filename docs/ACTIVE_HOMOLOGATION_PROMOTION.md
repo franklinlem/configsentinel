@@ -2,7 +2,7 @@
 
 Atualizado em **01/11/2026, America/Sao_Paulo**. Branch `plan/active-homologation-rc2`.
 
-**Janela ativa interrompida em J3; restore isolado posterior PASS. Decisão: NO-GO para aceite da homologação, ainda não promovida.** API/web estão **paradas desde 09:41:52 -03**; PostgreSQL RC1 permanece healthy no volume original. **Nenhum deploy RC2 foi solicitado**, nenhuma role/variável/source do Coolify foi alterada. Produção continua não autorizada. [Resultado da janela](evidence/active-rc2-window/execution-summary.json).
+**Nova janela autorizada interrompida em J5; homologação indisponível e NO-GO.** API/web continuam **paradas desde 09:41:52 -03**; banco RC1 saudável no volume original. As três roles de J4 foram aplicadas; configuração Coolify permanece RC1 e nenhum deploy RC2 foi solicitado. Produção continua não autorizada. [Resultado da janela](evidence/active-rc2-window/execution-summary.json).
 
 SHA de preparação autorizado: `36baf66f4656f86d157cd070202323db9465c5f4`; código das imagens: `ea868efaa3e3b364d012981e597c8faf6bc30651`. A autorização específica desta execução substitui o G0 pendente da preparação; não autoriza continuar após o ponto de parada abaixo. As seções de preparação e ensaios anteriores permanecem como histórico, com os respectivos limites.
 
@@ -245,3 +245,18 @@ Foram comparados schema 1, contagens das 14 tabelas e conteúdo/identidade dos q
 O novo container e volume exclusivos usam rede interna sem portas, sem montar o volume ativo; `empty-init` vazio modo 0755 e seus pais visíveis foram acessíveis ao UID 70. As credenciais ficaram em arquivo 0600 e diretório 0700. A imagem e os recursos isolados estão identificados na [evidência](evidence/active-rc2-window/j3-authorized-restore/result.json); permanecem preservados. O container isolado segue em execução, sem portas públicas.
 
 **J3 PASS para este backup e esta baseline.** A seção 11 registra o FAIL histórico da janela interrompida e a seção 12 a tentativa que não chegou ao restore. J4–J8 e o deploy não foram executados; a promoção ainda depende de autorização específica e reconferência de gates, estado e frescor do backup no momento da janela. Produção permanece NO-GO.
+
+
+## 14. Retomada J4–J8 autorizada — interrompida em J5
+
+**NO-GO: homologação indisponível; RC2 não implantado.** A autorização foi para o UUID `oi6lvzwzomwtbbgzf5uzofuh`, preparação `36baf66f4656f86d157cd070202323db9465c5f4` e imagens de `ea868efaa3e3b364d012981e597c8faf6bc30651`. API/web permanecem paradas desde 09:41:52 -03; banco ativo healthy. [Resumo e estado final](evidence/active-rc2-resume/summary.json).
+
+Prechecks passaram: banco e restore isolado J3 coincidem nas 14 contagens e conteúdo de eventos/ACKs; schema 1, quatro eventos e dois reconhecimentos; snapshot de configuração decriptável, checksum/sidecar do backup, rede/volume/capacidade preservados. [Workflow 41309355528](https://github.com/franklinlem/configsentinel/actions/runs/41309355528) passou no SHA fixado com assinaturas, provenance, SBOMs e scans dos cinco digests e pull restrito; os quatro digests centrais foram inspecionados no cache. Não havia deploy concorrente.
+
+**J4 PASS:** roles e grants foram aplicados em transação. As 14 contagens e eventos/ACKs não mudaram; runtime autenticou via TCP sem privilégios administrativos e dez operações proibidas receberam SQLSTATE 42501. [Evidência](evidence/active-rc2-resume/roles-adopted.json). As três roles novas permanecem no banco; não há rollback automático nem eliminação de roles.
+
+**J5 FAIL:** o helper de configuração retornou saída que seu verificador não conseguiu interpretar como JSON. A causa precisa não foi estabelecida: a saída original não foi preservada; uma análise sintática posterior com dados fictícios não reproduziu o problema. A inspeção somente leitura confirmou source `main`/commit `5819b7f`, Compose RC1, três chaves de ambiente originais e auto-deploy desligado. Não repetir a operação automaticamente nem presumir que foi configurada. [Estado](evidence/active-rc2-resume/interrupted.json) e [diagnóstico limitado](evidence/active-rc2-resume/j5-syntax-diagnostic.json).
+
+**J6/J7 não executados:** nenhuma solicitação de deploy, smoke pós-deploy, backup pós-mudança ou observação de aceite de 10 minutos. Kuma 20 DOWN/503 pela aplicação parada; Kuma 21 UP/backup verified na consulta de interrupção. Agente não foi atualizado. O fallback limpo continua assinado/cacheado e ensaiado em isolamento, mas não implantado; não reiniciar imagens RC1 vulneráveis ou aplicar rollback genérico.
+
+Próxima ação proposta para revisão: reproduzir e corrigir o helper J5 em clone isolado ou transação comprovadamente revertida, preservando diagnóstico sanitizado e testando leitura/persistência das variáveis. Antes de nova janela, reconferir backup, estado e os privilégios J4 já aplicados; não reaplicar roles cegamente. Somente após autorização específica, configurar o UUID e seguir J6–J8 com um deploy manual por digest. Não executar restore sobre o banco ativo. Produção permanece não autorizada.
