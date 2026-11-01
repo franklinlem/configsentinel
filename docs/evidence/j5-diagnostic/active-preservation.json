@@ -1,0 +1,36 @@
+{
+  "checked_at": "2026-11-01T20:20:43.749055+00:00",
+  "database_baseline_unchanged": true,
+  "roles_unchanged": true,
+  "resource": {
+    "commit": "5819b7fce93c10cceabbe59fde5fac4f647b707c",
+    "branch": "main",
+    "compose": "/deploy/compose.coolify.yml",
+    "env_keys": [
+      "ADMIN_EMAIL",
+      "ADMIN_PASSWORD",
+      "POSTGRES_PASSWORD"
+    ],
+    "queue": 0
+  },
+  "containers": {
+    "api": {
+      "id": "8fc94869cd20846d3c8207c117e44a88f62ec6a8b8ca2a2e9e4309acad0927da",
+      "status": "exited",
+      "health": "unhealthy"
+    },
+    "web": {
+      "id": "f56b66c3d5060b461180e01b94d51eb0db0d70de665560644516762b44692561",
+      "status": "exited",
+      "health": "unhealthy"
+    },
+    "db": {
+      "id": "08bd45897b416cf2cc537834dc8751da9f6be34478f2bcd14ac3efd5dbe93888",
+      "status": "running",
+      "health": "healthy"
+    }
+  },
+  "active_writes": false,
+  "deploy_queued": false,
+  "environment_values_match_encrypted_snapshot": true
+}

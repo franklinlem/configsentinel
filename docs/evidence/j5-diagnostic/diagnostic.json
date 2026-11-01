@@ -1,0 +1,165 @@
+{
+  "checked_at": "2026-11-01T20:21:51.018244+00:00",
+  "original_active_failure": {
+    "category": "helper",
+    "phase": "unknown",
+    "kind": "unknown",
+    "exit_code": 2,
+    "stdout_bytes": 68,
+    "stderr_bytes": 0,
+    "content_not_available": true
+  },
+  "installed_php_buffer_read_only": {
+    "initial_level": 0,
+    "initial_length": false,
+    "after_ob_start_level": 1,
+    "after_ob_start_length": 0,
+    "after_laravel_bootstrap_level": 1,
+    "after_laravel_bootstrap_length": 0,
+    "content_recorded": false
+  },
+  "isolated_test": {
+    "scope": "dedicated internal network and synthetic PostgreSQL 15 with Coolify image identical to installed",
+    "helper_entry_first_success": true,
+    "helper_entry_idempotent": true,
+    "missing_database_sanitized_kind_verified": true,
+    "buffer_probe": {
+      "scope": "synthetic PostgreSQL 15 only",
+      "initial": {
+        "level": 0,
+        "length": false
+      },
+      "after_start": {
+        "level": 1,
+        "length": 0
+      },
+      "after_bootstrap": {
+        "level": 1,
+        "length": 0
+      },
+      "injected_noise": {
+        "level": 1,
+        "bytes": 27
+      },
+      "noisy_attempt_result": "internal_error",
+      "warning_maps_to_internal_error": true,
+      "database_exception_maps_to_internal_error": true,
+      "rollback_identical": true,
+      "clean_first_change": true,
+      "clean_second_idempotent": true,
+      "before_response": {
+        "level": 1,
+        "length": 0
+      },
+      "raw_buffer_content_recorded": false
+    },
+    "logs": [
+      {
+        "phase": "create_entry_database",
+        "category": "success",
+        "exit_code": 0,
+        "stdout_bytes": 0,
+        "stderr_bytes": 0
+      },
+      {
+        "phase": "fixture_entry",
+        "category": "success",
+        "exit_code": 0,
+        "stdout_bytes": 109,
+        "stderr_bytes": 0
+      },
+      {
+        "phase": "create_buffer_database",
+        "category": "success",
+        "exit_code": 0,
+        "stdout_bytes": 0,
+        "stderr_bytes": 0
+      },
+      {
+        "phase": "fixture_buffer",
+        "category": "success",
+        "exit_code": 0,
+        "stdout_bytes": 109,
+        "stderr_bytes": 0
+      },
+      {
+        "phase": "entry_1",
+        "category": "success",
+        "exit_code": 0,
+        "stdout_bytes": 210,
+        "stderr_bytes": 0,
+        "changed": true
+      },
+      {
+        "phase": "entry_2",
+        "category": "success",
+        "exit_code": 0,
+        "stdout_bytes": 211,
+        "stderr_bytes": 0,
+        "changed": false
+      },
+      {
+        "phase": "synthetic_missing_database",
+        "category": "helper",
+        "exit_code": 2,
+        "stdout_bytes": 102,
+        "stderr_bytes": 0,
+        "helper_phase": "apply",
+        "kind": "database"
+      },
+      {
+        "phase": "injected_buffer",
+        "category": "success",
+        "exit_code": 0,
+        "stdout_bytes": 482,
+        "stderr_bytes": 0
+      }
+    ],
+    "raw_output_or_live_secrets_persisted": false,
+    "synthetic_fixtures_preserved": true
+  },
+  "resources": {
+    "name": "configsentinel-j5-diagnostic-740d97ec00",
+    "network_id": "8334df3d349200b09e3d4246d1e56a32f1906c6a91e609e93c50303aca19063d",
+    "db_container_id": "768288a178e492eea6235bcac67ca9947c7c27003e76cdc5035e6235fa7e3ff3",
+    "db_image_id": "sha256:54e0dd8e8cddcdbb9156c2486eed5a43eccb7214d7c6828097d41ce049fb3984",
+    "isolated_internal_network": true,
+    "no_public_ports": true,
+    "database_tmpfs_only": true,
+    "credential_mode": "0600"
+  },
+  "database_schema_scope": "synthetic partial metadata schema compatible with PostgreSQL 15; not a full production metadata clone",
+  "observability_fix": "protocol v2 adds allowlisted phase and exception kind; no exception message, stdout or stderr content",
+  "confirmed_active_root_cause": false,
+  "remaining_hypotheses": [
+    "unexpected_buffer_output_during_transaction",
+    "php_warning_converted_to_exception",
+    "database_exception",
+    "another_unclassified_throwable"
+  ],
+  "actual_helper_cause_may_differ": true,
+  "regression": {
+    "tests_total": 21,
+    "passed": 19,
+    "skipped": 2,
+    "skipped_reason": "PostgreSQL J4 integration container not supplied to unit suite",
+    "j5_protocol_tests": 11,
+    "isolated_postgres15_entry_and_idempotence": true,
+    "isolated_postgres15_injected_buffer_rollback": true,
+    "isolated_database_error_phase_and_kind": true,
+    "isolated_laravel_sqlite_and_compose": true
+  },
+  "recommendation": "NO-GO for active J5 until cause investigated and change independently reviewed",
+  "active_resource_written": false,
+  "deploy_attempted": false,
+  "production_approved": false,
+  "sha256": {
+    "j5_coolify_entry.php": "9347c37f70bd087e7c0941b189e99ad555636cf4dbfede541778e347ac44b35a",
+    "j5_coolify_transaction.php": "bd67c1cea61b834f8913ed6fddccde1164640f31068ba18853c3c7200a5b60c4",
+    "j5_protocol.py": "4e6dde3a9760f76d9f0e60bd03238f8263f0b02e5bea186e88949d4323ffb32c",
+    "diagnose_j5_buffer.php": "d3c1c1c58798fbfd46b62a7e12fba47ac7c0010bcf28045811f9fe1f457be3d1",
+    "diagnose_j5_pg_fixture.php": "fd3d10ff472eb361bd0071a38635ffdcefa3aa115bdce340f920928db1ed68bd",
+    "diagnose_j5_pg_setup.py": "f055b6b906022bd4ba88a56f369fca6ed089418fb23d5ea2b0fdc24010dae6e4",
+    "diagnose_j5_postgres.py": "b0457232b75045d5a6763c42cb98807a6a9cc2f69e2b443848730094ba74f517"
+  }
+}

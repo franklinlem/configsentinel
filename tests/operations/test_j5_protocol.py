@@ -11,7 +11,7 @@ m = importlib.util.module_from_spec(spec);sys.modules[spec.name]=m;spec.loader.e
 
 class ProtocolTests(unittest.TestCase):
     def setUp(self):
-        self.ok=json.dumps({'version':1,'status':'ok','data':{'uuid':'configsentinel-j5-isolated','commit':'36baf66f4656f86d157cd070202323db9465c5f4','changed':True,'protected_envs_verified':7},'error':None}).encode()
+        self.ok=json.dumps({'version':2,'status':'ok','data':{'uuid':'configsentinel-j5-isolated','commit':'36baf66f4656f86d157cd070202323db9465c5f4','changed':True,'protected_envs_verified':7},'error':None,'phase':'response','kind':None}).encode()
     def test_valid(self):self.assertEqual(m.decode_response(0,self.ok,b'')['commit'],'36baf66f4656f86d157cd070202323db9465c5f4')
     def test_invalid_outputs(self):
         for output in [b'',self.ok[:-1],b'prefix '+self.ok,self.ok+b' extra',b'\xff',b'null',b'{"version": NaN}',b'{}']:
@@ -19,7 +19,7 @@ class ProtocolTests(unittest.TestCase):
                 with self.assertRaises(m.J5Failure) as e:m.decode_response(0,output,b'')
                 self.assertEqual(e.exception.diagnostic.category,'parser')
     def test_transport_and_helper(self):
-        error=json.dumps({'version':1,'status':'error','data':None,'error':'transaction_failed'}).encode()
+        error=json.dumps({'version':2,'status':'error','data':None,'error':'transaction_failed','phase':'apply','kind':'database'}).encode()
         for code,out,category in [(255,b'password=secret','transport'),(2,error,'helper'),(1,b'raw secret','helper'),(1,self.ok,'helper')]:
             with self.subTest(code=code,out=out):
                 with self.assertRaises(m.J5Failure) as e:m.decode_response(code,out,b'token=secret')
@@ -48,4 +48,24 @@ class ProtocolTests(unittest.TestCase):
         with self.assertRaises(m.J5Failure) as e:m.decode_response(0,self.ok,b'possibly sensitive warning')
         self.assertEqual(e.exception.diagnostic.reason,'unexpected_stderr_after_success')
         self.assertNotIn('sensitive',str(e.exception))
+    def test_failure_phase_and_kind_are_whitelisted(self):
+        data={'version':2,'status':'error','data':None,'error':'internal_error','phase':'apply','kind':'output_buffer'}
+        with self.assertRaises(m.J5Failure) as e:m.decode_response(2,json.dumps(data).encode(),b'')
+        self.assertEqual((e.exception.diagnostic.phase,e.exception.diagnostic.kind),('apply','output_buffer'))
+        data['kind']='secret-value'
+        with self.assertRaises(m.J5Failure) as e:m.decode_response(2,json.dumps(data).encode(),b'')
+        self.assertEqual(e.exception.diagnostic.category,'parser');self.assertNotIn('secret-value',str(e.exception))
+    def test_structured_unexpected_values_are_rejected(self):
+        for field in ['phase','kind','error']:
+            data={'version':2,'status':'error','data':None,'error':'internal_error','phase':'apply','kind':'database'}
+            data[field]=['unexpected']
+            with self.subTest(field=field), self.assertRaises(m.J5Failure) as e:m.decode_response(2,json.dumps(data).encode(),b'')
+            self.assertEqual(e.exception.diagnostic.category,'parser')
+        data=json.loads(self.ok);data['data']['uuid']={'unexpected':True}
+        with self.assertRaises(m.J5Failure) as e:m.decode_response(0,json.dumps(data).encode(),b'')
+        self.assertEqual(e.exception.diagnostic.category,'parser')
+    def test_old_envelope_version_is_not_accepted(self):
+        data=json.loads(self.ok);data['version']=1
+        with self.assertRaises(m.J5Failure) as e:m.decode_response(0,json.dumps(data).encode(),b'')
+        self.assertEqual(e.exception.diagnostic.reason,'unexpected_envelope')
 if __name__=='__main__':unittest.main()

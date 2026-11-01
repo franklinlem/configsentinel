@@ -15,6 +15,9 @@
 
 **Tentativa específica de J5: FAIL.** O helper retornou `internal_error` na única chamada; diagnóstico específico ainda desconhecido. Leitura independente mostrou metadados e envs iguais ao snapshot, nenhuma persistência parcial, banco íntegro, roles J4 preservadas e nenhum deploy. API/web continuam paradas; homologação e produção NO-GO. [Evidência](evidence/j5-active-attempt/summary.json).
 
+
+**Diagnóstico posterior de J5: NO-GO para nova tentativa ativa.** Buffer não estava preenchido no bootstrap observado; ruído sintético causou `internal_error` e rollback em clone PostgreSQL 15, mas a origem real permanece desconhecida. O helper ganhou fase/tipo sanitizados no protocolo v2, sem afirmar que a falha foi corrigida. [Evidência](evidence/j5-diagnostic/diagnostic.json). Recurso ativo permaneceu sem alterações.
+
 ## Estado operacional — janela autorizada de 01/11/2026
 
 **NO-GO para aceite da homologação e para produção. API/web estão paradas desde 09:41:52 -03; banco RC1 permanece healthy e íntegro. RC2 não foi implantado.** Janela interrompida em J3 conforme o procedimento aprovado, antes da aplicação de roles/configuração/deploy.

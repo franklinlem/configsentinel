@@ -1,0 +1,20 @@
+<?php
+// Run only in an isolated PHP container attached exclusively to a synthetic PostgreSQL 15 instance.
+$initial=['level'=>ob_get_level(),'length'=>ob_get_length()];ob_start();$started=['level'=>ob_get_level(),'length'=>ob_get_length()];
+require '/var/www/html/vendor/autoload.php';$app=require '/var/www/html/bootstrap/app.php';$app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+$db=Illuminate\Support\Facades\DB::connection();if(!preg_match('/^j5_buffer_[a-f0-9]{12}$/',$db->getDatabaseName())||$db->getDriverName()!=='pgsql'||$db->getConfig('host')!==getenv('DB_HOST')||!str_starts_with(getenv('DB_HOST'),'configsentinel-j5-diagnostic-'))throw new RuntimeException('wrong_database_scope');
+$boot=['level'=>ob_get_level(),'length'=>ob_get_length()];
+$api='ghcr.io/franklinlem/configsentinel-api@sha256:ea0a14eda7478d9b4a5091effbb7a990a40594fd56085dd0c483809201a16ec4';$fallback='ghcr.io/franklinlem/configsentinel-api@sha256:cacace0b74ddb9bdef72109436035c59305e4c6bb02c063fe0788ce069cffc66';$web='ghcr.io/franklinlem/configsentinel-web@sha256:e7604db734053aed8834c0c4025001fcafab1026e50bca1f8b02aee1fb6cd8d3';$pg='ghcr.io/franklinlem/configsentinel-db@sha256:ceeafd17328e0a09fa2999be01ccdec407e3318306d392c00646cf1dc74b4447';
+$p=['mode'=>'active','uuid'=>'oi6lvzwzomwtbbgzf5uzofuh','commit'=>'36baf66f4656f86d157cd070202323db9465c5f4','branch'=>'plan/active-homologation-rc2','compose'=>'/deploy/compose.active-homologation.yml','custom_build'=>"docker image inspect --format '{{.Id}}' ".implode(' ',[$api,$fallback,$web,$pg]),'custom_start'=>'docker compose --project-name oi6lvzwzomwtbbgzf5uzofuh up -d --pull never --no-build','env'=>['POSTGRES_PASSWORD'=>'synthetic-password-only','RUNTIME_DB_PASSWORD'=>str_repeat('1',64),'MIGRATOR_DB_PASSWORD'=>str_repeat('2',64),'CONFIGSENTINEL_API_IMAGE'=>$api,'CONFIGSENTINEL_MIGRATION_IMAGE'=>$api,'CONFIGSENTINEL_WEB_IMAGE'=>$web,'CONFIGSENTINEL_DB_IMAGE'=>$pg]];
+$known=['invalid_input','scope_rejected','state_drift','transaction_failed','internal_error'];
+$warningMapped=false;set_error_handler(static function($level,$message,$file,$line){throw new ErrorException('php_warning',0,$level,$file,$line);});
+try{trigger_error('synthetic warning',E_USER_WARNING);}catch(Throwable $e){$warningMapped=configsentinel_j5_error_kind($e)==='php_warning' && !in_array($e->getMessage(),$known,true);}finally{restore_error_handler();}
+$queryMapped=false;try{$db->select('SELECT 1 FROM j5_synthetic_missing_table');}catch(Throwable $e){$queryMapped=configsentinel_j5_error_kind($e)==='database' && !in_array($e->getMessage(),$known,true);}
+if(!$warningMapped || !$queryMapped)throw new RuntimeException('error_mapping_test_failed');
+function state($db){return json_encode([$db->table('applications')->get(),$db->table('environment_variables')->get()]);}
+$before=state($db);echo 'synthetic-unexpected-output';$noisy=['level'=>ob_get_level(),'length'=>ob_get_length()];$noiseRejected=false;
+try{configsentinel_j5_apply($p);}catch(Throwable $e){$noiseRejected=$e->getMessage()==='internal_error' && configsentinel_j5_error_kind($e)==='output_buffer';}
+ob_clean();$rollback=$noiseRejected&&state($db)===$before;if(!$rollback)throw new RuntimeException('rollback_check_failed');
+$first=configsentinel_j5_apply($p);$firstState=state($db);$second=configsentinel_j5_apply($p);$idempotent=$first['changed']&&!$second['changed']&&state($db)===$firstState;if(!$idempotent)throw new RuntimeException('idempotence_failed');
+$end=['level'=>ob_get_level(),'length'=>ob_get_length()];ob_end_clean();
+echo json_encode(['scope'=>'synthetic PostgreSQL 15 only','initial'=>$initial,'after_start'=>$started,'after_bootstrap'=>$boot,'injected_noise'=>['level'=>$noisy['level'],'bytes'=>$noisy['length']],'noisy_attempt_result'=>'internal_error','warning_maps_to_internal_error'=>$warningMapped,'database_exception_maps_to_internal_error'=>$queryMapped,'rollback_identical'=>true,'clean_first_change'=>true,'clean_second_idempotent'=>true,'before_response'=>$end,'raw_buffer_content_recorded'=>false]);

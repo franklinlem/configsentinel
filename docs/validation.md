@@ -210,3 +210,10 @@ Causa de fundo da resposta não JSON anterior permanece desconhecida: saída nã
 Gates novos passaram: SHA/hash dos helpers, metadata/roles/grants, 14 contagens e eventos/ACKs, backup/restore/snapshot, rede/volume/capacidade e Compose privado. [Verificação 41311042013](https://github.com/franklinlem/configsentinel/actions/runs/41311042013) passou em assinaturas, SBOM, provenance, scans e cache.
 
 A única chamada ao helper retornou `internal_error` (código 2, stdout 68 bytes, stderr 0); não houve retry e a causa específica não é conhecida. Comparação independente com snapshot: metadados e envs originais, nenhuma persistência parcial observada; banco inalterado, API/web paradas e deploys em fila zero. As sete variáveis não foram persistidas e não há renderização pós-persistência. J6/J7/deploy não executados. [Evidências](evidence/j5-active-attempt/summary.json).
+
+
+## Diagnóstico J5: buffer e erros mascarados
+
+Medição do processo PHP instalado: buffer inexistente inicialmente, nível 1/tamanho 0 após abertura e após bootstrap. Clone isolado com mesma imagem Coolify e PostgreSQL 15 sintético: entrypoint anterior passou e foi idempotente. Com ruído injetado, `internal_error` e rollback integral foram reproduzidos; warning e exceção SQL sintética também podiam ser mascarados como `internal_error`. Isso não prova a origem do evento ativo; o esquema sintético cobre apenas tabelas e colunas necessárias.
+
+Protocolo v2 registra fase/tipo por allowlist, código e tamanhos, sem conteúdo sensível; categorias de buffer, warning e banco verificadas em isolamento. Entry point v2, idempotência e falha de banco sintética passaram em PostgreSQL; serializer/SQLite e Compose passaram. Suite operacional: 21 testes, 19 PASS e 2 ignorados por ausência de container J4. Protocolos rejeitam saídas inválidas e o envelope v1. Recurso, envs, dados, roles e serviços ativos conferidos em leitura e preservados. [Evidências](evidence/j5-diagnostic/diagnostic.json). Nova tentativa ativa NO-GO até revisão da causa e dos limites; não houve J5 ativo/deploy.

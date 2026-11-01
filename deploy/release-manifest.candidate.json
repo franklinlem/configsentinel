@@ -90,6 +90,12 @@
       "status": "active_attempt_failed_reassessment_required",
       "evidence": "docs/evidence/j5-active-attempt/summary.json",
       "active_resource_modified": false
+    },
+    "j5_diagnostic": {
+      "status": "cause_unconfirmed_no_go",
+      "evidence": "docs/evidence/j5-diagnostic/diagnostic.json",
+      "observability_protocol": "v2",
+      "active_resource_modified": false
     }
   }
 }

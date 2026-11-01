@@ -1,6 +1,18 @@
 <?php
 // Loaded by a controlled caller after Laravel bootstrap. Does not deploy or enqueue.
 // Values enter as structured data and are never included in returned results/errors.
+class J5UnexpectedOutput extends RuntimeException {}
+function configsentinel_j5_error_kind(Throwable $e): string {
+    return match (true) {
+        $e instanceof J5UnexpectedOutput => 'output_buffer',
+        $e instanceof ErrorException => 'php_warning',
+        $e instanceof Illuminate\Database\QueryException || $e instanceof PDOException => 'database',
+        $e instanceof Illuminate\Database\Eloquent\ModelNotFoundException => 'missing_model',
+        $e instanceof JsonException => 'invalid_json',
+        $e instanceof RuntimeException => 'runtime',
+        default => 'other',
+    };
+}
 function configsentinel_j5_apply(array $p, bool $injectFailure = false): array {
     foreach (['mode','uuid','commit','compose','branch','custom_build','custom_start','env'] as $field) if (!array_key_exists($field,$p)) throw new RuntimeException('invalid_input');
     if (!is_array($p['env']) || !is_string($p['mode']) || !is_string($p['uuid'])) throw new RuntimeException('invalid_input');
@@ -35,7 +47,7 @@ function configsentinel_j5_apply(array $p, bool $injectFailure = false): array {
             if ($desired && (!$v || $v->value !== $value || !$v->is_literal || !$v->is_runtime || $v->is_buildtime || !$v->is_shown_once)) throw new RuntimeException('state_drift');
         }
         if ($desired) {
-            if (ob_get_level() && ob_get_length() !== 0) throw new RuntimeException('internal_error');
+            if (ob_get_level() && ob_get_length() !== 0) throw new J5UnexpectedOutput('internal_error');
             return ['uuid'=>$p['uuid'],'commit'=>$p['commit'],'changed'=>false,'protected_envs_verified'=>count($p['env'])];
         }
         // Protect the existing database password from accidental rotation.
@@ -49,7 +61,7 @@ function configsentinel_j5_apply(array $p, bool $injectFailure = false): array {
         if ($injectFailure) throw new RuntimeException('test_failure');
         $a->git_branch=$p['branch'];$a->git_commit_sha=$p['commit'];$a->docker_compose_location=$p['compose'];$a->docker_compose_custom_build_command=$p['custom_build'];$a->docker_compose_custom_start_command=$p['custom_start'];$a->saveQuietly();
         $a->refresh();foreach($p['env'] as $key=>$value){$v=$a->environment_variables()->where('key',$key)->firstOrFail();if($v->value!==$value||!$v->is_literal||!$v->is_runtime||$v->is_buildtime||!$v->is_shown_once)throw new RuntimeException('transaction_failed');}
-        if (ob_get_level() && ob_get_length() !== 0) throw new RuntimeException('internal_error');
+        if (ob_get_level() && ob_get_length() !== 0) throw new J5UnexpectedOutput('internal_error');
         return ['uuid'=>$p['uuid'],'commit'=>$p['commit'],'changed'=>true,'protected_envs_verified'=>count($p['env'])];
     });
 }

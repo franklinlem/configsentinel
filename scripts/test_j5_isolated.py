@@ -17,7 +17,7 @@ d=envelope['data'];assert all(d[k] for k in ['sqlite_in_memory','fake_values_onl
 variables=d.pop('serialized_synthetic_values')
 try:j5_client.configure({})
 except j5_protocol.J5Failure as e:
- assert e.diagnostic.category=='helper' and e.diagnostic.reason=='invalid_input' and e.diagnostic.exit_code==2
+ assert e.diagnostic.category=='helper' and e.diagnostic.reason=='invalid_input' and e.diagnostic.exit_code==2 and e.diagnostic.phase=='apply' and e.diagnostic.kind=='runtime'
 else:raise RuntimeError('Invalid input accepted')
 with tempfile.TemporaryDirectory(prefix='configsentinel-j5-') as temp:
  path=pathlib.Path(temp);env=path/'synthetic.env';env.write_text(''.join(k+'='+v+'\n' for k,v in variables.items()));env.chmod(0o600)
@@ -29,5 +29,5 @@ with tempfile.TemporaryDirectory(prefix='configsentinel-j5-') as temp:
  compose=path/'runtime.yml';compose.write_text('services:\n  test:\n    image: configsentinel-candidate-db:local\n    network_mode: none\n    entrypoint: ["sh", "-c", "printf %s \\\"$$VALUE\\\""]\n    environment:\n      VALUE: ${POSTGRES_PASSWORD}\n')
  r=subprocess.run(['docker','compose','--env-file',str(env),'-p','configsentinel-j5-serializer-'+uuid.uuid4().hex[:10],'-f',str(compose),'run','--rm','--no-deps','--pull','never','test'],capture_output=True,text=True,timeout=60)
  assert r.returncode==0 and r.stdout=="synthetic-$-hash#-quote'"
-result={'probe':d,'invalid_input_envelope':'helper invalid_input exit 2','synthetic_dollar_runtime_roundtrip':True,'compose_config_dollar_render_escapes_as_double':True,'volume_name':x['volumes']['postgres_data']['name'],'network_names':{k:v['name'] for k,v in x['networks'].items()},'no_ports_or_build':True,'active_configuration_writes':False,'full_active_deploy_exercised':False}
+result={'probe':d,'invalid_input_envelope':'helper invalid_input phase apply kind runtime exit 2','synthetic_dollar_runtime_roundtrip':True,'compose_config_dollar_render_escapes_as_double':True,'volume_name':x['volumes']['postgres_data']['name'],'network_names':{k:v['name'] for k,v in x['networks'].items()},'no_ports_or_build':True,'active_configuration_writes':False,'full_active_deploy_exercised':False}
 print(json.dumps(result,indent=2))
