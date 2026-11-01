@@ -1,0 +1,44 @@
+{
+  "recorded_at": "2026-11-01T01:04:41.871449+00:00",
+  "project": "ConfigSentinel",
+  "channel": "HermesFranklem",
+  "human_receipt_confirmed": true,
+  "confirmed_by": "Franklin Martins",
+  "confirmation": "Recebi o alerta do ConfigSentinel",
+  "evidence": [
+    "Explicit user confirmation in conversation",
+    "User-provided screenshot visually showing ConfigSentinel notifications"
+  ],
+  "visible_notifications": [
+    {
+      "kind": "DOWN",
+      "reason": "backup_overdue",
+      "displayed_time": "16:04"
+    },
+    {
+      "kind": "UP",
+      "reason": "backup verified",
+      "displayed_time": "16:04"
+    },
+    {
+      "kind": "DOWN",
+      "reason": "checksum_mismatch",
+      "displayed_time": "16:12"
+    },
+    {
+      "kind": "UP",
+      "reason": "backup verified",
+      "displayed_time": "16:12"
+    },
+    {
+      "kind": "controlled test summary",
+      "displayed_time": "20:47"
+    }
+  ],
+  "times_note": "Times transcribed from screenshot; notification timestamps were not independently queried. Controlled tests used synthetic failure fixtures, not evidence of a real backup outage.",
+  "missing_push_test_confirmed": false,
+  "current_monitor_configuration_reverified": false,
+  "deployment_authorized": false,
+  "active_environment_modified": false,
+  "privacy": "Original screenshot not copied into repository; unrelated conversations and services omitted."
+}

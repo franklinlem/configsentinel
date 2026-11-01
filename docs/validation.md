@@ -134,3 +134,9 @@ Preparado [ACTIVE_HOMOLOGATION_PROMOTION.md](ACTIVE_HOMOLOGATION_PROMOTION.md) e
 Verificações desta etapa: quatro imagens exatas exportadas do cache e reescaneadas (zero HIGH/CRITICAL); oito assinaturas DSSE de SBOM/provenance revalidadas com a chave pública, commit/digests/checksums correspondentes; archives RC1 0600 com SHA conferido. Assinatura direta online será repetida após pull somente leitura. Backup recente passou em checksum/decriptação; timers saudáveis e quatro pushes de monitor recentes aceitos. Badge Kuma 21 N/A não comprova estado; recebimento humano continua pendente. Somente metadados de variáveis deste UUID foram consultados; nenhuma credencial global de Kuma/Docker acessada. [Novas evidências](evidence/promotion/artifact-recheck.json).
 
 Não repetida suite funcional completa para alteração documental/Compose sem deploy. Testes pós-deploy estão definidos; nenhum smoke mutante foi executado no ativo. Recuperação com web/DB RC1 vulneráveis está vedada; fallback limpo por digest é gate adicional. Central, piloto, fila e backups existentes preservados; nenhuma promoção ou aprovação inferida.
+
+## Confirmação humana dos alertas de backup
+
+Franklin respondeu “Recebi o alerta do ConfigSentinel” e anexou captura do HermesFranklem mostrando os testes DOWN/UP de atraso (16:04) e checksum inválido (16:12), além da mensagem de teste (20:47). A pendência de recebimento humano indicada nos registros anteriores está encerrada para esses testes. [Registro sanitizado](evidence/promotion/alert-receipt-confirmation.json); captura original não versionada por conter conversas e serviços alheios. Horários transcritos da imagem, sem consulta ao provedor.
+
+Continuam pendentes o ensaio de ausência de push e a conferência da configuração atual do monitor 21. Esta confirmação não autoriza promoção; nenhum serviço, token, fila, backup ou configuração foi alterado.
