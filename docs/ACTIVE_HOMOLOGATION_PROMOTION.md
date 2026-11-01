@@ -2,7 +2,7 @@
 
 Atualizado em **01/11/2026, America/Sao_Paulo**. Branch `plan/active-homologation-rc2`.
 
-**Nova janela autorizada interrompida em J5; homologação indisponível e NO-GO.** API/web continuam **paradas desde 09:41:52 -03**; banco RC1 saudável no volume original. As três roles de J4 foram aplicadas; configuração Coolify permanece RC1 e nenhum deploy RC2 foi solicitado. Produção continua não autorizada. [Resultado da janela](evidence/active-rc2-window/execution-summary.json).
+**Uma única nova tentativa de J5 retornou internal_error; homologação indisponível e NO-GO.** API/web continuam **paradas desde 09:41:52 -03**; banco RC1 saudável no volume original. As três roles de J4 foram aplicadas; configuração Coolify permanece RC1 e nenhum deploy RC2 foi solicitado. Produção continua não autorizada. [Resultado da janela](evidence/active-rc2-window/execution-summary.json).
 
 SHA de preparação autorizado: `36baf66f4656f86d157cd070202323db9465c5f4`; código das imagens: `ea868efaa3e3b364d012981e597c8faf6bc30651`. A autorização específica desta execução substitui o G0 pendente da preparação; não autoriza continuar após o ponto de parada abaixo. As seções de preparação e ensaios anteriores permanecem como histórico, com os respectivos limites.
 
@@ -275,3 +275,14 @@ A transação fixa UUID, SHA, Compose, quatro digests aprovados, comandos e flag
 O serializer instalado e o Compose foram testados com valores sintéticos, inclusive cifrão, aspas e `#`. `docker compose config` representa cifrão como `$$`, mas um container sintético sem rede confirmou que o valor efetivamente recebido coincide com o original. Compose, redes externas e volume esperados foram conferidos, sem portas nem build. Foram executados 18 testes operacionais: 16 passaram e 2 de integração PostgreSQL foram ignorados por ausência do container de teste; os testes J4 reais já estavam documentados separadamente. [Resultados e hashes](evidence/j5-isolated/probe.json), [preservação do ativo](evidence/j5-isolated/active-preservation.json).
 
 Antes de qualquer próxima tentativa ativa: revalidar assinaturas/scans/cache, snapshot e backup, estado das roles já aplicadas, volume/redes, fila de deploy e SHA fixado; executar apenas após nova autorização e manter o limite de uma janela controlada. J6–J8 e produção continuam não autorizados.
+
+
+## 16. Tentativa específica de J5 — FAIL
+
+A autorização de Franklin cobriu uma única chamada do helper `6c79eb9`, exclusivamente ao recurso `oi6lvzwzomwtbbgzf5uzofuh`, sem J6–J8. Gates passaram: SHA de preparação e do código fixados, hashes dos helpers/manifests, backup/restore J3 correspondente à baseline, snapshot criptografado, 14 tabelas e registros originais, roles/ownership e matriz de grants J4, runtime TCP, redes/volume/capacidade e ausência de deploy concorrente. A renderização privada anterior à chamada confirmou quatro imagens, DSNs, volume/redes e ausência de portas/build. O [workflow 41311042013](https://github.com/franklinlem/configsentinel/actions/runs/41311042013) verificou assinaturas, SBOMs, provenance, scans atuais e pull restrito; os quatro digests centrais estavam no cache.
+
+**J5 FAIL:** a única chamada retornou envelope sanitizado `internal_error`, código 2, 68 bytes em stdout e stderr vazio. A categoria não identifica a causa específica; não se presume um problema de sintaxe, banco ou transporte. Não houve repetição. [Resposta sanitizada](evidence/j5-active-attempt/helper-response.json).
+
+A inspeção independente em leitura comparou commit, branch, Compose, comandos customizados e valores das variáveis com o snapshot anterior: **iguais**, sem configuração parcial observada. Permanecem somente as três variáveis originais; as sete previstas não foram persistidas, portanto não existe renderização pós-persistência a aprovar. Banco preserva baseline, API/web paradas, PostgreSQL saudável e fila de deploy vazia. Roles J4 permaneceram aplicadas sem reaplicação. [Estado](evidence/j5-active-attempt/independent-state.json).
+
+J6/J7/J8 operacionais e deploy não foram executados. O fallback limpo não foi acionado; não usar rollback genérico nem reiniciar imagens vulneráveis. O helper aprovado em isolamento na seção 15 **não está aprovado para nova chamada ativa após este FAIL**, até diagnóstico e revisão específicos. Produção continua NO-GO.

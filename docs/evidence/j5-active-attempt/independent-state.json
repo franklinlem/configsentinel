@@ -1,0 +1,65 @@
+{
+  "checked_at": "2026-11-01T13:27:00.427382+00:00",
+  "status": "FAIL; helper returned internal_error; no retry",
+  "metadata_matches_encrypted_snapshot": true,
+  "environment_values_match_snapshot": true,
+  "env_keys": [
+    "ADMIN_EMAIL",
+    "ADMIN_PASSWORD",
+    "POSTGRES_PASSWORD"
+  ],
+  "coolify_metadata": {
+    "commit": "5819b7fce93c10cceabbe59fde5fac4f647b707c",
+    "branch": "main",
+    "compose": "/deploy/compose.coolify.yml",
+    "custom_build": null,
+    "custom_start": null,
+    "auto": false,
+    "raw": true,
+    "build_server": false,
+    "queue": 0
+  },
+  "database_baseline_unchanged": true,
+  "counts": {
+    "schema_migrations": 1,
+    "organizations": 1,
+    "users": 1,
+    "projects": 1,
+    "memberships": 1,
+    "environments": 1,
+    "servers": 1,
+    "agents": 3,
+    "agent_tokens": 3,
+    "user_sessions": 6,
+    "change_events": 4,
+    "file_observations": 1,
+    "acknowledgements": 2,
+    "audit_logs": 6
+  },
+  "schema": 1,
+  "containers": {
+    "api": {
+      "id": "8fc94869cd20846d3c8207c117e44a88f62ec6a8b8ca2a2e9e4309acad0927da",
+      "status": "exited",
+      "health": "unhealthy",
+      "volumes": []
+    },
+    "web": {
+      "id": "f56b66c3d5060b461180e01b94d51eb0db0d70de665560644516762b44692561",
+      "status": "exited",
+      "health": "unhealthy",
+      "volumes": []
+    },
+    "db": {
+      "id": "08bd45897b416cf2cc537834dc8751da9f6be34478f2bcd14ac3efd5dbe93888",
+      "status": "running",
+      "health": "healthy",
+      "volumes": [
+        "oi6lvzwzomwtbbgzf5uzofuh_postgres_data"
+      ]
+    }
+  },
+  "deployment_queue": 0,
+  "helper_attempts": 1,
+  "production_approved": false
+}

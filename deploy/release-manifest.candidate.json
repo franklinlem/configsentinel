@@ -72,7 +72,7 @@
     "preparation_commit": "36baf66f4656f86d157cd070202323db9465c5f4",
     "authorized": true,
     "decision": "NO-GO",
-    "status": "interrupted_at_J5",
+    "status": "j5_single_attempt_failed",
     "evidence": "docs/evidence/active-rc2-window/execution-summary.json",
     "last_deployed_commit": "5819b7fce93c10cceabbe59fde5fac4f647b707c",
     "deploy_requests": 0,
@@ -84,12 +84,11 @@
     "j3_limited_retest": "passed_for_final_backup_in_isolated_database",
     "j3_limited_retest_evidence": "docs/evidence/active-rc2-window/j3-authorized-restore/result.json",
     "coolify_configuration_changed": false,
-    "latest_evidence": "docs/evidence/active-rc2-resume/summary.json",
-    "verification_run": "https://github.com/franklinlem/configsentinel/actions/runs/41309355528",
+    "latest_evidence": "docs/evidence/j5-active-attempt/summary.json",
+    "verification_run": "https://github.com/franklinlem/configsentinel/actions/runs/41311042013",
     "j5_isolated_helper_review": {
-      "status": "passed_for_controlled_attempt",
-      "evidence": "docs/evidence/j5-isolated/probe.json",
-      "previous_response_cause": "unconfirmed",
+      "status": "active_attempt_failed_reassessment_required",
+      "evidence": "docs/evidence/j5-active-attempt/summary.json",
       "active_resource_modified": false
     }
   }

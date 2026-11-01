@@ -12,6 +12,9 @@
 
 **Revisão isolada do helper J5:** aprovado para nova tentativa controlada após autorização e gates; o recurso ativo não foi alterado. Causa específica da resposta anterior permanece desconhecida porque seu conteúdo não foi preservado. A perda de diagnóstico foi corrigida com envelope e categorias sanitizadas; testes em Coolify instalado/SQLite em memória passaram para rollback, idempotência e criptografia. O ensaio não equivale a execução real do job Coolify. Homologação continua indisponível e produção NO-GO. [Evidência](evidence/j5-isolated/probe.json).
 
+
+**Tentativa específica de J5: FAIL.** O helper retornou `internal_error` na única chamada; diagnóstico específico ainda desconhecido. Leitura independente mostrou metadados e envs iguais ao snapshot, nenhuma persistência parcial, banco íntegro, roles J4 preservadas e nenhum deploy. API/web continuam paradas; homologação e produção NO-GO. [Evidência](evidence/j5-active-attempt/summary.json).
+
 ## Estado operacional — janela autorizada de 01/11/2026
 
 **NO-GO para aceite da homologação e para produção. API/web estão paradas desde 09:41:52 -03; banco RC1 permanece healthy e íntegro. RC2 não foi implantado.** Janela interrompida em J3 conforme o procedimento aprovado, antes da aplicação de roles/configuração/deploy.

@@ -203,3 +203,10 @@ Protocolo novo: oito testes cobrindo JSON válido, vazio/truncado, texto adicion
 Modelos instalados do Coolify com SQLite em memória e valores fictícios: persistência criptografada das sete variáveis, rollback integral após falha, idempotência, digest errado rejeitado e serializer/Compose conferidos. Valor sintético com cifrão foi conferido também dentro de container isolado sem rede. Commit/Compose/digests/redes/volume fixados verificados. Estado ativo consultado somente em leitura: roles J4, dados e containers preservados. [Resultados](evidence/j5-isolated/probe.json).
 
 Causa de fundo da resposta não JSON anterior permanece desconhecida: saída não foi retida. O helper corrigido é aprovado para tentativa controlada com nova autorização; transporte, banco real de metadados e deploy completo não foram exercitados como alteração ativa.
+
+
+## Tentativa única de J5 — FAIL
+
+Gates novos passaram: SHA/hash dos helpers, metadata/roles/grants, 14 contagens e eventos/ACKs, backup/restore/snapshot, rede/volume/capacidade e Compose privado. [Verificação 41311042013](https://github.com/franklinlem/configsentinel/actions/runs/41311042013) passou em assinaturas, SBOM, provenance, scans e cache.
+
+A única chamada ao helper retornou `internal_error` (código 2, stdout 68 bytes, stderr 0); não houve retry e a causa específica não é conhecida. Comparação independente com snapshot: metadados e envs originais, nenhuma persistência parcial observada; banco inalterado, API/web paradas e deploys em fila zero. As sete variáveis não foram persistidas e não há renderização pós-persistência. J6/J7/deploy não executados. [Evidências](evidence/j5-active-attempt/summary.json).

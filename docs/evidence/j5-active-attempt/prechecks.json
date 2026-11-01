@@ -1,0 +1,314 @@
+{
+  "checked_at": "2026-11-01T13:26:22.209812+00:00",
+  "workflow": "https://github.com/franklinlem/configsentinel/actions/runs/41311042013",
+  "preparation_sha": "36baf66f4656f86d157cd070202323db9465c5f4",
+  "image_code_sha": "ea868efaa3e3b364d012981e597c8faf6bc30651",
+  "verification": {
+    "images": [
+      {
+        "label": "candidate-api",
+        "image": "ghcr.io/franklinlem/configsentinel-api@sha256:ea0a14eda7478d9b4a5091effbb7a990a40594fd56085dd0c483809201a16ec4",
+        "commit": "ea868efaa3e3b364d012981e597c8faf6bc30651",
+        "signature_verified": true,
+        "provenance_verified": true,
+        "signed_sbom_matches": true,
+        "scan_counts": {
+          "UNKNOWN": 1
+        }
+      },
+      {
+        "label": "candidate-web",
+        "image": "ghcr.io/franklinlem/configsentinel-web@sha256:e7604db734053aed8834c0c4025001fcafab1026e50bca1f8b02aee1fb6cd8d3",
+        "commit": "ea868efaa3e3b364d012981e597c8faf6bc30651",
+        "signature_verified": true,
+        "provenance_verified": true,
+        "signed_sbom_matches": true,
+        "scan_counts": {}
+      },
+      {
+        "label": "candidate-db",
+        "image": "ghcr.io/franklinlem/configsentinel-db@sha256:ceeafd17328e0a09fa2999be01ccdec407e3318306d392c00646cf1dc74b4447",
+        "commit": "ea868efaa3e3b364d012981e597c8faf6bc30651",
+        "signature_verified": true,
+        "provenance_verified": true,
+        "signed_sbom_matches": true,
+        "scan_counts": {}
+      },
+      {
+        "label": "candidate-agent",
+        "image": "ghcr.io/franklinlem/configsentinel-agent@sha256:4c2936e175883f0488682989b3cd8d8218eeca871beb5d1467a1bb10744ab6d1",
+        "commit": "ea868efaa3e3b364d012981e597c8faf6bc30651",
+        "signature_verified": true,
+        "provenance_verified": true,
+        "signed_sbom_matches": true,
+        "scan_counts": {}
+      },
+      {
+        "label": "fallback-api",
+        "image": "ghcr.io/franklinlem/configsentinel-api@sha256:cacace0b74ddb9bdef72109436035c59305e4c6bb02c063fe0788ce069cffc66",
+        "commit": "5819b7fce93c10cceabbe59fde5fac4f647b707c",
+        "signature_verified": true,
+        "provenance_verified": true,
+        "signed_sbom_matches": true,
+        "scan_counts": {
+          "UNKNOWN": 1
+        }
+      }
+    ],
+    "registry_access": "read-only job token",
+    "deployed": false
+  },
+  "cache": [
+    {
+      "reference": "ghcr.io/franklinlem/configsentinel-api@sha256:ea0a14eda7478d9b4a5091effbb7a990a40594fd56085dd0c483809201a16ec4",
+      "id": "sha256:ea0a14eda7478d9b4a5091effbb7a990a40594fd56085dd0c483809201a16ec4"
+    },
+    {
+      "reference": "ghcr.io/franklinlem/configsentinel-web@sha256:e7604db734053aed8834c0c4025001fcafab1026e50bca1f8b02aee1fb6cd8d3",
+      "id": "sha256:e7604db734053aed8834c0c4025001fcafab1026e50bca1f8b02aee1fb6cd8d3"
+    },
+    {
+      "reference": "ghcr.io/franklinlem/configsentinel-db@sha256:ceeafd17328e0a09fa2999be01ccdec407e3318306d392c00646cf1dc74b4447",
+      "id": "sha256:ceeafd17328e0a09fa2999be01ccdec407e3318306d392c00646cf1dc74b4447"
+    },
+    {
+      "reference": "ghcr.io/franklinlem/configsentinel-api@sha256:cacace0b74ddb9bdef72109436035c59305e4c6bb02c063fe0788ce069cffc66",
+      "id": "sha256:cacace0b74ddb9bdef72109436035c59305e4c6bb02c063fe0788ce069cffc66"
+    }
+  ],
+  "database": {
+    "counts": {
+      "schema_migrations": 1,
+      "organizations": 1,
+      "users": 1,
+      "projects": 1,
+      "memberships": 1,
+      "environments": 1,
+      "servers": 1,
+      "agents": 3,
+      "agent_tokens": 3,
+      "user_sessions": 6,
+      "change_events": 4,
+      "file_observations": 1,
+      "acknowledgements": 2,
+      "audit_logs": 6
+    },
+    "roles": {
+      "roles": [
+        {
+          "name": "configsentinel_migrator",
+          "login": true,
+          "inherit": false,
+          "superuser": false,
+          "createdb": false,
+          "createrole": false,
+          "replication": false,
+          "bypassrls": false
+        },
+        {
+          "name": "configsentinel_owner",
+          "login": false,
+          "inherit": true,
+          "superuser": false,
+          "createdb": false,
+          "createrole": false,
+          "replication": false,
+          "bypassrls": false
+        },
+        {
+          "name": "configsentinel_runtime",
+          "login": true,
+          "inherit": false,
+          "superuser": false,
+          "createdb": false,
+          "createrole": false,
+          "replication": false,
+          "bypassrls": false
+        }
+      ],
+      "runtime_owner": false,
+      "runtime_migrator": false,
+      "runtime_admin": false,
+      "migrator_owner": true,
+      "schema_create": false,
+      "schema_usage": true,
+      "audit_select": true,
+      "audit_insert": true,
+      "audit_update": false,
+      "audit_delete": false,
+      "schema_migrations_update": false,
+      "table_owner_count": 14,
+      "select_count": 14,
+      "truncate_count": 0
+    }
+  },
+  "grants": [
+    {
+      "name": "acknowledgements",
+      "select": true,
+      "insert": true,
+      "update": false,
+      "delete": false,
+      "truncate": false
+    },
+    {
+      "name": "agent_tokens",
+      "select": true,
+      "insert": true,
+      "update": true,
+      "delete": false,
+      "truncate": false
+    },
+    {
+      "name": "agents",
+      "select": true,
+      "insert": true,
+      "update": true,
+      "delete": false,
+      "truncate": false
+    },
+    {
+      "name": "audit_logs",
+      "select": true,
+      "insert": true,
+      "update": false,
+      "delete": false,
+      "truncate": false
+    },
+    {
+      "name": "change_events",
+      "select": true,
+      "insert": true,
+      "update": false,
+      "delete": true,
+      "truncate": false
+    },
+    {
+      "name": "environments",
+      "select": true,
+      "insert": true,
+      "update": false,
+      "delete": false,
+      "truncate": false
+    },
+    {
+      "name": "file_observations",
+      "select": true,
+      "insert": true,
+      "update": true,
+      "delete": false,
+      "truncate": false
+    },
+    {
+      "name": "memberships",
+      "select": true,
+      "insert": true,
+      "update": false,
+      "delete": false,
+      "truncate": false
+    },
+    {
+      "name": "organizations",
+      "select": true,
+      "insert": true,
+      "update": false,
+      "delete": false,
+      "truncate": false
+    },
+    {
+      "name": "projects",
+      "select": true,
+      "insert": true,
+      "update": false,
+      "delete": false,
+      "truncate": false
+    },
+    {
+      "name": "schema_migrations",
+      "select": true,
+      "insert": false,
+      "update": false,
+      "delete": false,
+      "truncate": false
+    },
+    {
+      "name": "servers",
+      "select": true,
+      "insert": true,
+      "update": false,
+      "delete": false,
+      "truncate": false
+    },
+    {
+      "name": "user_sessions",
+      "select": true,
+      "insert": true,
+      "update": true,
+      "delete": true,
+      "truncate": false
+    },
+    {
+      "name": "users",
+      "select": true,
+      "insert": true,
+      "update": false,
+      "delete": false,
+      "truncate": false
+    }
+  ],
+  "resource": {
+    "coolify": {
+      "commit": "5819b7fce93c10cceabbe59fde5fac4f647b707c",
+      "branch": "main",
+      "compose": "/deploy/compose.coolify.yml",
+      "auto": false,
+      "raw": true,
+      "build": false,
+      "queue": 0
+    },
+    "resources": {
+      "api": {
+        "status": "exited",
+        "health": "unhealthy",
+        "volumes": []
+      },
+      "web": {
+        "status": "exited",
+        "health": "unhealthy",
+        "volumes": []
+      },
+      "db": {
+        "status": "running",
+        "health": "healthy",
+        "volumes": [
+          "oi6lvzwzomwtbbgzf5uzofuh_postgres_data"
+        ]
+      },
+      "oi6lvzwzomwtbbgzf5uzofuh": {
+        "internal": false,
+        "proxy": true
+      },
+      "oi6lvzwzomwtbbgzf5uzofuh_database": {
+        "internal": true,
+        "proxy": false
+      },
+      "oi6lvzwzomwtbbgzf5uzofuh_app": {
+        "internal": false,
+        "proxy": false
+      },
+      "coolify": {
+        "internal": false,
+        "proxy": true
+      },
+      "disk_free": 77157629952,
+      "mem_kib": 4860852
+    }
+  },
+  "backup_and_restore_match_current_baseline": true,
+  "encrypted_snapshot_and_key_verified": true,
+  "private_compose_render_passed": true,
+  "helper_and_manifest_hashes_match_approved_commit": true,
+  "coolify_version": "4.5.3",
+  "compose_version": "5.6.1",
+  "no_concurrent_deploy": true
+}

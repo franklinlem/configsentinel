@@ -1,0 +1,31 @@
+{
+  "checked_at": "2026-11-01T13:27:15.591107+00:00",
+  "decision": "J5 FAIL; active homologation NO-GO",
+  "authorized_target": "oi6lvzwzomwtbbgzf5uzofuh",
+  "attempts": 1,
+  "helper_revision": "6c79eb98637bb83a7b7c77df69f42cb356071bf5",
+  "preparation_commit": "36baf66f4656f86d157cd070202323db9465c5f4",
+  "image_code_commit": "ea868efaa3e3b364d012981e597c8faf6bc30651",
+  "prechecks": "PASS",
+  "failure": {
+    "category": "helper",
+    "exit_code": 2,
+    "stdout_bytes": 68,
+    "stderr_bytes": 0,
+    "reason": "internal_error"
+  },
+  "cause_confirmed": false,
+  "coolify_metadata_matches_snapshot": true,
+  "coolify_env_matches_snapshot": true,
+  "partial_configuration_observed": false,
+  "seven_new_variables_persisted": false,
+  "post_persistence_render_executed": false,
+  "preflight_private_render_passed": true,
+  "database_baseline_unchanged": true,
+  "deploy_queue": 0,
+  "api_web_stopped": true,
+  "active_database_running": true,
+  "roles_j4_reapplied": false,
+  "deploy_or_restart": false,
+  "production_approved": false
+}
