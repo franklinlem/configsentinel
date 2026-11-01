@@ -173,3 +173,10 @@ J3: backup final adicional em destino exclusivo novo; checksum, GPG e catálogo 
 J4/J5/J6/J7 não executados: zero roles novas/envs/deploys, nenhum smoke pós-deploy ou aceite por 10 min. Read-only final: 14 contagens iguais à baseline, eventos/ACKs iguais por conteúdo, volume e IDs originais, configuração Coolify ainda RC1/main/Compose antigo, auto-deploy desligado e fila de deploy vazia. API/web continuam paradas por determinação do procedimento seguro; não reiniciadas imagens vulneráveis. Kuma 20 DOWN/503, Kuma 21 UP/backup verified; configuração dos monitores inalterada. Entrega humana anterior não equivale a confirmação de novo alerta desta janela.
 
 Não repetidas suites Go/Playwright/axe de aplicação: não houve mudança de código ou deploy; o CI anterior continua evidência histórica, não smoke desta janela. As verificações novas estão em [active-rc2-window](evidence/active-rc2-window/execution-summary.json), com hashes de artefatos, estado operacional, falha e limitações. O manifest conserva active_homologation_promoted=false e production_approved=false. [Plano de retomada](ACTIVE_HOMOLOGATION_PROMOTION.md#11-execução-autorizada-e-decisão-operacional--01112026) aguarda revisão e nova autorização; não iniciar automaticamente.
+
+
+## Repetição limitada de J3 — interrompida
+
+Confirmação em leitura do banco ativo e dos containers antes/depois: 14 contagens, schema 1, quatro eventos e dois reconhecimentos preservados; API/web paradas, DB saudável. Causa anterior confirmada no diretório vazio modo 0700 e log de permissão negada. SHA-256 e sidecar do backup final conferidos.
+
+O harness desta repetição falhou com SyntaxError antes da criação do destino: substituição de marcador incidiu em `POSTGRES_PASSWORD`. Não houve decriptação, pg_restore ou novo teste de acesso UID 70. O código local foi corrigido e compilado com valores fictícios, sem repetir o restore após a interrupção. [Logs sanitizados](evidence/active-rc2-window/j3-retest/sanitized-log.json); [resultado](evidence/active-rc2-window/j3-retest/summary.json). J3 continua pendente; J4–J8 e deploy não executados.

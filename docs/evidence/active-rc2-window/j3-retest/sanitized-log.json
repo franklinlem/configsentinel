@@ -1,0 +1,8 @@
+{
+  "checked_at": "2026-11-01T12:51:33.456345+00:00",
+  "classification": "SyntaxError while generating isolated bootstrap Python",
+  "cause": "Harness string substitution replaced PASSWORD within POSTGRES_PASSWORD and produced invalid Python quoting",
+  "stage": "before remote setup executed; pg_restore not reached",
+  "raw_error_not_published": true,
+  "secrets_logged_in_report": false
+}

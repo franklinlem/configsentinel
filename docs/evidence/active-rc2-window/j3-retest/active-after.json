@@ -1,0 +1,49 @@
+{
+  "checked_at": "2026-11-01T12:51:33.455576+00:00",
+  "all_14_counts_unchanged": true,
+  "schema": 1,
+  "counts": {
+    "schema_migrations": 1,
+    "organizations": 1,
+    "users": 1,
+    "projects": 1,
+    "memberships": 1,
+    "environments": 1,
+    "servers": 1,
+    "agents": 3,
+    "agent_tokens": 3,
+    "user_sessions": 6,
+    "change_events": 4,
+    "file_observations": 1,
+    "acknowledgements": 2,
+    "audit_logs": 6
+  },
+  "original_event_ack_content_unchanged": true,
+  "containers": {
+    "api": {
+      "id": "8fc94869cd20846d3c8207c117e44a88f62ec6a8b8ca2a2e9e4309acad0927da",
+      "image": "sha256:6fefcaaa9c78137a0f85b0f911c878d4c8099ac7fa7976cfdc27b559bd0c1ab7",
+      "status": "exited",
+      "health": "unhealthy",
+      "volumes": []
+    },
+    "web": {
+      "id": "f56b66c3d5060b461180e01b94d51eb0db0d70de665560644516762b44692561",
+      "image": "sha256:ccd8ea30cfda12fcf19d8dbe0211af7d0012ce329c397860f4c5945630ae56bc",
+      "status": "exited",
+      "health": "unhealthy",
+      "volumes": []
+    },
+    "db": {
+      "id": "08bd45897b416cf2cc537834dc8751da9f6be34478f2bcd14ac3efd5dbe93888",
+      "image": "sha256:266d3c257594e195b309ae9d1805e54c788f1d7b375f56bf6c367aac6c917e7b",
+      "status": "running",
+      "health": "healthy",
+      "volumes": [
+        "oi6lvzwzomwtbbgzf5uzofuh_postgres_data"
+      ]
+    }
+  },
+  "database_writes_performed": false,
+  "pg_restore_executed": false
+}

@@ -223,3 +223,14 @@ Kuma 20 passou a DOWN/503 após a drenagem, coerente com a central parada; Kuma 
 5. Fallback seguro continua preparado: somente API fallback limpa, web/DB endurecidos e migrator RC2, após todos os gates necessários. **Não foi acionado**; não é possível tratar o RC1 HTTP/banco histórico como rollback executável aprovado. Restore sobre volume ativo continua fora da autorização.
 
 Não houve modificação de produção, outros projetos, Traefik, DNS, firewall ou agente. **Produção permanece NO-GO**. A central continua parada até nova decisão de recuperação/promoção autorizada.
+
+
+## 12. Repetição limitada de J3 — interrompida antes do restore
+
+Franklin autorizou exclusivamente a correção do harness e um novo restore isolado. O banco ativo foi consultado antes e depois: schema 1, todas as 14 contagens e conteúdo dos quatro eventos e dois reconhecimentos iguais à baseline; API/web continuam paradas e o banco saudável. A causa anterior foi reconfirmada: diretório vazio `empty-init` em modo 0700 e log do entrypoint com permissão negada.
+
+O SHA-256 do backup final e seu arquivo de checksum passaram. A repetição **não chegou a criar o destino nem a executar GPG/pg_restore**: uma substituição textual no harness alterou o nome `POSTGRES_PASSWORD` e gerou Python inválido. A tentativa foi interrompida; não há duração de restore nem resultado de integridade restaurada a declarar. [Diagnóstico sanitizado](evidence/active-rc2-window/j3-retest/sanitized-log.json) e [estado ativo posterior](evidence/active-rc2-window/j3-retest/active-after.json).
+
+Corrigi localmente a substituição para usar um marcador exclusivo e confirmei que o código gerado compila com valor fictício e mantém `POSTGRES_PASSWORD`. Essa verificação é apenas sintática: o harness corrigido **não foi executado novamente**, e diretório 0755, acesso do UID 70, decriptação e restore continuam sem validação nesta tentativa. J3 continua FAIL; J4–J8, deploy e produção não foram autorizados nesta etapa.
+
+A próxima janela deve executar o restore em recursos novos e exclusivos, comparar as 14 tabelas e os registros originais, reconferir o banco ativo e só então, com autorização específica e gates revalidados, considerar J4–J8 conforme a seção 6. A central permanece indisponível até decisão operacional autorizada.

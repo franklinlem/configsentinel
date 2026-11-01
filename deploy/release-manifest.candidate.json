@@ -80,6 +80,8 @@
     "final_backup_checksum_decryption_verified": true,
     "final_backup_restore_verified": false,
     "application_available": false,
-    "production_approved": false
+    "production_approved": false,
+    "j3_limited_retest": "failed_before_restore_due_to_harness_syntax",
+    "j3_limited_retest_evidence": "docs/evidence/active-rc2-window/j3-retest/summary.json"
   }
 }

@@ -1,5 +1,8 @@
 # ConfigSentinel — candidato corrigido e preparação de release
 
+
+**Atualização J3:** repetição isolada interrompida antes de iniciar o banco de teste: erro sintático no harness ao substituir `POSTGRES_PASSWORD`. Backup final com SHA-256 conferido; nesta tentativa não houve decriptação nem restore. Banco ativo verificado antes/depois sem alteração, API/web permanecem paradas. Correção de marcador preparada e compilada apenas com valor fictício; restore continua pendente e homologação/produção permanecem NO-GO. [Evidência](evidence/active-rc2-window/j3-retest/summary.json).
+
 ## Estado operacional — janela autorizada de 01/11/2026
 
 **NO-GO para aceite da homologação e para produção. API/web estão paradas desde 09:41:52 -03; banco RC1 permanece healthy e íntegro. RC2 não foi implantado.** Janela interrompida em J3 conforme o procedimento aprovado, antes da aplicação de roles/configuração/deploy.
