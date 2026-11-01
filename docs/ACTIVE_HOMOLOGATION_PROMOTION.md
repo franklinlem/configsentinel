@@ -2,7 +2,7 @@
 
 Atualizado em **01/11/2026, America/Sao_Paulo**. Branch `plan/active-homologation-rc2`.
 
-**Janela ativa explicitamente autorizada em 01/11/2026, interrompida em J3. Decisão: NO-GO para aceite da homologação.** API/web estão **paradas desde 09:41:52 -03**; PostgreSQL RC1 permanece healthy no volume original. **Nenhum deploy RC2 foi solicitado**, nenhuma role/variável/source do Coolify foi alterada. Produção continua não autorizada. [Resultado da janela](evidence/active-rc2-window/execution-summary.json).
+**Janela ativa interrompida em J3; restore isolado posterior PASS. Decisão: NO-GO para aceite da homologação, ainda não promovida.** API/web estão **paradas desde 09:41:52 -03**; PostgreSQL RC1 permanece healthy no volume original. **Nenhum deploy RC2 foi solicitado**, nenhuma role/variável/source do Coolify foi alterada. Produção continua não autorizada. [Resultado da janela](evidence/active-rc2-window/execution-summary.json).
 
 SHA de preparação autorizado: `36baf66f4656f86d157cd070202323db9465c5f4`; código das imagens: `ea868efaa3e3b364d012981e597c8faf6bc30651`. A autorização específica desta execução substitui o G0 pendente da preparação; não autoriza continuar após o ponto de parada abaixo. As seções de preparação e ensaios anteriores permanecem como histórico, com os respectivos limites.
 
@@ -234,3 +234,14 @@ O SHA-256 do backup final e seu arquivo de checksum passaram. A repetição **n�
 Corrigi localmente a substituição para usar um marcador exclusivo e confirmei que o código gerado compila com valor fictício e mantém `POSTGRES_PASSWORD`. Essa verificação é apenas sintática: o harness corrigido **não foi executado novamente**, e diretório 0755, acesso do UID 70, decriptação e restore continuam sem validação nesta tentativa. J3 continua FAIL; J4–J8, deploy e produção não foram autorizados nesta etapa.
 
 A próxima janela deve executar o restore em recursos novos e exclusivos, comparar as 14 tabelas e os registros originais, reconferir o banco ativo e só então, com autorização específica e gates revalidados, considerar J4–J8 conforme a seção 6. A central permanece indisponível até decisão operacional autorizada.
+
+
+## 13. Restore isolado autorizado — J3 PASS
+
+A repetição limitada restaurou efetivamente o backup final `2026-11-01T124248828081Z.dump.gpg`, SHA-256 `97572b10c1de20ce0dfaa4e6ee9c580d51bb473ce8f0727067086857d31cdb71`, no PostgreSQL 17.11 endurecido por digest. A decriptação ocorreu em streaming, sem arquivo de dump aberto; `pg_restore --exit-on-error` terminou com código 0. O streaming e restore duraram **3,479 s**; isso não mede o RTO total.
+
+Foram comparados schema 1, contagens das 14 tabelas e conteúdo/identidade dos quatro eventos e dois reconhecimentos originais. O banco ativo, consultado somente em leitura antes e depois, e os IDs e estados dos containers ativos permaneceram iguais. API/web continuam paradas; banco ativo saudável. O teste não executou migrations ou roles no ativo.
+
+O novo container e volume exclusivos usam rede interna sem portas, sem montar o volume ativo; `empty-init` vazio modo 0755 e seus pais visíveis foram acessíveis ao UID 70. As credenciais ficaram em arquivo 0600 e diretório 0700. A imagem e os recursos isolados estão identificados na [evidência](evidence/active-rc2-window/j3-authorized-restore/result.json); permanecem preservados. O container isolado segue em execução, sem portas públicas.
+
+**J3 PASS para este backup e esta baseline.** A seção 11 registra o FAIL histórico da janela interrompida e a seção 12 a tentativa que não chegou ao restore. J4–J8 e o deploy não foram executados; a promoção ainda depende de autorização específica e reconferência de gates, estado e frescor do backup no momento da janela. Produção permanece NO-GO.

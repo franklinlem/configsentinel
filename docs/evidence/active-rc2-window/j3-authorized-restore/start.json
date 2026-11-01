@@ -1,0 +1,7 @@
+{
+  "checked_at": "2026-11-01T12:59:25.596825+00:00",
+  "target_name": "configsentinel-j3-only-d124688f7913",
+  "backup_sha256": "97572b10c1de20ce0dfaa4e6ee9c580d51bb473ce8f0727067086857d31cdb71",
+  "active_scope": "read only",
+  "setup_code_sha256": "a487f128d490b19e4a5c0eab55b5e284f98412328bca5d923fbe259346c9982c"
+}
