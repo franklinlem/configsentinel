@@ -1,0 +1,27 @@
+{
+  "checked_at": "2026-11-01T12:43:14.931684+00:00",
+  "counts": {
+    "schema_migrations": 1,
+    "organizations": 1,
+    "users": 1,
+    "projects": 1,
+    "memberships": 1,
+    "environments": 1,
+    "servers": 1,
+    "agents": 3,
+    "agent_tokens": 3,
+    "user_sessions": 6,
+    "change_events": 4,
+    "file_observations": 1,
+    "acknowledgements": 2,
+    "audit_logs": 6
+  },
+  "schema": 1,
+  "api_web_stopped": true,
+  "database_running": true,
+  "active_transactions": 0,
+  "event_ack_rows_sha256": {
+    "change_events": "38d7c14d22d7e05a7c4669dd46b1b0a80734d176db5e26ec5ddc35da58295e4d",
+    "acknowledgements": "da882f4c0f3981f18359b55a284b79b2e5370428f2eb8f4b4745a449751964de"
+  }
+}

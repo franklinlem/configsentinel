@@ -1,0 +1,26 @@
+{
+  "checked_at": "2026-11-01T12:43:30.012659+00:00",
+  "agents": [
+    {
+      "id": "30f73ffc-182d-4e06-95c8-3b00b6750d75",
+      "last_seen_at": "2026-11-01T12:41:49.490384+00:00",
+      "agent_version": "0.1.0",
+      "queue_depth": 0,
+      "revoked": false
+    },
+    {
+      "id": "b92588ff-e2b5-4bbd-a6fe-238362ad3130",
+      "last_seen_at": null,
+      "agent_version": "",
+      "queue_depth": 0,
+      "revoked": false
+    },
+    {
+      "id": "e72c9b3d-4ba3-4905-9250-125ee3f8fc6a",
+      "last_seen_at": null,
+      "agent_version": "",
+      "queue_depth": 0,
+      "revoked": false
+    }
+  ]
+}

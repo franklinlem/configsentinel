@@ -1,0 +1,22 @@
+{
+  "version": "4.5.3",
+  "raw_compose": true,
+  "build_server": false,
+  "installed_application_class_sha256": "d1aadec3cef4cddd33ab1049f19da3d00634b645a92076c22677e1a27514bfa7",
+  "injected_start_command": "docker compose -f /home/franklin/.config/configsentinel-prechecks-5a04dd888b/compose.yaml --env-file /home/franklin/.config/configsentinel-prechecks-5a04dd888b/.env --project-directory /home/franklin/.config/configsentinel-prechecks-5a04dd888b --project-name configsentinel-prechecks-5a04dd888b up -d --pull never --no-build",
+  "services": [
+    "db",
+    "migrate",
+    "api",
+    "web"
+  ],
+  "custom_build_command": "docker image inspect --format '{{.Id}}' ghcr.io/franklinlem/configsentinel-api@sha256:ea0a14eda7478d9b4a5091effbb7a990a40594fd56085dd0c483809201a16ec4 ghcr.io/franklinlem/configsentinel-api@sha256:cacace0b74ddb9bdef72109436035c59305e4c6bb02c063fe0788ce069cffc66 ghcr.io/franklinlem/configsentinel-web@sha256:e7604db734053aed8834c0c4025001fcafab1026e50bca1f8b02aee1fb6cd8d3 ghcr.io/franklinlem/configsentinel-db@sha256:ceeafd17328e0a09fa2999be01ccdec407e3318306d392c00646cf1dc74b4447",
+  "custom_commands_validated_by_installed_job": true,
+  "shell_redirection_rejected": true,
+  "installed_automatic_pull_skip_method_exercised": true,
+  "deployment_log_writes_intercepted": true,
+  "active_metadata_unchanged": true,
+  "database_transaction_readonly": true,
+  "remote_parser_commands_blocked": true,
+  "full_deployment_job_executed": false
+}

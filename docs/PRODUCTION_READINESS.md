@@ -1,5 +1,22 @@
 # ConfigSentinel — candidato corrigido e preparação de release
 
+## Estado operacional — janela autorizada de 01/11/2026
+
+**NO-GO para aceite da homologação e para produção. API/web estão paradas desde 09:41:52 -03; banco RC1 permanece healthy e íntegro. RC2 não foi implantado.** Janela interrompida em J3 conforme o procedimento aprovado, antes da aplicação de roles/configuração/deploy.
+
+Nova verificação [41307377319](https://github.com/franklinlem/configsentinel/actions/runs/41307377319), fixada no SHA de preparação `36baf66f4656f86d157cd070202323db9465c5f4`: assinaturas, provenance, SBOMs e scans dos cinco digests passaram; API/fallback somente o UNKNOWN já analisado, zero HIGH/CRITICAL. Quatro imagens centrais no cache, versões e configuração protegida conferidas, snapshot criptografado renovado/offsite. Código das imagens preservado em `ea868efaa3e3b364d012981e597c8faf6bc30651`.
+
+**Pendência P1 operacional:** corrigir permissões do diretório vazio de bootstrap do harness isolado e executar restore final real em destino novo. O umask 077 do harness gerou modo 0700, ilegível pelo UID 70 PostgreSQL; o banco isolado encerrou antes do restore. Correção0755 preparada localmente, sem reteste remoto ou nova tentativa de promoção. O banco ativo não foi substituído nem atualizado. A parada é aplicação do ponto seguro previsto; retomada requer nova autorização após revisão.
+
+Backup final: checksum, decriptação e catálogo pg_restore passaram, **restore final não executado**. Dados ativos: 14 contagens idênticas à baseline, schema 1, quatro eventos e dois reconhecimentos integralmente preservados. Nenhuma role nova, nova env ou job de deploy; última implantação permanece RC1 `5819b7f`. Kuma 20 DOWN/503 esperado após drenagem, Kuma 21 UP/backup verified. Smokes pós-RC2, observação de 10 min e backup pós-deploy não se aplicam a uma promoção não realizada.
+
+Fallback limpo assinado/escaneado permanece preparado e não foi acionado. Não reiniciar web/DB RC1 vulneráveis nem usar rollback genérico do Coolify. Agente ativo/fila/allowlist preservados, sem atualização; correção do heartbeat RC2 continua somente no candidato. Achados históricos do RC1 permanecem no banco ainda em execução. Produção não criada nem autorizada.
+
+[Evidências da janela](evidence/active-rc2-window/execution-summary.json), [estado final e dados](evidence/active-rc2-window/interrupted-final-state.json), [procedimento/retomada](ACTIVE_HOMOLOGATION_PROMOTION.md#11-execução-autorizada-e-decisão-operacional--01112026).
+
+## Revisão anterior do candidato — histórico anterior à janela
+
+
 Atualizado em **31/10/2026**. Branch: `fix/production-blockers`, baseada na revisão `0524bee`. Candidato de revisão: **v0.1.0-rc.2-review**, imagens construídas do commit `ea868efaa3e3b364d012981e597c8faf6bc30651`. Não foi criada release pública nem tag de promoção.
 
 **Decisão: NO-GO para produção.** Os bloqueadores de código/imagem P0/P1 foram corrigidos e validados no candidato. A promoção de qualquer candidato aguarda revisão de Franklin. A implantação real por digest no recurso Coolify, a credencial permanente de pull somente leitura e o aceite operacional do novo candidato permanecem gates manuais. Os testes abaixo não autorizam produção.

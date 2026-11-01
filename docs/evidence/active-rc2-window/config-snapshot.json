@@ -1,0 +1,20 @@
+{
+  "recorded_at": "2026-11-01T12:41:13.966824+00:00",
+  "snapshot_encrypted": true,
+  "cipher": "GPG AES256",
+  "snapshot_sha256": "d01c81e4f32a250e2e26306fdfb001c446a5967061dc8455bf07db32794bef02",
+  "snapshot_mode": "0600",
+  "snapshot_scope": [
+    "only target application attributes/settings/env",
+    "only its three container specs",
+    "only its rendered compose",
+    "prepared runtime/migrator secrets not installed"
+  ],
+  "roundtrip_verified": true,
+  "resource_uuid": "oi6lvzwzomwtbbgzf5uzofuh",
+  "active_state_fingerprint": "418c30d9dc1655ee50e47aa2415460dec0ea8b32e0c4021b720cfa15987200c3",
+  "application_unchanged": true,
+  "credentials_generated_only_in_private_preparation": true,
+  "shared_credentials_accessed": false,
+  "deployed": false
+}

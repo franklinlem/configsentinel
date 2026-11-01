@@ -1,0 +1,26 @@
+{
+  "cache": [
+    {
+      "reference": "ghcr.io/franklinlem/configsentinel-api@sha256:ea0a14eda7478d9b4a5091effbb7a990a40594fd56085dd0c483809201a16ec4",
+      "id": "sha256:ea0a14eda7478d9b4a5091effbb7a990a40594fd56085dd0c483809201a16ec4",
+      "architecture": "amd64"
+    },
+    {
+      "reference": "ghcr.io/franklinlem/configsentinel-web@sha256:e7604db734053aed8834c0c4025001fcafab1026e50bca1f8b02aee1fb6cd8d3",
+      "id": "sha256:e7604db734053aed8834c0c4025001fcafab1026e50bca1f8b02aee1fb6cd8d3",
+      "architecture": "amd64"
+    },
+    {
+      "reference": "ghcr.io/franklinlem/configsentinel-db@sha256:ceeafd17328e0a09fa2999be01ccdec407e3318306d392c00646cf1dc74b4447",
+      "id": "sha256:ceeafd17328e0a09fa2999be01ccdec407e3318306d392c00646cf1dc74b4447",
+      "architecture": "amd64"
+    },
+    {
+      "reference": "ghcr.io/franklinlem/configsentinel-api@sha256:cacace0b74ddb9bdef72109436035c59305e4c6bb02c063fe0788ce069cffc66",
+      "id": "sha256:cacace0b74ddb9bdef72109436035c59305e4c6bb02c063fe0788ce069cffc66",
+      "architecture": "amd64"
+    }
+  ],
+  "disk_free_bytes": 77216858112,
+  "memory_available_kib": 4978800
+}

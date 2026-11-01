@@ -1,0 +1,7 @@
+{
+  "checked_at": "2026-11-01T12:46:20.390558+00:00",
+  "same_container_id_image_start_mounts": true,
+  "no_agent_update": true,
+  "no_queue_or_allowlist_changes": true,
+  "queue_contents_not_inspected": true
+}

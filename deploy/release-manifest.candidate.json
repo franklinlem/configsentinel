@@ -64,8 +64,22 @@
   "image_run": "https://github.com/franklinlem/configsentinel/actions/runs/41253986413",
   "migration_schema_version": 1,
   "rollback_evidence": "docs/evidence/remediation/homologation-rollback.json",
-  "homologation_mode": "isolated copy on homologation host; active RC unchanged",
+  "homologation_mode": "isolated rehearsal passed; active promotion interrupted at J3, API/web stopped and original database preserved",
   "migration_image": "ghcr.io/franklinlem/configsentinel-api@sha256:ea0a14eda7478d9b4a5091effbb7a990a40594fd56085dd0c483809201a16ec4",
   "fallback_manifest": "deploy/release-manifest.fallback.json",
-  "active_prechecks_evidence": "docs/evidence/promotion/precheck-gates.json"
+  "active_prechecks_evidence": "docs/evidence/promotion/precheck-gates.json",
+  "active_window": {
+    "preparation_commit": "36baf66f4656f86d157cd070202323db9465c5f4",
+    "authorized": true,
+    "decision": "NO-GO",
+    "status": "interrupted_at_J3",
+    "evidence": "docs/evidence/active-rc2-window/execution-summary.json",
+    "last_deployed_commit": "5819b7fce93c10cceabbe59fde5fac4f647b707c",
+    "deploy_requests": 0,
+    "roles_applied": false,
+    "final_backup_checksum_decryption_verified": true,
+    "final_backup_restore_verified": false,
+    "application_available": false,
+    "production_approved": false
+  }
 }

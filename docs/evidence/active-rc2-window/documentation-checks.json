@@ -1,0 +1,10 @@
+{
+  "checked_at": "2026-11-01T12:46:50.086462+00:00",
+  "all_evidence_json_valid": true,
+  "relative_markdown_targets_exist": true,
+  "manifest_active_promoted_false": true,
+  "manifest_production_approved_false": true,
+  "gitleaks_evidence_findings": 0,
+  "app_tests_not_rerun": "No application code/deployment; live smoke unavailable after planned gate stop",
+  "git_diff_check": "PASS"
+}

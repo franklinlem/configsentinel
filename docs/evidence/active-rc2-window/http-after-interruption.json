@@ -1,0 +1,6 @@
+{
+  "checked_at": "2026-11-01T12:46:22.120213+00:00",
+  "readiness_http": 503,
+  "expected_application_stopped": true,
+  "post_rc2_smoke_executed": false
+}

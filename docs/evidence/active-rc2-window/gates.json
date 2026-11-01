@@ -1,0 +1,12 @@
+{
+  "checked_at": "2026-11-01T12:42:08.893634+00:00",
+  "G0": "PASS: explicit user authorization",
+  "G1": "PASS: fresh verification run 41307377319 at exact SHA, cache inspected",
+  "G2": "PASS: signed fallback freshly rescanned; prior isolated RC2-fallback-RC2 exercise reviewed",
+  "G3": "PASS pre-drain: encrypted refreshed snapshot roundtrip/offsite; final backup mandatory next",
+  "G4": "PASS: protected serializer/Compose validation",
+  "G5": "PASS: Kuma20/21 UP and prior human Telegram receipt",
+  "G6": "PASS: installed Coolify4.5.3 path and Compose5.6.1 confirmed; prior transactional role rehearsal",
+  "production_approved": false,
+  "agent_update": false
+}

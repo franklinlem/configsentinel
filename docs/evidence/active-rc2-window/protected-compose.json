@@ -1,0 +1,30 @@
+{
+  "checked_at": "2026-11-01T12:41:32.118375+00:00",
+  "roundtrip_secrets_match": true,
+  "runtime_migrator_separate": true,
+  "no_admin_credentials_in_containers": true,
+  "external_volume": {
+    "postgres_data": {
+      "name": "oi6lvzwzomwtbbgzf5uzofuh_postgres_data",
+      "external": true
+    }
+  },
+  "external_networks": {
+    "app": {
+      "name": "oi6lvzwzomwtbbgzf5uzofuh_app",
+      "ipam": {},
+      "external": true
+    },
+    "coolify": {
+      "name": "coolify",
+      "ipam": {},
+      "external": true
+    },
+    "database": {
+      "name": "oi6lvzwzomwtbbgzf5uzofuh_database",
+      "ipam": {},
+      "external": true
+    }
+  },
+  "no_ports_or_build": true
+}

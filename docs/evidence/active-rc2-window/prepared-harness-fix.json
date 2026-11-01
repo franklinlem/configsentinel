@@ -1,0 +1,10 @@
+{
+  "checked_at": "2026-11-01T12:45:53.861663+00:00",
+  "fix": "Explicit0755 on empty nonsecret bootstrap directory only; parent and credentials remain0700/0600",
+  "failed_harness_sha256": "21c13efe5cc4ea23e83a90f4fb47397a0fec057f2d11c6bfe3aaed1aa4f0f58b",
+  "prepared_harness_sha256": "fc6c07e6e2dd1606dc3b343aec8ebb0e8fbe1c20fe99ef09ccc33b13071bce8c",
+  "remote_fix_applied": false,
+  "retest_executed": false,
+  "new_isolated_volume_required": true,
+  "existing_failed_volume_preserved": true
+}

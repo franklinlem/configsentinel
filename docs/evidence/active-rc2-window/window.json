@@ -1,0 +1,17 @@
+{
+  "window": "20261101T123840Z",
+  "evidence_root": "docs/evidence/active-rc2-window",
+  "application_uuid": "oi6lvzwzomwtbbgzf5uzofuh",
+  "authorized_preparation_commit": "36baf66f4656f86d157cd070202323db9465c5f4",
+  "image_source_commit": "ea868efaa3e3b364d012981e597c8faf6bc30651",
+  "readonly_workflow_run": 41307377319,
+  "authorization": "Explicit user approval for J0-J8 on this resource only",
+  "production_approved": false,
+  "agent_update_authorized": false,
+  "status": "INTERRUPTED at J3; API/web stopped, DB healthy; no deploy",
+  "started_at": "2026-11-01T12:38:40.138213+00:00",
+  "manifest_sha256": "151cd21c15935da1464d1b549358979034f105c74b3241528281aa2f7b1721e0",
+  "decision": "NO-GO active homologation acceptance",
+  "last_deployed_commit": "5819b7fce93c10cceabbe59fde5fac4f647b707c",
+  "finished_at": "2026-11-01T12:45:53.860863+00:00"
+}

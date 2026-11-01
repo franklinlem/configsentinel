@@ -1,0 +1,8 @@
+{
+  "checked_at": "2026-11-01T12:44:13.425529+00:00",
+  "permission_denied": true,
+  "init_directory_unreadable": true,
+  "password_missing": false,
+  "database_files_incompatible": false,
+  "exit_code": 1
+}

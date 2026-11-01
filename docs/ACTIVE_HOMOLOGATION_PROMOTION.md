@@ -2,7 +2,9 @@
 
 Atualizado em **01/11/2026, America/Sao_Paulo**. Branch `plan/active-homologation-rc2`.
 
-**Preparação autorizada e executada em isolamento/leitura. A janela ativa NÃO está autorizada.** Nenhum deploy, stop/restart, nova role ou variável foi aplicado ao recurso ativo. Produção permanece NO-GO. Os PASS abaixo têm o escopo e os limites descritos; exigem reconferência na janela, não constituem autorização de promoção.
+**Janela ativa explicitamente autorizada em 01/11/2026, interrompida em J3. Decisão: NO-GO para aceite da homologação.** API/web estão **paradas desde 09:41:52 -03**; PostgreSQL RC1 permanece healthy no volume original. **Nenhum deploy RC2 foi solicitado**, nenhuma role/variável/source do Coolify foi alterada. Produção continua não autorizada. [Resultado da janela](evidence/active-rc2-window/execution-summary.json).
+
+SHA de preparação autorizado: `36baf66f4656f86d157cd070202323db9465c5f4`; código das imagens: `ea868efaa3e3b364d012981e597c8faf6bc30651`. A autorização específica desta execução substitui o G0 pendente da preparação; não autoriza continuar após o ponto de parada abaixo. As seções de preparação e ensaios anteriores permanecem como histórico, com os respectivos limites.
 
 ## 1. Alvo e artefatos congelados
 
@@ -39,10 +41,10 @@ Digests aprováveis para a janela (todos em `ghcr.io/franklinlem/`):
 
 | Gate | Status | Evidência e limite |
 | --- | --- | --- |
-| G0 — janela ativa | **PENDENTE** | Franklin autorizou somente preparação isolada/leitura. Falta autorização específica da janela, SHA final, responsável e aceite dos limites abaixo |
+| G0 — janela ativa | **PASS** | Autorização explícita de Franklin para J0–J8 neste UUID e SHA de preparação aprovado; execução interrompida no gate J3 |
 | G1 — autenticidade/pull | **PASS** | [Workflow read-only](https://github.com/franklinlem/configsentinel/actions/runs/41305428149), [resultados finais](evidence/promotion/readonly-pull-final-results.json): cinco digests, assinatura direta, provenance, SBOM e scans verificados online. Token reportado pelo GitHub: contents/read, metadata/read, packages/read. Nenhum deploy; [inspeção final dos quatro digests centrais](evidence/promotion/cache-inspection.json) passou após refresh |
 | G2 — fallback limpo | **PASS** | [Build assinado](https://github.com/franklinlem/configsentinel/actions/runs/41259750008), [manifest](../deploy/release-manifest.fallback.json), [ensaio](evidence/promotion/isolated-promotion-rehearsal.json): RC2 → fallback → RC2; login/RBAC/CSRF/eventos/replay/heartbeat/auditoria passaram |
-| G3 — recuperação preparada | **PASS** | [Snapshot criptografado](evidence/promotion/config-snapshot.json), [backup novo/restore](evidence/promotion/fresh-isolated-backup.json), [backup regular atual](evidence/promotion/backup-health-final.json). Backup final com escritores drenados continua obrigatório **na janela autorizada** |
+| G3 — recuperação preparada | **FAIL na janela J3** | [Backup final](evidence/active-rc2-window/final-backup-encrypted.json) com checksum/decriptação válidos e catálogo legível; [destino isolado falhou no bootstrap](evidence/active-rc2-window/isolated-bootstrap-diagnostic.json), sem restore efetivo. Snapshot renovado/offsite passou; restores anteriores não substituem este gate. |
 | G4 — Compose/persistência/variáveis | **PASS** | [Validação protegida](evidence/promotion/protected-compose-validation.json), [caminho instalado](evidence/promotion/coolify-installed-path.json): nomes externos preservados, sem build/ports, DSNs separados, secrets preservados no serializer e sem ADMIN_PASSWORD no HTTP/migrator. Persistência das novas variáveis no Coolify ainda não foi executada |
 | G5 — backup/Kuma/entrega | **PASS no escopo isolado/leitura** | [Monitor 21](evidence/promotion/kuma21.json): push ativo, 600 s, retry 60 s/maxretries 0, canal HermesFranklem e UPs recentes. [Recebimento humano](evidence/promotion/alert-receipt-confirmation.json) confirmado. [Ausência de push](evidence/promotion/kuma21-missing-push.json) testada no ramo exato do código instalado com relógio isolado |
 | G6 — roles e caminho Coolify | **PASS no escopo isolado/leitura** | [Ensaio](evidence/promotion/isolated-promotion-rehearsal.json), [probe](evidence/promotion/coolify-installed-path.json): adoção transacional preservou contagens de 14 tabelas; runtime autenticado por TCP, dez operações negadas; parser raw, validação de comandos, injeção de flags e skip de pull exercitados na versão instalada |
@@ -190,8 +192,34 @@ Schema permanece 1 e rollback não executa down migrations. Conservar eventos/AC
 
 [CI 41305147386](https://github.com/franklinlem/configsentinel/actions/runs/41305147386) passou em API, agente, web e segredos no commit `836d297`: race/vet/govulncheck, integração PostgreSQL, build/OpenAPI/npm audit, Playwright/axe e Gitleaks. [Resumo e limites](evidence/promotion/verification-summary.json). Os quatro testes locais adicionais do helper cobrem credencial em erro de login/pull, rejeição de repositório alheio e remoção de DOCKER_CONFIG temporário. Não se repetiram suites de aplicação após a mudança exclusiva de diagnóstico; o código da aplicação permanece o do candidato original.
 
-## 11. Decisão operacional
+## 11. Execução autorizada e decisão operacional — 01/11/2026
 
-**Prechecks concluídos no escopo autorizado; janela ativa PENDENTE em G0.** [Inspeção final](evidence/promotion/active-preservation-final.json): mesmos containers/imagens RC1, start em 31/10, healthy, 4 eventos/2 reconhecimentos/1 usuário, novas roles ausentes, mesma branch/Compose e auto-deploy desabilitado. Sem mudança do piloto, Traefik, DNS, firewall, portas ou produção.
+**NO-GO para aceite da homologação ativa. A central HTTP está indisponível.** Aplicado o ponto de parada da seção 8: API/web paradas; DB RC1 healthy, volume preservado. Nenhum restart com imagens vulneráveis, nenhuma troca de imagem/Compose/env, adoção de roles ou job de deploy foi executado. Última versão implantada continua RC1 `5819b7f`; RC2 não foi implantado. [Estado final](evidence/active-rc2-window/interrupted-final-state.json).
 
-Aguardar autorização específica de Franklin para a janela descrita, com SHA final e aceite dos limites dos ensaios. Antes da parada, reconferir os gates e renovar snapshot/backup conforme J1–J3. Produção permanece **NO-GO** e fora desta autorização.
+| Etapa | Resultado desta janela |
+| --- | --- |
+| J0 | PASS: autorização explícita, SHA de preparação aprovado fixado, branch operacional separada e ausência de deploy concorrente |
+| J1 | PASS: workflow [41307377319](https://github.com/franklinlem/configsentinel/actions/runs/41307377319), headSha exato do SHA aprovado; cinco assinaturas/provenance/SBOMs e scans; quatro digests centrais presentes em linux/amd64; Coolify 4.5.3/Compose 5.6.1; volume/redes/proxy já conectados |
+| J2 | PASS: snapshot exclusivo renovado AES256/0600, roundtrip e cópia criptografada offsite verificados; somente API/web paradas, baseline das 14 tabelas registrada |
+| J3 | **FAIL**: backup final com checksum e GPG verificados; catálogo pg_restore legível, mas destino isolado não iniciou. **Restore efetivo não executado** |
+| J4–J6 | Não executados: nenhuma nova role, configuração ou solicitação de deploy |
+| J7 | Não executado: não existem smokes pós-deploy/aceite por 10 min/backup pós-RC2 nesta janela |
+| J8 | Evidências e documentação da interrupção registradas; produção não autorizada |
+
+Falha identificada: o harness operacional que preparei criou `empty-init` com permissões 0700 herdadas de umask 077. O processo PostgreSQL UID 70 não conseguiu ler o bind de `/docker-entrypoint-initdb.d`; container isolado encerrou com código 1. Não houve tentativa de pg_restore no alvo isolado nem no banco ativo. Isso é uma falha do ensaio, não comprova corrupção do dump ou regressão da imagem. Container/volume isolados e seus arquivos privados foram preservados. [Diagnóstico sanitizado](evidence/active-rc2-window/isolated-bootstrap-diagnostic.json).
+
+Dados ativos: schema 1, quatro eventos e dois reconhecimentos iguais por conteúdo; contagens das 14 tabelas integralmente iguais à baseline drenada. Permanecem um usuário, três agentes e três tokens armazenados pela aplicação; nenhum token foi descartado. Metadados e mounts do piloto preservados, sem atualização da sua configuração, binário ou allowlist. A fila do agente não foi apagada nem inspecionada por alteração do SQLite.
+
+Backup final: 2026-11-01T124248828081Z.dump.gpg, SHA-256 `97572b10c1de20ce0dfaa4e6ee9c580d51bb473ce8f0727067086857d31cdb71`; AES256/0600, em destino exclusivo no frank-note2. Checksum, decriptação GPG e catálogo PostgreSQL 17.11 passaram; **não declarar backup final restaurado**. Os restores anteriores continuam válidos somente para seus próprios dumps/ensaios. [Metadados](evidence/active-rc2-window/final-backup-encrypted.json), [diagnóstico do archive](evidence/active-rc2-window/final-backup-archive-readonly.json).
+
+Kuma 20 passou a DOWN/503 após a drenagem, coerente com a central parada; Kuma 21 permaneceu UP com `backup verified`. Não se silenciou monitor nem alterou notificação. Não foi confirmada entrega humana de um alerta novo nesta janela; o recebimento humano comprovado anteriormente permanece evidência histórica. [Consulta 20/21](evidence/active-rc2-window/kuma-interrupted.json).
+
+### Retomada preparada, não executada
+
+1. Revisar esta interrupção e autorizar uma **nova janela**, mantendo o alvo e ambos os SHAs fixados. Não retomar automaticamente esta janela após um FAIL.
+2. Corrigir apenas o harness: diretório vazio não sensível `empty-init` com modo 0755 explícito; diretório privado pai 0700 e envs 0600. Correção preparada localmente; **não aplicada nem retestada remotamente**. Usar destino/volume isolados novos, preservando o que falhou. [Registro da correção](evidence/active-rc2-window/prepared-harness-fix.json).
+3. Revalidar assinaturas/scans/cache/versões/configuração; banco e aplicação precisam ter estado confirmado, sem reiniciar RC1 vulnerável. Renovar snapshot e baseline/backup final, pois o DB continua ativo e a fila do piloto pode acumular.
+4. Provar restore real contra as 14 contagens e eventos/ACKs originais, antes de J4. Depois seguir J4–J8 sem alterar o procedimento de roles, imagens por digest e deploy único.
+5. Fallback seguro continua preparado: somente API fallback limpa, web/DB endurecidos e migrator RC2, após todos os gates necessários. **Não foi acionado**; não é possível tratar o RC1 HTTP/banco histórico como rollback executável aprovado. Restore sobre volume ativo continua fora da autorização.
+
+Não houve modificação de produção, outros projetos, Traefik, DNS, firewall ou agente. **Produção permanece NO-GO**. A central continua parada até nova decisão de recuperação/promoção autorizada.
