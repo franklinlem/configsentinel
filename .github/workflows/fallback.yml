@@ -1,0 +1,97 @@
+name: Clean RC1-compatible fallback (no deployment)
+on:
+  push:
+    branches: [plan/active-homologation-rc2]
+    paths: [.github/workflows/fallback.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+  packages: write
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    env:
+      FALLBACK_SOURCE_COMMIT: 5819b7fce93c10cceabbe59fde5fac4f647b707c
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Require private registry visibility
+        env:
+          GH_TOKEN: ${{ github.token }}
+          COMPONENT: api
+        run: |
+          if gh api "users/franklinlem/packages/container/configsentinel-$COMPONENT" > /tmp/package.json 2>/dev/null; then
+            test "$(jq -r .visibility /tmp/package.json)" = private
+          fi
+          # New GHCR packages default to private. Recheck after first publication.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: 5819b7fce93c10cceabbe59fde5fac4f647b707c
+          path: .local/fallback-source
+      - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f
+      - uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+      - name: Build once with SBOM and provenance
+        env:
+          COMPONENT: api
+        run: |
+          mkdir -p .local/candidate-artifact
+          dockerfile=".local/fallback-source/apps/api/Dockerfile"
+                    docker buildx build --platform linux/amd64 --sbom=true --provenance=mode=max \
+            --label org.opencontainers.image.source=https://github.com/franklinlem/configsentinel \
+            --label org.opencontainers.image.revision="$FALLBACK_SOURCE_COMMIT" \
+            --file "$dockerfile" --tag "ghcr.io/franklinlem/configsentinel-$COMPONENT:fallback-rc1-$GITHUB_SHA" \
+            --metadata-file .local/candidate-artifact/build.json --push .local/fallback-source
+      - name: Scan exact pushed digest and generate runtime SBOM
+        env:
+          COMPONENT: api
+          TRIVY_USERNAME: ${{ github.actor }}
+          TRIVY_PASSWORD: ${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl --fail --location --silent --show-error -o /tmp/trivy.tar.gz https://github.com/aquasecurity/trivy/releases/download/v0.76.1/trivy_0.76.1_Linux-64bit.tar.gz
+          echo 'c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0  /tmp/trivy.tar.gz' | sha256sum --check
+          tar -xzf /tmp/trivy.tar.gz -C /tmp trivy
+          ref="ghcr.io/franklinlem/configsentinel-$COMPONENT@$(jq -r '."containerimage.digest"' .local/candidate-artifact/build.json)"
+          /tmp/trivy image --scanners vuln --format json --output .local/candidate-artifact/scan.json "$ref"
+          /tmp/trivy image --format cyclonedx --output .local/candidate-artifact/sbom.cdx.json "$ref"
+          /tmp/trivy image --scanners vuln --severity HIGH,CRITICAL --exit-code 1 "$ref"
+          export IMAGE_REF="$ref"
+          python3 - <<'PY'
+          import collections,hashlib,json,os,pathlib
+          base=pathlib.Path('.local/candidate-artifact')
+          scan=json.loads((base/'scan.json').read_text())
+          counts=collections.Counter(v['Severity'] for r in scan.get('Results',[]) for v in r.get('Vulnerabilities',[]))
+          (base/'image.json').write_text(json.dumps({'component':os.environ['COMPONENT'],'image':os.environ['IMAGE_REF'],'commit':os.environ['FALLBACK_SOURCE_COMMIT'],'sbom_sha256':hashlib.sha256((base/'sbom.cdx.json').read_bytes()).hexdigest(),'scan_high':counts['HIGH'],'scan_critical':counts['CRITICAL'],'counts':dict(counts),'build_attestations':True,'provenance_verified':False},indent=2))
+          PY
+          test "$(gh api "users/franklinlem/packages/container/configsentinel-$COMPONENT" --jq .visibility)" = private
+      - name: Sign digest, SBOM and provenance; verify source binding
+        env:
+          COMPONENT: api
+          COSIGN_PRIVATE_KEY: ${{ secrets.CONFIGSENTINEL_SIGNING_KEY }}
+          COSIGN_PASSWORD: ${{ secrets.CONFIGSENTINEL_SIGNING_PASSWORD }}
+        run: |
+          curl --fail --location --silent --show-error -o /tmp/cosign https://github.com/sigstore/cosign/releases/download/v3.1.4/cosign-linux-amd64
+          echo '424e2c97d0b45fd7a6b608a87f090f35633f4c23ece5f092d48bba11aaf4bbfa  /tmp/cosign' | sha256sum --check
+          chmod 700 /tmp/cosign
+          ref="$(jq -r .image .local/candidate-artifact/image.json)"
+          python3 - <<'PYCODE'
+          import json,os,pathlib
+          predicate={'buildDefinition':{'buildType':'https://github.com/franklinlem/configsentinel/.github/workflows/fallback.yml@v1','externalParameters':{'repository':'https://github.com/franklinlem/configsentinel','commit':os.environ['FALLBACK_SOURCE_COMMIT'],'component':os.environ['COMPONENT'],'platform':'linux/amd64'},'resolvedDependencies':[]},'runDetails':{'builder':{'id':'https://github.com/franklinlem/configsentinel/actions/runs/'+os.environ['GITHUB_RUN_ID']}}}
+          pathlib.Path('.local/candidate-artifact/provenance.json').write_text(json.dumps(predicate))
+          PYCODE
+          /tmp/cosign sign --yes --key env://COSIGN_PRIVATE_KEY --signing-config deploy/signing-config.private.json "$ref"
+          /tmp/cosign attest --yes --key env://COSIGN_PRIVATE_KEY --signing-config deploy/signing-config.private.json --type slsaprovenance1 --predicate .local/candidate-artifact/provenance.json "$ref"
+          /tmp/cosign attest --yes --key env://COSIGN_PRIVATE_KEY --signing-config deploy/signing-config.private.json --type cyclonedx --predicate .local/candidate-artifact/sbom.cdx.json "$ref"
+          /tmp/cosign verify --key deploy/release-signing.pub --insecure-ignore-tlog "$ref" > .local/candidate-artifact/verified-signature.json
+          /tmp/cosign verify-attestation --key deploy/release-signing.pub --insecure-ignore-tlog --type slsaprovenance1 "$ref" > .local/candidate-artifact/verified-provenance.json
+          /tmp/cosign verify-attestation --key deploy/release-signing.pub --insecure-ignore-tlog --type cyclonedx "$ref" > .local/candidate-artifact/verified-sbom.json
+          GITHUB_SHA="$FALLBACK_SOURCE_COMMIT" python3 scripts/verify-candidate-attestations.py
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: fallback-api
+          path: .local/candidate-artifact/
+          retention-days: 30
