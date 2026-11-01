@@ -1,0 +1,25 @@
+{
+  "checked_at": "2026-11-01T12:16:18.040075+00:00",
+  "command_kind": "Validated custom build: docker image inspect --format IDs only",
+  "references": [
+    "ghcr.io/franklinlem/configsentinel-api@sha256:ea0a14eda7478d9b4a5091effbb7a990a40594fd56085dd0c483809201a16ec4",
+    "ghcr.io/franklinlem/configsentinel-api@sha256:cacace0b74ddb9bdef72109436035c59305e4c6bb02c063fe0788ce069cffc66",
+    "ghcr.io/franklinlem/configsentinel-web@sha256:e7604db734053aed8834c0c4025001fcafab1026e50bca1f8b02aee1fb6cd8d3",
+    "ghcr.io/franklinlem/configsentinel-db@sha256:ceeafd17328e0a09fa2999be01ccdec407e3318306d392c00646cf1dc74b4447"
+  ],
+  "returned_image_ids": [
+    "sha256:ea0a14eda7478d9b4a5091effbb7a990a40594fd56085dd0c483809201a16ec4",
+    "sha256:cacace0b74ddb9bdef72109436035c59305e4c6bb02c063fe0788ce069cffc66",
+    "sha256:e7604db734053aed8834c0c4025001fcafab1026e50bca1f8b02aee1fb6cd8d3",
+    "sha256:ceeafd17328e0a09fa2999be01ccdec407e3318306d392c00646cf1dc74b4447"
+  ],
+  "executed_readonly": true,
+  "active_containers_changed": false,
+  "fallback_was_missing_before_refresh": true,
+  "intermediate_pull_run": "https://github.com/franklinlem/configsentinel/actions/runs/41305147376",
+  "intermediate_failure": "Candidate batch succeeded; second batch failed with original generic diagnostic. Exact cause not established.",
+  "manual_retry_run": "https://github.com/franklinlem/configsentinel/actions/runs/41305428149",
+  "manual_retry_success": true,
+  "all_four_central_digests_present_after_refresh": true,
+  "operator_action": "Re-run read-only precache and inspect all central digests immediately before the authorized window; fail closed if any is absent."
+}

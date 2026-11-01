@@ -1,0 +1,86 @@
+{
+  "images": [
+    {
+      "label": "candidate-api",
+      "image": "ghcr.io/franklinlem/configsentinel-api@sha256:ea0a14eda7478d9b4a5091effbb7a990a40594fd56085dd0c483809201a16ec4",
+      "commit": "ea868efaa3e3b364d012981e597c8faf6bc30651",
+      "signature_verified": true,
+      "provenance_verified": true,
+      "signed_sbom_matches": true,
+      "scan_counts": {
+        "UNKNOWN": 1
+      },
+      "scan_created_at": "2026-11-01T12:13:50.388447032Z",
+      "scan_report_sha256": "2f109a5eb5af9c7ff57700b6a32c2f517b1f1fba2d084a141300f7ddc647a810",
+      "findings": [
+        {
+          "VulnerabilityID": "GO-2026-5932",
+          "PkgName": "golang.org/x/crypto",
+          "Severity": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "label": "candidate-web",
+      "image": "ghcr.io/franklinlem/configsentinel-web@sha256:e7604db734053aed8834c0c4025001fcafab1026e50bca1f8b02aee1fb6cd8d3",
+      "commit": "ea868efaa3e3b364d012981e597c8faf6bc30651",
+      "signature_verified": true,
+      "provenance_verified": true,
+      "signed_sbom_matches": true,
+      "scan_counts": {},
+      "scan_created_at": "2026-11-01T12:14:03.869261868Z",
+      "scan_report_sha256": "4150f3224483fad543249098611af1f0a8d770765cf45bf76c224a8807b4122f",
+      "findings": []
+    },
+    {
+      "label": "candidate-db",
+      "image": "ghcr.io/franklinlem/configsentinel-db@sha256:ceeafd17328e0a09fa2999be01ccdec407e3318306d392c00646cf1dc74b4447",
+      "commit": "ea868efaa3e3b364d012981e597c8faf6bc30651",
+      "signature_verified": true,
+      "provenance_verified": true,
+      "signed_sbom_matches": true,
+      "scan_counts": {},
+      "scan_created_at": "2026-11-01T12:14:20.477140626Z",
+      "scan_report_sha256": "5e73e8c5241225e76dfa4dc90dbfaec7a6a808c4c43287e9a1b5fb901bd273e2",
+      "findings": []
+    },
+    {
+      "label": "candidate-agent",
+      "image": "ghcr.io/franklinlem/configsentinel-agent@sha256:4c2936e175883f0488682989b3cd8d8218eeca871beb5d1467a1bb10744ab6d1",
+      "commit": "ea868efaa3e3b364d012981e597c8faf6bc30651",
+      "signature_verified": true,
+      "provenance_verified": true,
+      "signed_sbom_matches": true,
+      "scan_counts": {},
+      "scan_created_at": "2026-11-01T12:14:33.982400095Z",
+      "scan_report_sha256": "a1e74d2bfeaf6751a9470451be2f4a949d4832eea8bd75c1d54745fb054b5679",
+      "findings": []
+    },
+    {
+      "label": "fallback-api",
+      "image": "ghcr.io/franklinlem/configsentinel-api@sha256:cacace0b74ddb9bdef72109436035c59305e4c6bb02c063fe0788ce069cffc66",
+      "commit": "5819b7fce93c10cceabbe59fde5fac4f647b707c",
+      "signature_verified": true,
+      "provenance_verified": true,
+      "signed_sbom_matches": true,
+      "scan_counts": {
+        "UNKNOWN": 1
+      },
+      "scan_created_at": "2026-11-01T12:14:47.852032803Z",
+      "scan_report_sha256": "b72e993b4b8da2885bd95fc13c4f62c0b3bc01896b2c6affe22bd3eeb13dfb8f",
+      "findings": [
+        {
+          "VulnerabilityID": "GO-2026-5932",
+          "PkgName": "golang.org/x/crypto",
+          "Severity": "UNKNOWN"
+        }
+      ]
+    }
+  ],
+  "registry_access": "read-only job token",
+  "deployed": false,
+  "workflow_run": "https://github.com/franklinlem/configsentinel/actions/runs/41305428149",
+  "event": "workflow_dispatch",
+  "workflow_commit": "836d297b95f87775a7a48b06475b512d55282783",
+  "registry_helper_diagnostic_sha256": "fbaa6ac248c46f7c4fef3b9bcdebcc692769840b9b639eea624fef57a8664a48"
+}

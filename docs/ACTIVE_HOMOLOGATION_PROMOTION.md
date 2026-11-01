@@ -40,7 +40,7 @@ Digests aprováveis para a janela (todos em `ghcr.io/franklinlem/`):
 | Gate | Status | Evidência e limite |
 | --- | --- | --- |
 | G0 — janela ativa | **PENDENTE** | Franklin autorizou somente preparação isolada/leitura. Falta autorização específica da janela, SHA final, responsável e aceite dos limites abaixo |
-| G1 — autenticidade/pull | **PASS** | [Workflow read-only](https://github.com/franklinlem/configsentinel/actions/runs/41259950111), [resultados](evidence/promotion/readonly-pull-results.json): cinco digests, assinatura direta, provenance, SBOM e scans verificados online. Token reportado pelo GitHub: contents/read, metadata/read, packages/read. Nenhum deploy |
+| G1 — autenticidade/pull | **PASS** | [Workflow read-only](https://github.com/franklinlem/configsentinel/actions/runs/41305428149), [resultados finais](evidence/promotion/readonly-pull-final-results.json): cinco digests, assinatura direta, provenance, SBOM e scans verificados online. Token reportado pelo GitHub: contents/read, metadata/read, packages/read. Nenhum deploy; [inspeção final dos quatro digests centrais](evidence/promotion/cache-inspection.json) passou após refresh |
 | G2 — fallback limpo | **PASS** | [Build assinado](https://github.com/franklinlem/configsentinel/actions/runs/41259750008), [manifest](../deploy/release-manifest.fallback.json), [ensaio](evidence/promotion/isolated-promotion-rehearsal.json): RC2 → fallback → RC2; login/RBAC/CSRF/eventos/replay/heartbeat/auditoria passaram |
 | G3 — recuperação preparada | **PASS** | [Snapshot criptografado](evidence/promotion/config-snapshot.json), [backup novo/restore](evidence/promotion/fresh-isolated-backup.json), [backup regular atual](evidence/promotion/backup-health-final.json). Backup final com escritores drenados continua obrigatório **na janela autorizada** |
 | G4 — Compose/persistência/variáveis | **PASS** | [Validação protegida](evidence/promotion/protected-compose-validation.json), [caminho instalado](evidence/promotion/coolify-installed-path.json): nomes externos preservados, sem build/ports, DSNs separados, secrets preservados no serializer e sem ADMIN_PASSWORD no HTTP/migrator. Persistência das novas variáveis no Coolify ainda não foi executada |
@@ -72,6 +72,16 @@ O forced-command [registry-pull-only.py](../scripts/registry-pull-only.py) aceit
 A [política GHCR](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry) permite token de workflow para pacotes associados. O [login padrão do Coolify](https://coolify.io/docs/applications/builds/docker-registries) usa configuração Docker do usuário do servidor; este procedimento evita substituí-la. Se houver falha no precache, parar e corrigir o workflow. Não contornar com PAT amplo, token de escrita ou login global.
 
 Cosign 3.1.4 usa [release-signing.pub](../deploy/release-signing.pub), assinatura autogerenciada sem Rekor. Dispensar transparência (`--insecure-ignore-tlog`) não dispensa assinatura; a política não comprova identidade OIDC pública. Trivy 0.76.1 e Cosign são baixados com SHA-256 fixado nos workflows. Verificar os mesmos digests na janela e guardar saídas sanitizadas; não confiar apenas nos booleanos dos manifests.
+
+Reconferência manual testada com sucesso, sem deploy:
+
+```bash
+gh workflow run readonly-pull.yml --ref plan/active-homologation-rc2
+```
+
+Antes do disparo e ao concluir, conferir que o `headSha` da execução coincide com o SHA de preparação aprovado; divergência bloqueia a janela. O deploy no Coolify continua fixado por SHA, independentemente do nome da branch do workflow.
+
+**Incidente de cache registrado:** ao retomar, o fallback estava ausente do cache. A execução `41305147376` verificou assinaturas/scans e baixou o lote do candidato, mas falhou no segundo lote com diagnóstico genérico. A causa exata não foi estabelecida. A execução manual `41305428149` passou e a inspeção dos quatro digests centrais passou após o refresh. Não se presume cache durável nem se altera limpeza global. O helper exclusivo de precache recebeu somente diagnóstico por etapa/categoria, sem expor stderr/URLs/tokens; versão anterior preservada e quatro testes de não vazamento/isolamento passaram. Falha futura exige parar **antes** da drenagem e reconferir, sem fallback por tag ou credencial ampla.
 
 ## 5. Variáveis e comandos definitivos do Coolify
 
@@ -176,7 +186,11 @@ Schema permanece 1 e rollback não executa down migrations. Conservar eventos/AC
 
 **Kuma:** [kuma21-readonly.cjs](../scripts/kuma21-readonly.cjs) consulta somente monitor 21/histórico e nomes do canal em transação read-only, via socket local sem ler config/JWT/tokens. Não executar helpers antigos que acessam autenticação/notifier global. O teste de ausência de push usou o ramo exato do código instalado e relógio isolado: recente/599 s não derrubam, 601,001 s/ausência detectam falha, novo push recupera. O timer/serviço reais não foram pausados. A captura/declaração de Franklin comprova recebimento dos alertas anteriores; não foi versionada a imagem com conversas de terceiros. Não alegar um novo ensaio completo de notificação por silêncio real.
 
-## 10. Decisão operacional
+## 10. Validação final
+
+[CI 41305147386](https://github.com/franklinlem/configsentinel/actions/runs/41305147386) passou em API, agente, web e segredos no commit `836d297`: race/vet/govulncheck, integração PostgreSQL, build/OpenAPI/npm audit, Playwright/axe e Gitleaks. [Resumo e limites](evidence/promotion/verification-summary.json). Os quatro testes locais adicionais do helper cobrem credencial em erro de login/pull, rejeição de repositório alheio e remoção de DOCKER_CONFIG temporário. Não se repetiram suites de aplicação após a mudança exclusiva de diagnóstico; o código da aplicação permanece o do candidato original.
+
+## 11. Decisão operacional
 
 **Prechecks concluídos no escopo autorizado; janela ativa PENDENTE em G0.** [Inspeção final](evidence/promotion/active-preservation-final.json): mesmos containers/imagens RC1, start em 31/10, healthy, 4 eventos/2 reconhecimentos/1 usuário, novas roles ausentes, mesma branch/Compose e auto-deploy desabilitado. Sem mudança do piloto, Traefik, DNS, firewall, portas ou produção.
 

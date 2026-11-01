@@ -1,0 +1,39 @@
+{
+  "implementation_commit": "836d297b95f87775a7a48b06475b512d55282783",
+  "ci_run": "https://github.com/franklinlem/configsentinel/actions/runs/41305147386",
+  "ci_conclusion": "success",
+  "jobs": [
+    {
+      "name": "web",
+      "conclusion": "success"
+    },
+    {
+      "name": "go (api)",
+      "conclusion": "success"
+    },
+    {
+      "name": "go (agent)",
+      "conclusion": "success"
+    },
+    {
+      "name": "secrets",
+      "conclusion": "success"
+    }
+  ],
+  "remote_coverage": [
+    "API/agent go vet, go test -race, govulncheck and Linux builds",
+    "Web build, OpenAPI, operation checks, npm audit",
+    "PostgreSQL roles integration, Playwright browser journey and axe",
+    "Versioned history secret scan"
+  ],
+  "local_checks": [
+    "4 scoped-registry diagnostic/isolation unit tests passed",
+    "PHP syntax check passed inside installed Coolify",
+    "Python helper compilation and Node syntax check passed",
+    "JSON and Markdown links validated",
+    "Gitleaks staged diff and last six commits: no leaks"
+  ],
+  "readonly_verification_run": "https://github.com/franklinlem/configsentinel/actions/runs/41305428149",
+  "readonly_verification_conclusion": "success",
+  "active_deploy_executed": false
+}

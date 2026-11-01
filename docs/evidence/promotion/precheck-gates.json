@@ -13,9 +13,13 @@
       "status": "PASS",
       "criterion": "Online verification and read-only cache of five immutable digests",
       "evidence": [
-        "readonly-pull-results.json"
+        "readonly-pull-results.json",
+        "readonly-pull-final-results.json",
+        "cache-inspection.json"
       ],
-      "recheck_at_window_required": true
+      "recheck_at_window_required": true,
+      "latest_manual_workflow_run": "https://github.com/franklinlem/configsentinel/actions/runs/41305428149",
+      "known_operational_issue": "Intermediate cache refresh failed for second batch with generic error; retry succeeded, exact cause not established. Central-image inspection before the window is mandatory."
     },
     "G2": {
       "status": "PASS",
@@ -62,7 +66,8 @@
       "evidence": [
         "coolify-installed-path.json",
         "isolated-promotion-rehearsal.json",
-        "harness-scope-check.json"
+        "harness-scope-check.json",
+        "verification-summary.json"
       ],
       "full_coolify_queued_deployment_performed": false,
       "limit": "Live env persistence, queued orchestration and public-URL smoke belong to the authorized window; no claim of a full queued deployment rehearsal"
