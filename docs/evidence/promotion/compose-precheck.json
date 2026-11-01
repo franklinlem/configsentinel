@@ -1,0 +1,46 @@
+{
+  "checked_at": "2026-11-01T00:53:58.896356+00:00",
+  "compose": "deploy/compose.active-homologation.yml",
+  "validation_environment": "local Docker Compose with placeholder passwords only",
+  "services": [
+    "api",
+    "db",
+    "migrate",
+    "web"
+  ],
+  "images": {
+    "api": "ghcr.io/franklinlem/configsentinel-api@sha256:ea0a14eda7478d9b4a5091effbb7a990a40594fd56085dd0c483809201a16ec4",
+    "db": "ghcr.io/franklinlem/configsentinel-db@sha256:ceeafd17328e0a09fa2999be01ccdec407e3318306d392c00646cf1dc74b4447",
+    "migrate": "ghcr.io/franklinlem/configsentinel-api@sha256:ea0a14eda7478d9b4a5091effbb7a990a40594fd56085dd0c483809201a16ec4",
+    "web": "ghcr.io/franklinlem/configsentinel-web@sha256:e7604db734053aed8834c0c4025001fcafab1026e50bca1f8b02aee1fb6cd8d3"
+  },
+  "no_builds": true,
+  "no_published_ports": true,
+  "pull_policy_never": true,
+  "existing_external_volume": {
+    "name": "oi6lvzwzomwtbbgzf5uzofuh_postgres_data",
+    "external": true
+  },
+  "existing_external_networks": {
+    "app": {
+      "name": "oi6lvzwzomwtbbgzf5uzofuh_app",
+      "ipam": {},
+      "external": true
+    },
+    "coolify": {
+      "name": "coolify",
+      "ipam": {},
+      "external": true
+    },
+    "database": {
+      "name": "oi6lvzwzomwtbbgzf5uzofuh_database",
+      "ipam": {},
+      "external": true
+    }
+  },
+  "runtime_and_migrator_separated": true,
+  "admin_password_absent_from_api_and_migrate": true,
+  "live_traefik_labels_identical": true,
+  "coolify_parser_and_real_protected_variables_validated": false,
+  "deployed": false
+}

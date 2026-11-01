@@ -147,3 +147,9 @@ Não foram reescritos UI, protocolo, arquitetura, allowlist ou permissões do ag
 | P3 | Acompanhar GO-2026-5932 não alcançável e reavaliar nas atualizações |
 
 **NO-GO para produção mantido.** O candidato está disponível para revisão com P0/P1 corrigidos, evidências e recuperação preservadas. A autorização recebida abrangeu correções e ensaio isolado; nenhuma promoção para tráfego ativo ou produção foi inferida.
+
+## Preparação da homologação ativa — 31/10/2026, 21:54 -03
+
+O [plano de promoção controlada](ACTIVE_HOMOLOGATION_PROMOTION.md) identifica o recurso existente, volume/redes externos, roles transacionais, pull somente leitura sem login compartilhado, smoke e rollback. Novos scans das quatro imagens exatas continuam com zero HIGH/CRITICAL; SBOM/provenance foram reverificados criptograficamente offline. Backup de aproximadamente seis horas passou em checksum/decriptação; homologação ativa permaneceu RC1 healthy. [Evidências desta preparação](evidence/promotion/active-precheck.json).
+
+**Não promover ainda:** falta autorização explícita, nova verificação online da assinatura direta com credencial de leitura, fallback limpo assinado/ensaiado, renderização protegida pelo Coolify, backup/restore da janela e confirmação de entrega humana/ausência de push dos alertas. O rollback total histórico usou web/DB RC1 vulneráveis e não pode ser executado sob a restrição atual; preservar seus archives como origem de recuperação. O fallback proposto mantém web/DB RC2 endurecidos e usa API compatível previamente escaneada, assinada e ensaiada. Nenhuma aprovação do manifest foi alterada. **NO-GO para iniciar promoção agora; NO-GO para produção mantido.**

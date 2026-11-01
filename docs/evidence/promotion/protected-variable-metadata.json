@@ -1,0 +1,25 @@
+{
+    "uuid": "oi6lvzwzomwtbbgzf5uzofuh",
+    "variables": [
+        {
+            "key": "ADMIN_EMAIL",
+            "is_build_time": false,
+            "is_runtime": true,
+            "is_literal": true
+        },
+        {
+            "key": "ADMIN_PASSWORD",
+            "is_build_time": false,
+            "is_runtime": true,
+            "is_literal": true
+        },
+        {
+            "key": "POSTGRES_PASSWORD",
+            "is_build_time": false,
+            "is_runtime": true,
+            "is_literal": true
+        }
+    ],
+    "build_server_enabled": false,
+    "raw_compose": true
+}

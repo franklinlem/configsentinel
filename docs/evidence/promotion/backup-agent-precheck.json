@@ -1,0 +1,126 @@
+{
+  "checked_at": "2026-11-01T00:52:37.911199+00:00",
+  "health": {
+    "status": "ok",
+    "age_seconds": 21010,
+    "checksum": "verified"
+  },
+  "backup_filename": "2026-10-31T190227567927Z.dump.gpg",
+  "backup_marker": "2026-10-31T19:02:27.567927+00:00",
+  "decrypt_to_devnull_passed": true,
+  "systemd": {
+    "configsentinel-backup.service": [
+      "Result=success",
+      "ExecMainStatus=0",
+      "ActiveState=inactive"
+    ],
+    "configsentinel-backup.timer": [
+      "NextElapseUSecRealtime=Sun 2026-11-01 03:35:14 -03",
+      "LastTriggerUSec=",
+      "Result=success",
+      "ActiveState=active"
+    ],
+    "configsentinel-backup-monitor.service": [
+      "Result=success",
+      "ExecMainStatus=0",
+      "ActiveState=inactive"
+    ],
+    "configsentinel-backup-monitor.timer": [
+      "NextElapseUSecRealtime=",
+      "LastTriggerUSec=Sat 2026-10-31 21:50:14 -03",
+      "Result=success",
+      "ActiveState=active"
+    ]
+  },
+  "monitor_reports": [
+    {
+      "realtime_usec": "1793493285110257",
+      "report": {
+        "status": "ok",
+        "age_seconds": 19937,
+        "checksum": "verified"
+      }
+    },
+    {
+      "realtime_usec": "1793493595133843",
+      "report": {
+        "status": "ok",
+        "age_seconds": 20247,
+        "checksum": "verified"
+      }
+    },
+    {
+      "realtime_usec": "1793493905082734",
+      "report": {
+        "status": "ok",
+        "age_seconds": 20557,
+        "checksum": "verified"
+      }
+    },
+    {
+      "realtime_usec": "1793494215178232",
+      "report": {
+        "status": "ok",
+        "age_seconds": 20867,
+        "checksum": "verified"
+      }
+    }
+  ],
+  "kuma21_public_badge": "N/A; no conclusion about authenticated monitor state",
+  "human_alert_receipt": "awaiting confirmation",
+  "global_kuma_credentials_accessed": false,
+  "daily_backup_count": 2,
+  "agent": {
+    "state": "running",
+    "user": "10001:10001",
+    "readonly": true,
+    "cap_drop": [
+      "ALL"
+    ],
+    "security_opt": [
+      "no-new-privileges:true"
+    ],
+    "mounts": [
+      {
+        "Type": "volume",
+        "Name": "configsentinel-lab-config",
+        "Source": "/var/lib/docker/volumes/configsentinel-lab-config/_data",
+        "Destination": "/config",
+        "RW": false
+      },
+      {
+        "Type": "volume",
+        "Name": "configsentinel-lab-fixtures",
+        "Source": "/var/lib/docker/volumes/configsentinel-lab-fixtures/_data",
+        "Destination": "/fixtures",
+        "RW": false
+      },
+      {
+        "Type": "volume",
+        "Name": "configsentinel-lab-state",
+        "Source": "/var/lib/docker/volumes/configsentinel-lab-state/_data",
+        "Destination": "/state",
+        "RW": true
+      },
+      {
+        "Type": "bind",
+        "Name": null,
+        "Source": "/home/franklin/apps/configsentinel-lab/configsentinel-agent-linux-amd64",
+        "Destination": "/usr/local/bin/configsentinel-agent",
+        "RW": false
+      }
+    ],
+    "monitoring": {
+      "files": [
+        {
+          "path": "/fixtures/demo.conf",
+          "alias": "laboratorio-demo",
+          "hash_only": true
+        }
+      ]
+    },
+    "queue_path": "/state/events.sqlite",
+    "interval_seconds": 5
+  },
+  "mutations_executed": false
+}

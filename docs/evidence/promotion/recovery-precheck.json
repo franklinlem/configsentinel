@@ -1,0 +1,25 @@
+{
+  "checked_at": "2026-11-01T00:54:17.390107+00:00",
+  "archives": {
+    "api": {
+      "sha256": "21f78c9b3d4f4959fa9a38605d2872cd236f4643d3e833d6c2c2659abaa9e0c8",
+      "matches_recorded_recovery_point": true,
+      "mode": "0600"
+    },
+    "web": {
+      "sha256": "339b1a60b12a056a68737f017bfa038a009bf811acd4f6b7fc421f44f36da846",
+      "matches_recorded_recovery_point": true,
+      "mode": "0600"
+    },
+    "db": {
+      "sha256": "2ec71f485ddeb1a51eef6b1860878bf964c9cc3016527ce05a7615020bf87d58",
+      "matches_recorded_recovery_point": true,
+      "mode": "0600"
+    }
+  },
+  "rc1_api_fresh_scan_counts": {
+    "UNKNOWN": 1
+  },
+  "rollback_restriction": "Raw RC1 web/DB images have historical blocking vulnerabilities and must not be redeployed. A clean, signed, registry-digest API fallback with RC2 hardened web/DB remains a pre-promotion gate.",
+  "clean_fallback_published_and_rehearsed": false
+}

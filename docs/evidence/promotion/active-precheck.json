@@ -1,0 +1,58 @@
+{
+  "checked_at": "2026-11-01T00:52:43.986469+00:00",
+  "scope": "ConfigSentinel resource oi6lvzwzomwtbbgzf5uzofuh only",
+  "live": {
+    "api": {
+      "image_id": "sha256:6fefcaaa9c78137a0f85b0f911c878d4c8099ac7fa7976cfdc27b559bd0c1ab7",
+      "health": "healthy",
+      "volumes": [],
+      "networks": [
+        "oi6lvzwzomwtbbgzf5uzofuh_app",
+        "oi6lvzwzomwtbbgzf5uzofuh_database"
+      ],
+      "public_ports": {}
+    },
+    "web": {
+      "image_id": "sha256:ccd8ea30cfda12fcf19d8dbe0211af7d0012ce329c397860f4c5945630ae56bc",
+      "health": "healthy",
+      "volumes": [],
+      "networks": [
+        "coolify",
+        "oi6lvzwzomwtbbgzf5uzofuh_app"
+      ],
+      "public_ports": {}
+    },
+    "db": {
+      "image_id": "sha256:266d3c257594e195b309ae9d1805e54c788f1d7b375f56bf6c367aac6c917e7b",
+      "health": "healthy",
+      "volumes": [
+        {
+          "name": "oi6lvzwzomwtbbgzf5uzofuh_postgres_data",
+          "destination": "/var/lib/postgresql/data"
+        }
+      ],
+      "networks": [
+        "oi6lvzwzomwtbbgzf5uzofuh_database"
+      ],
+      "public_ports": {}
+    },
+    "database": {
+      "server_version": "17.11",
+      "schema": 1,
+      "events": 4,
+      "acknowledgements": 2,
+      "users": 1,
+      "new_roles": 0
+    }
+  },
+  "coolify": {
+    "uuid": "oi6lvzwzomwtbbgzf5uzofuh",
+    "build_pack": "dockercompose",
+    "branch": "main",
+    "source_commit": "5819b7fce93c10cceabbe59fde5fac4f647b707c",
+    "compose_location": "/deploy/compose.coolify.yml",
+    "auto_deploy": false,
+    "docker_compose_version": "5.6.1"
+  },
+  "changes_executed": false
+}

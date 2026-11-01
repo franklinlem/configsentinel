@@ -1,0 +1,133 @@
+# PREPARATION ONLY: requires explicit approval and all ACTIVE_HOMOLOGATION_PROMOTION gates.
+# Existing schema 1 and nonempty users required. No bootstrap or credential rotation.
+services:
+  db:
+    image: ${CONFIGSENTINEL_DB_IMAGE:?reviewed database digest required}
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: configsentinel
+      POSTGRES_USER: configsentinel
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?required}
+    volumes:
+    - postgres_data:/var/lib/postgresql/data
+    networks:
+    - database
+    mem_limit: 256m
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - pg_isready -U configsentinel -d configsentinel
+      interval: 10s
+      timeout: 5s
+      retries: 15
+    labels:
+    - traefik.enable=false
+    pull_policy: never
+  migrate:
+    image: ${CONFIGSENTINEL_API_IMAGE:?reviewed api digest required}
+    command:
+    - /app/server
+    - --migrate
+    environment:
+      DATABASE_URL: postgresql://configsentinel_migrator:${MIGRATOR_DB_PASSWORD}@db:5432/configsentinel?sslmode=disable
+      PUBLIC_URL: https://configsentinel-dev.franklem.uk
+      COOKIE_SECURE: 'true'
+    networks:
+    - database
+    depends_on:
+      db:
+        condition: service_healthy
+    read_only: true
+    security_opt:
+    - no-new-privileges:true
+    cap_drop:
+    - ALL
+    labels:
+    - traefik.enable=false
+    pull_policy: never
+    restart: 'no'
+  api:
+    image: ${CONFIGSENTINEL_API_IMAGE:?reviewed api digest required}
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://configsentinel_runtime:${RUNTIME_DB_PASSWORD}@db:5432/configsentinel?sslmode=disable
+      PUBLIC_URL: https://configsentinel-dev.franklem.uk
+      COOKIE_SECURE: 'true'
+    networks:
+    - database
+    - app
+    mem_limit: 384m
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test:
+      - CMD
+      - wget
+      - -q
+      - -O
+      - /dev/null
+      - http://127.0.0.1:8081/api/health/ready
+      interval: 10s
+      timeout: 5s
+      retries: 15
+    read_only: true
+    security_opt:
+    - no-new-privileges:true
+    cap_drop:
+    - ALL
+    labels:
+    - traefik.enable=false
+    pull_policy: never
+  web:
+    image: ${CONFIGSENTINEL_WEB_IMAGE:?reviewed web digest required}
+    restart: unless-stopped
+    networks:
+    - app
+    - coolify
+    mem_limit: 96m
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test:
+      - CMD
+      - wget
+      - -q
+      - -O
+      - /dev/null
+      - http://127.0.0.1:8080/healthz
+      interval: 10s
+      timeout: 5s
+      retries: 15
+    security_opt:
+    - no-new-privileges:true
+    cap_drop:
+    - ALL
+    labels:
+    - traefik.enable=true
+    - traefik.docker.network=coolify
+    - traefik.http.routers.configsentinel-dev-http.rule=Host(`configsentinel-dev.franklem.uk`)
+    - traefik.http.routers.configsentinel-dev-http.entrypoints=http
+    - traefik.http.routers.configsentinel-dev-http.middlewares=redirect-to-https@docker
+    - traefik.http.routers.configsentinel-dev.rule=Host(`configsentinel-dev.franklem.uk`)
+    - traefik.http.routers.configsentinel-dev.entrypoints=https
+    - traefik.http.routers.configsentinel-dev.tls=true
+    - traefik.http.routers.configsentinel-dev.tls.certresolver=letsencrypt
+    - traefik.http.routers.configsentinel-dev.service=configsentinel-dev
+    - traefik.http.services.configsentinel-dev.loadbalancer.server.port=8080
+    pull_policy: never
+networks:
+  database:
+    external: true
+    name: oi6lvzwzomwtbbgzf5uzofuh_database
+  app:
+    external: true
+    name: oi6lvzwzomwtbbgzf5uzofuh_app
+  coolify:
+    external: true
+    name: coolify
+volumes:
+  postgres_data:
+    external: true
+    name: oi6lvzwzomwtbbgzf5uzofuh_postgres_data

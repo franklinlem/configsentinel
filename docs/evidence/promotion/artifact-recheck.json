@@ -1,0 +1,40 @@
+{
+  "checked_at": "2026-11-01T00:52:10.294541+00:00",
+  "method": "Offline ECDSA verification of original DSSE envelopes with pinned repository key; no registry credential accessed",
+  "components": {
+    "api": {
+      "provenance_signature_and_subject_verified": true,
+      "sbom_signature_and_subject_verified": true,
+      "sbom_sha256": "88775e1ff40952d132a0549bf9962f5cc6e6d556b45c00347166a8e4c17c5249",
+      "original_scan_counts": {
+        "UNKNOWN": 1
+      },
+      "image": "ghcr.io/franklinlem/configsentinel-api@sha256:ea0a14eda7478d9b4a5091effbb7a990a40594fd56085dd0c483809201a16ec4",
+      "standalone_image_signature": "Prior Cosign verification retained; fresh online verification pending read-only credential"
+    },
+    "web": {
+      "provenance_signature_and_subject_verified": true,
+      "sbom_signature_and_subject_verified": true,
+      "sbom_sha256": "39954fd862b1c0374877ef4f91bc14417ef192f22cd2011b398fa03eef442a34",
+      "original_scan_counts": {},
+      "image": "ghcr.io/franklinlem/configsentinel-web@sha256:e7604db734053aed8834c0c4025001fcafab1026e50bca1f8b02aee1fb6cd8d3",
+      "standalone_image_signature": "Prior Cosign verification retained; fresh online verification pending read-only credential"
+    },
+    "db": {
+      "provenance_signature_and_subject_verified": true,
+      "sbom_signature_and_subject_verified": true,
+      "sbom_sha256": "5a71c6253db1bdafb1c33f7f53dac0ea3c9973d7114cb2756e39648591225c82",
+      "original_scan_counts": {},
+      "image": "ghcr.io/franklinlem/configsentinel-db@sha256:ceeafd17328e0a09fa2999be01ccdec407e3318306d392c00646cf1dc74b4447",
+      "standalone_image_signature": "Prior Cosign verification retained; fresh online verification pending read-only credential"
+    },
+    "agent": {
+      "provenance_signature_and_subject_verified": true,
+      "sbom_signature_and_subject_verified": true,
+      "sbom_sha256": "6c304af72f72bff60d18b34204e3b674a2a62b6ebb4fb758d31dd1c0463d03fb",
+      "original_scan_counts": {},
+      "image": "ghcr.io/franklinlem/configsentinel-agent@sha256:4c2936e175883f0488682989b3cd8d8218eeca871beb5d1467a1bb10744ab6d1",
+      "standalone_image_signature": "Prior Cosign verification retained; fresh online verification pending read-only credential"
+    }
+  }
+}

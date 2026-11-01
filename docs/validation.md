@@ -126,3 +126,11 @@ Branch `fix/production-blockers`, baseada em `0524bee`; imagens finais construí
 Repetição final local sem cache: API race passou em 12,121 s; agente/core em 1,412 s, além do runner. Playwright final isolado: 4 testes em 21,1 s, axe sem violações, mantendo limite de 30 s e mesmas asserções. Uma execução concorrente aos checks de compilação atingiu esse limite no axe; não houve relaxamento de timeout ou de regras para a repetição.
 
 Gitleaks final no histórico versionado, incluindo SBOMs/provas de assinatura e documentação: **zero vazamentos**. Arquivos ignorados de credenciais não foram publicados. Inspeção final confirmou os mesmos IDs de imagem do RC1 e todos os containers ativos saudáveis; evidência em `evidence/remediation/active-homologation-final-check.json`.
+
+## Plano da homologação ativa — 31/10/2026, 21:54 -03
+
+Preparado [ACTIVE_HOMOLOGATION_PROMOTION.md](ACTIVE_HOMOLOGATION_PROMOTION.md) e Compose específico com volume/redes existentes externos e pull_policy=never. Validação local com placeholders: quatro serviços, sem builds/portas, roles separadas, API/migrate sem ADMIN_PASSWORD, labels Traefik idênticas às ativas. Parser Coolify com secrets reais permanece gate pré-deploy.
+
+Verificações desta etapa: quatro imagens exatas exportadas do cache e reescaneadas (zero HIGH/CRITICAL); oito assinaturas DSSE de SBOM/provenance revalidadas com a chave pública, commit/digests/checksums correspondentes; archives RC1 0600 com SHA conferido. Assinatura direta online será repetida após pull somente leitura. Backup recente passou em checksum/decriptação; timers saudáveis e quatro pushes de monitor recentes aceitos. Badge Kuma 21 N/A não comprova estado; recebimento humano continua pendente. Somente metadados de variáveis deste UUID foram consultados; nenhuma credencial global de Kuma/Docker acessada. [Novas evidências](evidence/promotion/artifact-recheck.json).
+
+Não repetida suite funcional completa para alteração documental/Compose sem deploy. Testes pós-deploy estão definidos; nenhum smoke mutante foi executado no ativo. Recuperação com web/DB RC1 vulneráveis está vedada; fallback limpo por digest é gate adicional. Central, piloto, fila e backups existentes preservados; nenhuma promoção ou aprovação inferida.

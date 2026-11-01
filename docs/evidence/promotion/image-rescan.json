@@ -1,0 +1,74 @@
+{
+  "checked_at": "2026-11-01T00:53:56.266104+00:00",
+  "scanner": "Trivy 0.76.1",
+  "database_metadata": {
+    "Version": 2,
+    "NextUpdate": "2026-11-01T13:09:00.833221529Z",
+    "UpdatedAt": "2026-10-31T13:09:00.83322165Z",
+    "DownloadedAt": "2026-10-31T18:32:18.298020986Z"
+  },
+  "components": {
+    "api": {
+      "image": "ghcr.io/franklinlem/configsentinel-api@sha256:ea0a14eda7478d9b4a5091effbb7a990a40594fd56085dd0c483809201a16ec4",
+      "cached_repo_digest_matches": true,
+      "image_id": "sha256:ea0a14eda7478d9b4a5091effbb7a990a40594fd56085dd0c483809201a16ec4",
+      "architecture": "amd64",
+      "source_revision": "ea868efaa3e3b364d012981e597c8faf6bc30651",
+      "scan_counts": {
+        "UNKNOWN": 1
+      },
+      "scan_target": "exact cached image exported by docker save; Trivy image --input",
+      "blocking_vulnerabilities": 0,
+      "scan_report_sha256": "235257ee0616a6778ec5c6accfb4376775d0011bd5647cd43cf634e5d900add7",
+      "export_archive_sha256": "8c9967ebe2e76996e90eb24ef40581923befcb8568c0c2cad39c4c563b04561d",
+      "findings": [
+        {
+          "VulnerabilityID": "GO-2026-5932",
+          "PkgName": "golang.org/x/crypto",
+          "InstalledVersion": "v0.58.0",
+          "Severity": "UNKNOWN"
+        }
+      ]
+    },
+    "web": {
+      "image": "ghcr.io/franklinlem/configsentinel-web@sha256:e7604db734053aed8834c0c4025001fcafab1026e50bca1f8b02aee1fb6cd8d3",
+      "cached_repo_digest_matches": true,
+      "image_id": "sha256:e7604db734053aed8834c0c4025001fcafab1026e50bca1f8b02aee1fb6cd8d3",
+      "architecture": "amd64",
+      "source_revision": "ea868efaa3e3b364d012981e597c8faf6bc30651",
+      "scan_counts": {},
+      "scan_target": "exact cached image exported by docker save; Trivy image --input",
+      "blocking_vulnerabilities": 0,
+      "scan_report_sha256": "cf3765dce3ff691f6cb59849054a51c6ec68db25444668f8329c3aca6e8de863",
+      "export_archive_sha256": "81b1d00318924cfc5a3d0afe67c93b8a0e68ec151dc0efd2b3b88ec0a664158e",
+      "findings": []
+    },
+    "db": {
+      "image": "ghcr.io/franklinlem/configsentinel-db@sha256:ceeafd17328e0a09fa2999be01ccdec407e3318306d392c00646cf1dc74b4447",
+      "cached_repo_digest_matches": true,
+      "image_id": "sha256:ceeafd17328e0a09fa2999be01ccdec407e3318306d392c00646cf1dc74b4447",
+      "architecture": "amd64",
+      "source_revision": "ea868efaa3e3b364d012981e597c8faf6bc30651",
+      "scan_counts": {},
+      "scan_target": "exact cached image exported by docker save; Trivy image --input",
+      "blocking_vulnerabilities": 0,
+      "scan_report_sha256": "0d619bf718d36b1d777e28a06f1c5ab92f44d6dfbbdad640726d3e856a4c0ea7",
+      "export_archive_sha256": "271bcbafca6fee3e4ff71cff5fbaf4af8066fbf4b876742a36e2f76ec5454f08",
+      "findings": []
+    },
+    "agent": {
+      "image": "ghcr.io/franklinlem/configsentinel-agent@sha256:4c2936e175883f0488682989b3cd8d8218eeca871beb5d1467a1bb10744ab6d1",
+      "cached_repo_digest_matches": true,
+      "image_id": "sha256:4c2936e175883f0488682989b3cd8d8218eeca871beb5d1467a1bb10744ab6d1",
+      "architecture": "amd64",
+      "source_revision": "ea868efaa3e3b364d012981e597c8faf6bc30651",
+      "scan_counts": {},
+      "scan_target": "exact cached image exported by docker save; Trivy image --input",
+      "blocking_vulnerabilities": 0,
+      "scan_report_sha256": "207012d196dd91e2959b7068169ae6aab3341a032a4229e939867892acdb31aa",
+      "export_archive_sha256": "a6cce3936db83cac9165c9724baac17f0cd438ab5a65ca73d2407207b632f89a",
+      "findings": []
+    }
+  },
+  "live_containers_modified": false
+}
