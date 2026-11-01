@@ -85,6 +85,12 @@
     "j3_limited_retest_evidence": "docs/evidence/active-rc2-window/j3-authorized-restore/result.json",
     "coolify_configuration_changed": false,
     "latest_evidence": "docs/evidence/active-rc2-resume/summary.json",
-    "verification_run": "https://github.com/franklinlem/configsentinel/actions/runs/41309355528"
+    "verification_run": "https://github.com/franklinlem/configsentinel/actions/runs/41309355528",
+    "j5_isolated_helper_review": {
+      "status": "passed_for_controlled_attempt",
+      "evidence": "docs/evidence/j5-isolated/probe.json",
+      "previous_response_cause": "unconfirmed",
+      "active_resource_modified": false
+    }
   }
 }

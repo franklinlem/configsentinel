@@ -9,6 +9,9 @@
 
 **Retomada posterior interrompida em J5 — NO-GO.** API/web continuam paradas; PostgreSQL ativo saudável. Prechecks e J4 passaram: três roles restritas aplicadas, dez negações de privilégio verificadas e dados originais preservados. O helper J5 retornou saída não interpretável; inspeção confirma configuração e variáveis originais do Coolify, sem deploy em fila. Causa ainda não comprovada. J6/J7 e deploy não ocorreram. [Evidência](evidence/active-rc2-resume/summary.json). Produção continua não autorizada.
 
+
+**Revisão isolada do helper J5:** aprovado para nova tentativa controlada após autorização e gates; o recurso ativo não foi alterado. Causa específica da resposta anterior permanece desconhecida porque seu conteúdo não foi preservado. A perda de diagnóstico foi corrigida com envelope e categorias sanitizadas; testes em Coolify instalado/SQLite em memória passaram para rollback, idempotência e criptografia. O ensaio não equivale a execução real do job Coolify. Homologação continua indisponível e produção NO-GO. [Evidência](evidence/j5-isolated/probe.json).
+
 ## Estado operacional — janela autorizada de 01/11/2026
 
 **NO-GO para aceite da homologação e para produção. API/web estão paradas desde 09:41:52 -03; banco RC1 permanece healthy e íntegro. RC2 não foi implantado.** Janela interrompida em J3 conforme o procedimento aprovado, antes da aplicação de roles/configuração/deploy.

@@ -1,0 +1,50 @@
+{
+  "probe": {
+    "sqlite_in_memory": true,
+    "fake_values_only": true,
+    "fault_rolled_back_all_writes": true,
+    "idempotent": true,
+    "invalid_digest_rejected": true,
+    "eloquent_encryption_roundtrip": true,
+    "installed_serializer_ran": true,
+    "env_count": 7,
+    "commit": "36baf66f4656f86d157cd070202323db9465c5f4"
+  },
+  "invalid_input_envelope": "helper invalid_input exit 2",
+  "synthetic_dollar_runtime_roundtrip": true,
+  "compose_config_dollar_render_escapes_as_double": true,
+  "volume_name": "oi6lvzwzomwtbbgzf5uzofuh_postgres_data",
+  "network_names": {
+    "app": "oi6lvzwzomwtbbgzf5uzofuh_app",
+    "coolify": "coolify",
+    "database": "oi6lvzwzomwtbbgzf5uzofuh_database"
+  },
+  "no_ports_or_build": true,
+  "active_configuration_writes": false,
+  "full_active_deploy_exercised": false,
+  "checked_at": "2026-11-01T13:19:21.846832+00:00",
+  "installed_coolify_version": "4.5.3",
+  "compose_file_sha256": "3d7a85481b2b2d31d1e2257b1f89f8d2003196938aab702f0a3ddbfc4462873a",
+  "preparation_commit": "36baf66f4656f86d157cd070202323db9465c5f4",
+  "code_sha256": {
+    "j5_client.py": "9d0628ee4c4152a4a77e6375a90c327914b49db464fc30e438855113c68228cf",
+    "j5_protocol.py": "5fef9aa6dfd2b8b1b333e18d6351523d2f0a48e695448e13aa2373d675c69631",
+    "j5_coolify_entry.php": "13dcd0e46996bb0f8683ccd3fe3d46b0e959166bf970495e0f46d7b45c5d6b3f",
+    "j5_coolify_transaction.php": "4857774dcf5dff6047874fe3d02f7f1b36539481c21850cec28e5c50eb091d94",
+    "probe_j5_isolated.php": "11465bc7687380aeecf0130d98c8cb9ce5a7f4b2214e3d27f42791357731a93c",
+    "test_j5_isolated.py": "65328e4d816f12118b6c80274517565d44e4c90c91fe8529c83f58c7a0fe595f"
+  },
+  "automated_tests": {
+    "operations_total": 18,
+    "passed": 16,
+    "skipped": 2,
+    "skipped_reason": "PostgreSQL integration container not supplied; J4 role tests previously passed on active authorized window",
+    "j5_protocol_tests": 8
+  },
+  "previous_actual_response_retained": false,
+  "original_j5_cause_confirmed": false,
+  "no_automatic_retry_on_ambiguous_result": true,
+  "production_approved": false,
+  "final_retest_at": "2026-11-01T13:19:50.230901+00:00",
+  "exact_compose_images_checked": true
+}

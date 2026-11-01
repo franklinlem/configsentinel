@@ -1,0 +1,52 @@
+{
+  "checked_at": "2026-11-01T13:19:01.589788+00:00",
+  "database_baseline_unchanged": true,
+  "counts": {
+    "schema_migrations": 1,
+    "organizations": 1,
+    "users": 1,
+    "projects": 1,
+    "memberships": 1,
+    "environments": 1,
+    "servers": 1,
+    "agents": 3,
+    "agent_tokens": 3,
+    "user_sessions": 6,
+    "change_events": 4,
+    "file_observations": 1,
+    "acknowledgements": 2,
+    "audit_logs": 6
+  },
+  "schema": 1,
+  "roles_unchanged": true,
+  "coolify": {
+    "commit": "5819b7fce93c10cceabbe59fde5fac4f647b707c",
+    "branch": "main",
+    "compose": "/deploy/compose.coolify.yml",
+    "env_keys": [
+      "ADMIN_EMAIL",
+      "ADMIN_PASSWORD",
+      "POSTGRES_PASSWORD"
+    ],
+    "queue": 0
+  },
+  "containers": {
+    "api": {
+      "status": "exited",
+      "health": "unhealthy",
+      "id": "8fc94869cd20846d3c8207c117e44a88f62ec6a8b8ca2a2e9e4309acad0927da"
+    },
+    "web": {
+      "status": "exited",
+      "health": "unhealthy",
+      "id": "f56b66c3d5060b461180e01b94d51eb0db0d70de665560644516762b44692561"
+    },
+    "db": {
+      "status": "running",
+      "health": "healthy",
+      "id": "08bd45897b416cf2cc537834dc8751da9f6be34478f2bcd14ac3efd5dbe93888"
+    }
+  },
+  "deploys_queued": 0,
+  "active_writes": false
+}

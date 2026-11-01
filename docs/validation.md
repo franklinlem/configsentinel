@@ -194,3 +194,12 @@ J3 PASS para o backup ensaiado; J4–J8 e deploy não executados. Homologação 
 Prechecks passaram: restore J3 corresponde à baseline atual, 14 contagens e registros originais conferidos, backup/snapshot/chave acessíveis, cache/rede/volume/capacidade OK. [Verificação 41309355528](https://github.com/franklinlem/configsentinel/actions/runs/41309355528) passou em assinaturas, SBOM, provenance, scans e pull de cinco digests no SHA aprovado.
 
 J4 aplicou roles/grants transacionalmente; runtime TCP e dez negativas 42501 passaram, sem alteração das 14 contagens e eventos/ACKs. J5 parou ao receber resposta não interpretável como JSON. A causa ainda não está estabelecida; a saída original não foi preservada e o teste de sintaxe com dados fictícios não reproduziu a falha. Consulta read-only confirmou Coolify no commit/Compose RC1 e variáveis originais, sem deploy concorrente ou solicitado. Banco healthy, API/web paradas; roles J4 persistem. J6/J7, smokes e backup pós-RC2 não executados. Kuma 20 DOWN/503 e 21 UP. [Resumo](evidence/active-rc2-resume/summary.json). Produção NO-GO.
+
+
+## Diagnóstico isolado de J5
+
+Protocolo novo: oito testes cobrindo JSON válido, vazio/truncado, texto adicional, UTF-8 inválido, limite, timeout, saída de erro, SSH 255 ambíguo, stderr inesperado, confidencialidade do stdin/diagnósticos e recusa de campos extras. Suite operacional: 18 testes, 16 PASS e dois PostgreSQL pulados por ausência de container de integração.
+
+Modelos instalados do Coolify com SQLite em memória e valores fictícios: persistência criptografada das sete variáveis, rollback integral após falha, idempotência, digest errado rejeitado e serializer/Compose conferidos. Valor sintético com cifrão foi conferido também dentro de container isolado sem rede. Commit/Compose/digests/redes/volume fixados verificados. Estado ativo consultado somente em leitura: roles J4, dados e containers preservados. [Resultados](evidence/j5-isolated/probe.json).
+
+Causa de fundo da resposta não JSON anterior permanece desconhecida: saída não foi retida. O helper corrigido é aprovado para tentativa controlada com nova autorização; transporte, banco real de metadados e deploy completo não foram exercitados como alteração ativa.
