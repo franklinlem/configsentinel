@@ -1,0 +1,72 @@
+{
+  "images": [
+    {
+      "label": "candidate-api",
+      "image": "ghcr.io/franklinlem/configsentinel-api@sha256:ea0a14eda7478d9b4a5091effbb7a990a40594fd56085dd0c483809201a16ec4",
+      "commit": "ea868efaa3e3b364d012981e597c8faf6bc30651",
+      "signature_verified": true,
+      "provenance_verified": true,
+      "signed_sbom_matches": true,
+      "scan_counts": {
+        "UNKNOWN": 1
+      }
+    },
+    {
+      "label": "candidate-web",
+      "image": "ghcr.io/franklinlem/configsentinel-web@sha256:e7604db734053aed8834c0c4025001fcafab1026e50bca1f8b02aee1fb6cd8d3",
+      "commit": "ea868efaa3e3b364d012981e597c8faf6bc30651",
+      "signature_verified": true,
+      "provenance_verified": true,
+      "signed_sbom_matches": true,
+      "scan_counts": {}
+    },
+    {
+      "label": "candidate-db",
+      "image": "ghcr.io/franklinlem/configsentinel-db@sha256:ceeafd17328e0a09fa2999be01ccdec407e3318306d392c00646cf1dc74b4447",
+      "commit": "ea868efaa3e3b364d012981e597c8faf6bc30651",
+      "signature_verified": true,
+      "provenance_verified": true,
+      "signed_sbom_matches": true,
+      "scan_counts": {}
+    },
+    {
+      "label": "candidate-agent",
+      "image": "ghcr.io/franklinlem/configsentinel-agent@sha256:4c2936e175883f0488682989b3cd8d8218eeca871beb5d1467a1bb10744ab6d1",
+      "commit": "ea868efaa3e3b364d012981e597c8faf6bc30651",
+      "signature_verified": true,
+      "provenance_verified": true,
+      "signed_sbom_matches": true,
+      "scan_counts": {}
+    },
+    {
+      "label": "fallback-api",
+      "image": "ghcr.io/franklinlem/configsentinel-api@sha256:cacace0b74ddb9bdef72109436035c59305e4c6bb02c063fe0788ce069cffc66",
+      "commit": "5819b7fce93c10cceabbe59fde5fac4f647b707c",
+      "signature_verified": true,
+      "provenance_verified": true,
+      "signed_sbom_matches": true,
+      "scan_counts": {
+        "UNKNOWN": 1
+      }
+    }
+  ],
+  "registry_access": "read-only job token",
+  "deployed": false,
+  "workflow_run": "https://github.com/franklinlem/configsentinel/actions/runs/41259950111",
+  "workflow_permissions": {
+    "contents": "read",
+    "packages": "read"
+  },
+  "active_deployment_executed": false,
+  "github_reported_token_permissions": [
+    "2026-11-01T01:10:34.2488264Z Contents: read",
+    "2026-11-01T01:10:34.2489508Z Metadata: read",
+    "2026-11-01T01:10:34.2490787Z Packages: read"
+  ],
+  "verification_scripts_sha256": {
+    "scripts/verify-release-pull.py": "83316b1febacaa8fdcde1e748dbf3118b07f0a7a9271e9387c923a7652f9b95d",
+    "scripts/request-registry-pull.py": "d6c4b5ab6a0593fed1e240a2ff3fc105b50c59bafba40db27940c502735b1b19",
+    "scripts/registry-pull-only.py": "ad5695131281c06623a3cf5620c09187872940324360a02d2a328d49766ba8df"
+  },
+  "host_authentication_isolation": "Existing forced command creates temporary DOCKER_CONFIG 0700 and removes it; no shared Docker credential contents accessed"
+}

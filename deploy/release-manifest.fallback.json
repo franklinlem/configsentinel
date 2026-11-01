@@ -58,7 +58,9 @@
   "migration_image": "ghcr.io/franklinlem/configsentinel-api@sha256:ea0a14eda7478d9b4a5091effbb7a990a40594fd56085dd0c483809201a16ec4",
   "schema_version": 1,
   "build_run": "https://github.com/franklinlem/configsentinel/actions/runs/41259750008",
-  "isolated_rehearsal_passed": false,
+  "isolated_rehearsal_passed": true,
   "active_deploy_authorized": false,
-  "production_approved": false
+  "production_approved": false,
+  "rehearsal_evidence": "docs/evidence/promotion/isolated-promotion-rehearsal.json",
+  "online_verification_evidence": "docs/evidence/promotion/readonly-pull-results.json"
 }

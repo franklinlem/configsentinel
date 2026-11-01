@@ -64,5 +64,8 @@
   "image_run": "https://github.com/franklinlem/configsentinel/actions/runs/41253986413",
   "migration_schema_version": 1,
   "rollback_evidence": "docs/evidence/remediation/homologation-rollback.json",
-  "homologation_mode": "isolated copy on homologation host; active RC unchanged"
+  "homologation_mode": "isolated copy on homologation host; active RC unchanged",
+  "migration_image": "ghcr.io/franklinlem/configsentinel-api@sha256:ea0a14eda7478d9b4a5091effbb7a990a40594fd56085dd0c483809201a16ec4",
+  "fallback_manifest": "deploy/release-manifest.fallback.json",
+  "active_prechecks_evidence": "docs/evidence/promotion/precheck-gates.json"
 }

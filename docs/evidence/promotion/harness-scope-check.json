@@ -1,0 +1,5 @@
+{
+  "valid_isolated_compose_scope": true,
+  "active_project_name_rejected_before_docker": true,
+  "no_services_started": true
+}

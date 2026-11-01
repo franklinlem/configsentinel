@@ -1,0 +1,27 @@
+{
+  "recorded_at": "2026-11-01T01:11:46.180704+00:00",
+  "snapshot_encrypted": true,
+  "cipher": "GPG AES256",
+  "snapshot_sha256": "142aa17a881c8312d4047e9b44eaec173f0da2d722966a64d96b2698e54575f1",
+  "snapshot_mode": "0600",
+  "snapshot_scope": [
+    "only target application attributes/settings/env",
+    "only its three container specs",
+    "only its rendered compose",
+    "prepared runtime/migrator secrets not installed"
+  ],
+  "roundtrip_verified": true,
+  "resource_uuid": "oi6lvzwzomwtbbgzf5uzofuh",
+  "active_state_fingerprint": "3199d844bd641dc6f9f77f820804fdf9d6be6acf38ddafb34e39722bd3bda2a5",
+  "application_unchanged": true,
+  "credentials_generated_only_in_private_preparation": true,
+  "shared_credentials_accessed": false,
+  "deployed": false,
+  "offsite_copy": {
+    "offsite_path": "/home/franklin/.local/share/configsentinel-prechecks-62671b928f/config-snapshots/142aa17a881c8312d4047e9b44eaec173f0da2d722966a64d96b2698e54575f1.json.gpg",
+    "sha256": "142aa17a881c8312d4047e9b44eaec173f0da2d722966a64d96b2698e54575f1",
+    "mode": "0600"
+  },
+  "location_local": "ignored ConfigSentinel prechecks directory",
+  "recovery_key_location": "existing ConfigSentinel-only recovery key outside repository"
+}

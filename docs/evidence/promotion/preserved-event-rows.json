@@ -1,0 +1,17 @@
+{
+  "comparison_scope": "Read-only active synthetic event/ack rows compared in memory to isolated restored database after candidate/fallback/candidate",
+  "tables": {
+    "change_events": {
+      "original_rows": 4,
+      "all_original_ids_and_full_rows_preserved": true,
+      "original_rows_sha256": "38d7c14d22d7e05a7c4669dd46b1b0a80734d176db5e26ec5ddc35da58295e4d"
+    },
+    "acknowledgements": {
+      "original_rows": 2,
+      "all_original_ids_and_full_rows_preserved": true,
+      "original_rows_sha256": "da882f4c0f3981f18359b55a284b79b2e5370428f2eb8f4b4745a449751964de"
+    }
+  },
+  "raw_rows_logged": false,
+  "isolated_db_stopped_after_check": true
+}

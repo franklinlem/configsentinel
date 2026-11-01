@@ -1,0 +1,47 @@
+{
+  "checked_at": "2026-11-01T01:13:32.169Z",
+  "scope": "Exact installed Kuma push-monitor branch executed with isolated fake clock and timer; no database, scheduler or notification changed",
+  "installed_monitor_source_sha256": "60be3bccff7f2b9aac7e2ece0326b63cd101e5fe762a9142a00086ba959cbf80",
+  "push_branch_sha256": "f55151d3e6ba2173f5fa2e2fac5d14ea8850b0b16edcb76789250e7fd70bc58d",
+  "interval_seconds": 600,
+  "results": [
+    {
+      "scenario": "fresh",
+      "down_detected": false,
+      "next_check_ms": 601000,
+      "duration_seconds": null
+    },
+    {
+      "scenario": "before_expiry",
+      "down_detected": false,
+      "next_check_ms": 2000,
+      "duration_seconds": null
+    },
+    {
+      "scenario": "after_600s_plus_1s_buffer",
+      "down_detected": true,
+      "next_check_ms": null,
+      "duration_seconds": 601
+    },
+    {
+      "scenario": "no_previous_push",
+      "down_detected": true,
+      "next_check_ms": null,
+      "duration_seconds": 600
+    },
+    {
+      "scenario": "already_down",
+      "down_detected": true,
+      "next_check_ms": null,
+      "duration_seconds": 1
+    },
+    {
+      "scenario": "recovery_push",
+      "down_detected": false,
+      "next_check_ms": 601000,
+      "duration_seconds": null
+    }
+  ],
+  "real_timer_paused": false,
+  "live_missing_push_notification_exercised": false
+}

@@ -1,0 +1,32 @@
+{
+  "installed_coolify_version": "4.5.3",
+  "serializer": "escapeComposeEnvFileValue(value, allowInterpolation=false) from installed Coolify",
+  "current_postgres_secret_roundtrip_matches": true,
+  "new_runtime_and_migrator_secrets_distinct": true,
+  "new_secrets_installed_on_active_resource": false,
+  "api_runtime_dsn_exact": true,
+  "migrator_dsn_exact": true,
+  "migration_image_separate_from_api_rollback": true,
+  "no_admin_password_in_api_or_migrate": true,
+  "volume_external_name_preserved": true,
+  "networks_external_names_preserved": {
+    "app": {
+      "name": "oi6lvzwzomwtbbgzf5uzofuh_app",
+      "ipam": {},
+      "external": true
+    },
+    "coolify": {
+      "name": "coolify",
+      "ipam": {},
+      "external": true
+    },
+    "database": {
+      "name": "oi6lvzwzomwtbbgzf5uzofuh_database",
+      "ipam": {},
+      "external": true
+    }
+  },
+  "no_builds_or_public_ports": true,
+  "real_secrets_printed_or_versioned": false,
+  "legacy_variable_path_note": "Current metadata is_literal=true retained; full job env persistence is reserved for the authorized window."
+}

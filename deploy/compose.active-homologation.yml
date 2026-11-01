@@ -24,7 +24,7 @@ services:
     - traefik.enable=false
     pull_policy: never
   migrate:
-    image: ${CONFIGSENTINEL_API_IMAGE:?reviewed api digest required}
+    image: ${CONFIGSENTINEL_MIGRATION_IMAGE:?reviewed migration digest required}
     command:
     - /app/server
     - --migrate

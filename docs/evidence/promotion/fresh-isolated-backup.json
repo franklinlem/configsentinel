@@ -1,0 +1,12 @@
+{
+  "checked_at": "2026-11-01T01:13:00.222547+00:00",
+  "isolated_backup_path": "/home/franklin/.local/share/configsentinel-prechecks-62671b928f/backup/daily/2026-11-01T011256619570Z.dump.gpg",
+  "sha256": "87acac95c7c2ffd174ba8e446ba304e2c47843294d3996eeddc00cf2fe99e03d",
+  "mode": "0o600",
+  "normal_backup_files_and_marker_unchanged": true,
+  "dump_source": "existing forced-command, ConfigSentinel pg_dump only",
+  "active_services_restarted": false,
+  "restore_seconds": 3.806,
+  "restore_target": "configsentinel-prechecks-5a04dd888b",
+  "restore_success": true
+}

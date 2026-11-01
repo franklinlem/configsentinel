@@ -1,0 +1,48 @@
+{
+  "checked_at": "2026-11-01T12:06:42.361Z",
+  "monitor": [
+    {
+      "id": 21,
+      "name": "ConfigSentinel · Backup criptografado",
+      "type": "push",
+      "active": 1,
+      "interval": 600,
+      "retry_interval": 60,
+      "maxretries": 0
+    }
+  ],
+  "history": [
+    {
+      "status": 1,
+      "msg": "backup verified",
+      "time": "2026-11-01T12:06:25.000Z"
+    },
+    {
+      "status": 1,
+      "msg": "backup verified",
+      "time": "2026-11-01T12:01:15.000Z"
+    },
+    {
+      "status": 1,
+      "msg": "backup verified",
+      "time": "2026-11-01T11:56:05.000Z"
+    },
+    {
+      "status": 1,
+      "msg": "backup verified",
+      "time": "2026-11-01T11:50:55.000Z"
+    },
+    {
+      "status": 1,
+      "msg": "backup verified",
+      "time": "2026-11-01T11:45:45.000Z"
+    }
+  ],
+  "notification_names": [
+    {
+      "id": 1,
+      "name": "HermesFranklem"
+    }
+  ],
+  "scope": "read-only metadata/history of ConfigSentinel monitor 21; no credentials/global settings accessed"
+}

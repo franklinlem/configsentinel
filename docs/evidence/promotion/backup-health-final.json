@@ -1,0 +1,32 @@
+{
+  "checked_at": "2026-11-01T12:06:05.283143+00:00",
+  "health": {
+    "status": "ok",
+    "age_seconds": 19813,
+    "checksum": "verified"
+  },
+  "last_success_marker": "2026-11-01T06:35:51.776071+00:00 2026-11-01T063551776071Z.dump.gpg",
+  "decryption_verified": true,
+  "services": {
+    "configsentinel-backup.timer": [
+      "LastTriggerUSec=Sun 2026-11-01 03:35:51 -03",
+      "Result=success",
+      "ActiveState=active"
+    ],
+    "configsentinel-backup.service": [
+      "Result=success",
+      "ExecMainStatus=0",
+      "ActiveState=inactive"
+    ],
+    "configsentinel-backup-monitor.timer": [
+      "LastTriggerUSec=Sun 2026-11-01 09:01:14 -03",
+      "Result=success",
+      "ActiveState=active"
+    ],
+    "configsentinel-backup-monitor.service": [
+      "Result=success",
+      "ExecMainStatus=0",
+      "ActiveState=inactive"
+    ]
+  }
+}
