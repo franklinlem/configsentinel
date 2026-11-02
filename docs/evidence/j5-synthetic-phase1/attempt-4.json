@@ -1,0 +1,1683 @@
+{
+  "result": "PASS",
+  "active_metadata_read": false,
+  "deploy_attempted": false,
+  "resources_preserved": true,
+  "resources": {
+    "name": "configsentinel-j5-phase1-f72ab6b2a2",
+    "private_directory": "/home/franklin/.config/configsentinel-j5-phase1-f72ab6b2a2",
+    "network_id": "b9fc0b5e93f4598032225628c587bc5e3434ce563f37ff53a00e1e2c913ab9e7",
+    "db_container_id": "66cbeba8e28af33c1a729b8fce8927d67dfd444a007ce8f7bc69133df1353166",
+    "php_container_id": "23c4193969bdab2314f06de39a5b0870f04f226f4f9b4926367adc81f8911449",
+    "code_directory": "/home/franklin/.config/configsentinel-j5-phase1-code-dea4fdf055",
+    "preserved_running": true
+  },
+  "steps": [
+    {
+      "phase": "inspect_network",
+      "exit_code": 0,
+      "stdout_bytes": 2000,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "resume_scope",
+      "exit_code": 0,
+      "stdout_bytes": 9511,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "resume_scope",
+      "exit_code": 0,
+      "stdout_bytes": 16381,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "stream_synthetic_code",
+      "exit_code": 0,
+      "stdout_bytes": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "negative_connections",
+      "exit_code": 0,
+      "stdout_bytes": 17460,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "prepare_synthetic_storage",
+      "exit_code": 0,
+      "stdout_bytes": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "syntax_adapt.php",
+      "exit_code": 0,
+      "stdout_bytes": 47,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "syntax_isolation.php",
+      "exit_code": 0,
+      "stdout_bytes": 51,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "syntax_matrix.php",
+      "exit_code": 0,
+      "stdout_bytes": 48,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "syntax_operational.php",
+      "exit_code": 0,
+      "stdout_bytes": 53,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "syntax_probe-original.php",
+      "exit_code": 0,
+      "stdout_bytes": 56,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "adapt_test_guard",
+      "exit_code": 0,
+      "stdout_bytes": 214,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "syntax_test_copy",
+      "exit_code": 0,
+      "stdout_bytes": 58,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "synthetic_matrix",
+      "exit_code": 0,
+      "stdout_bytes": 2319,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "original_sqlite_oracle",
+      "exit_code": 0,
+      "stdout_bytes": 1178,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "final_state",
+      "exit_code": 0,
+      "stdout_bytes": 220,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "final_state",
+      "exit_code": 0,
+      "stdout_bytes": 1296,
+      "stderr_bytes": 0
+    }
+  ],
+  "started_at_unix": 1793624554.1359036,
+  "images": {
+    "coolify": "sha256:e4e662978b1ea86b9711149caa2e46497bf8f2c03f578c45324d33e42914ff61",
+    "postgres": "sha256:54e0dd8e8cddcdbb9156c2486eed5a43eccb7214d7c6828097d41ce049fb3984"
+  },
+  "capacity_gate": "PASS",
+  "credential_file_mode": "0o600",
+  "static_isolation": {
+    "result": "PASS",
+    "network_members": 2,
+    "ports_published": 0,
+    "active_mounts": 0,
+    "readonly_rootfs": true,
+    "capabilities_dropped": true
+  },
+  "duration_seconds": 15.466,
+  "package_sha256": {
+    "adapt.php": "408892961a05be11a3bd4b54a51a178aaebf7084a7f02469595352ffd2d899ee",
+    "candidate.json": "cfa04c664cd964603aa9f00a6659660c36a50e0ebcdac31d025bdebbd2a28117",
+    "fallback.json": "ba390a12123aadd9772275171d06f6ffe5341bca37cbde39ca9b77c80b52c7a9",
+    "hold.php": "c82675ee350e8067f4ce289c26f9cbbb1e32e920803f84c52e922f8e40040dd5",
+    "isolation.php": "211f67b853fa58c1aa278f4e6507c0616f6bf48ae8c4980a2d40d06b0c3b1ede",
+    "launch.py": "dbf1a1490bf4f95ca39772b33e6e16673d019f9a8635d606ab8ef88b4ace2c9d",
+    "matrix.php": "3ab683f6088270cbc7c12945b8c54a2f6f9891363b299fcdad4c17cd39995bf5",
+    "operational.php": "bd67c1cea61b834f8913ed6fddccde1164640f31068ba18853c3c7200a5b60c4",
+    "original-oracle.php": "7c9ed9f4a6fb97468eab3ae1f759b06f4b632a594aeb7b501f8309912f0d7fa9",
+    "probe-original.php": "11465bc7687380aeecf0130d98c8cb9ce5a7f4b2214e3d27f42791357731a93c",
+    "run.py": "1e4d5a8942ea25f6e5dbd91465ae7250f0abc6dd4268c5a393f505642171019b",
+    "schema.sql": "a54ced631a4f3b59faea5768c5094de2a67cea93b74be62d00309b31769741ec",
+    "continue.py": "87f72818377d7e33167b27b0ef7278e6f3e4c3ba21dc4015df0c680aaa1afa38",
+    "resume.py": "b6bf0b6adebad64f4fc5f338e97a4931f1fc4d3468d3de7d20b8c80ca7e57753"
+  },
+  "isolation": {
+    "pass": true,
+    "synthetic_db_reachable": true,
+    "external_dns_blocked": true,
+    "negative_attempts": [
+      {
+        "target_class": "host",
+        "index": 0,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 1,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 2,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 3,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 4,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 5,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 6,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 7,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 8,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 9,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 10,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 11,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 12,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 13,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 14,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 15,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 16,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 17,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 18,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 19,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 20,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 21,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 22,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 23,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 24,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 25,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 26,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "host",
+        "index": 27,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 28,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 29,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 30,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 31,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 32,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 33,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 34,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 35,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 36,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 37,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 38,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 39,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 40,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 41,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 42,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 43,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 44,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 45,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 46,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 47,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 48,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 49,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 50,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 51,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 52,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 53,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 54,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 55,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 56,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 57,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 58,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 59,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 60,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 61,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 62,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 63,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 64,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 65,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 66,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 67,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 68,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 69,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 70,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 71,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 72,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 73,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 74,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 75,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 76,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 77,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 78,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 79,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 80,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 81,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 82,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 83,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 84,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 85,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 86,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 87,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 88,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 89,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 90,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 91,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 92,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 93,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 94,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 95,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 96,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 97,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 98,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 99,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 100,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 101,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 102,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 103,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 104,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 105,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 106,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 107,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 108,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 109,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 110,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 111,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 112,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 113,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 114,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 115,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 116,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 117,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 118,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 119,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 120,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 121,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 122,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 123,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 124,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 125,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 126,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 127,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 128,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 129,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 130,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 131,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 132,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 133,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 134,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 135,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 136,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 137,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 138,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 139,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 140,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 141,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 142,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 143,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 144,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 145,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 146,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 147,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 148,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 149,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 150,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 151,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 152,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 153,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 154,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 155,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 156,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 157,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 158,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 159,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 160,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 161,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 162,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 163,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 164,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 165,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 166,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 167,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 168,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 169,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 170,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 171,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 172,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 173,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 174,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 175,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 176,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 177,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 178,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 179,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 180,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 181,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 182,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 183,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 184,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 185,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 186,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 187,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 188,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 189,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 190,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 191,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 192,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 193,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 194,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 195,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 196,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 197,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 198,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 199,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 200,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 201,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 202,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 203,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 204,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 205,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 206,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 207,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 208,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 209,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 210,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 211,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 212,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 213,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 214,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 215,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 216,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 217,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 218,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 219,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 220,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 221,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 222,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 223,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 224,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 225,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 226,
+        "connected": false,
+        "errno": 101
+      },
+      {
+        "target_class": "existing_service",
+        "index": 227,
+        "connected": false,
+        "errno": 101
+      }
+    ],
+    "docker_socket_absent": true
+  },
+  "guard_adaptation": {
+    "guard_literals_changed": {
+      "uuid": 1,
+      "start": 1
+    },
+    "original_sha256": "bd67c1cea61b834f8913ed6fddccde1164640f31068ba18853c3c7200a5b60c4",
+    "copy_sha256": "113a4a30a6f12f3db32f4e50b06beb4f83371d6eda7949097dbb836f09f283f2"
+  },
+  "matrix": {
+    "result": "PASS",
+    "tests": [
+      {
+        "test": "first_and_idempotent",
+        "result": "PASS",
+        "duration_ms": 598,
+        "model_saving_events": 0
+      },
+      {
+        "test": "rollback",
+        "result": "PASS",
+        "duration_ms": 169,
+        "model_saving_events": 0,
+        "exception_kind": "runtime",
+        "rollback_identical": true,
+        "buffer_bytes": 0
+      },
+      {
+        "test": "constraint",
+        "result": "PASS",
+        "duration_ms": 197,
+        "model_saving_events": 0,
+        "exception_kind": "database",
+        "rollback_identical": true,
+        "buffer_bytes": 0
+      },
+      {
+        "test": "warning",
+        "result": "PASS",
+        "duration_ms": 159,
+        "model_saving_events": 0,
+        "exception_kind": "php_warning",
+        "rollback_identical": true,
+        "buffer_bytes": 0
+      },
+      {
+        "test": "buffer",
+        "result": "PASS",
+        "duration_ms": 155,
+        "model_saving_events": 0,
+        "exception_kind": "output_buffer",
+        "rollback_identical": true,
+        "buffer_bytes": 23
+      },
+      {
+        "test": "preexisting_buffer",
+        "result": "PASS",
+        "duration_ms": 172,
+        "model_saving_events": 0,
+        "exception_kind": "output_buffer",
+        "rollback_identical": true,
+        "buffer_bytes": 28
+      },
+      {
+        "test": "queued",
+        "result": "PASS",
+        "duration_ms": 74,
+        "model_saving_events": 0,
+        "exception_kind": "runtime",
+        "rollback_identical": true,
+        "buffer_bytes": 0
+      },
+      {
+        "test": "in_progress",
+        "result": "PASS",
+        "duration_ms": 128,
+        "model_saving_events": 0,
+        "exception_kind": "runtime",
+        "rollback_identical": true,
+        "buffer_bytes": 0
+      },
+      {
+        "test": "duplicate_env",
+        "result": "PASS",
+        "duration_ms": 142,
+        "model_saving_events": 0,
+        "exception_kind": "runtime",
+        "rollback_identical": true,
+        "buffer_bytes": 0
+      },
+      {
+        "test": "wrong_password",
+        "result": "PASS",
+        "duration_ms": 148,
+        "model_saving_events": 0,
+        "exception_kind": "runtime",
+        "rollback_identical": true,
+        "buffer_bytes": 0
+      },
+      {
+        "test": "settings_drift",
+        "result": "PASS",
+        "duration_ms": 97,
+        "model_saving_events": 0,
+        "exception_kind": "runtime",
+        "rollback_identical": true,
+        "buffer_bytes": 0
+      },
+      {
+        "test": "lock_timeout",
+        "result": "PASS",
+        "duration_ms": 399,
+        "model_saving_events": 0,
+        "exception_kind": "database",
+        "rollback_identical": true,
+        "buffer_bytes": 0
+      },
+      {
+        "test": "response_ambiguous",
+        "result": "PASS",
+        "duration_ms": 216,
+        "model_saving_events": 0,
+        "committed_before_response_failure": true,
+        "response_stdout_bytes": 10,
+        "automatic_retry": false
+      },
+      {
+        "test": "encryption_flags",
+        "result": "PASS",
+        "duration_ms": 256,
+        "model_saving_events": 0
+      }
+    ],
+    "exec_disabled": {
+      "exec": true,
+      "system": true,
+      "passthru": true,
+      "shell_exec": true,
+      "proc_open": true,
+      "popen": true,
+      "pcntl_exec": true
+    },
+    "docker_socket_absent": true,
+    "synthetic_only": true,
+    "active_metadata_read": false,
+    "schemas_preserved": 14,
+    "original_cause_proven": false
+  },
+  "original_sqlite_oracle": {
+    "sqlite_in_memory": true,
+    "fake_values_only": true,
+    "fault_rolled_back_all_writes": true,
+    "idempotent": true,
+    "invalid_digest_rejected": true,
+    "eloquent_encryption_roundtrip": true,
+    "installed_serializer_ran": true
+  }
+}

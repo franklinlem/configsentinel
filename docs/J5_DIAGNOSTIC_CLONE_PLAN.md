@@ -1,5 +1,7 @@
 # ConfigSentinel RC2 — plano do clone de diagnóstico J5
 
+Atualização 02/11/2026: Fase 1 inteiramente sintética implementada e ensaiada com PASS, sob autorização posterior a este plano. [Resultado e limites](J5_SYNTHETIC_PHASE1.md). A extração de metadados reais e a limpeza continuam pendentes de autorização específica. O texto abaixo preserva o planejamento original.
+
 Estado: **PLANEJAMENTO; execução não autorizada**. Base: commit `ea54917`, Coolify instalado 4.5.3 e evidências em [j5-diagnostic](evidence/j5-diagnostic/diagnostic.json). Este documento não autoriza extração, criação de recursos ou mudança operacional. O recurso de homologação é `oi6lvzwzomwtbbgzf5uzofuh`; seu identificador serve aqui apenas para delimitar o escopo, não como dado a transportar ao clone.
 
 A última evidência registra J3 e J4 aprovados, API/web interrompidas, J5 com rollback e nenhum deploy enfileirado. São observações históricas, não uma confirmação do estado atual. A causa do `internal_error` permanece desconhecida: o ensaio anterior com a mesma imagem do Coolify e PostgreSQL sintético usou esquema parcial. Um buffer com conteúdo consegue produzir erro semelhante, mas o bootstrap observado tinha buffer vazio; isso não prova a causa da execução ativa. Não há stdout/stderr bruto recuperável daquela tentativa.

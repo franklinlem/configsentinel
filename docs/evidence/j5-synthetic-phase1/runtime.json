@@ -1,0 +1,14 @@
+{
+  "postgres": {
+    "running": true,
+    "oom_killed": false,
+    "default_ipv4_route_present": false,
+    "version": "15.19"
+  },
+  "php": {
+    "running": true,
+    "oom_killed": false,
+    "default_ipv4_route_present": false,
+    "version": "8.4.27"
+  }
+}

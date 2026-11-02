@@ -1,5 +1,7 @@
 # ConfigSentinel — candidato corrigido e preparação de release
 
+**02/11/2026 — Fase 1 do clone J5: PASS exclusivamente sintético.** Quatorze cenários PostgreSQL, 11 testes de protocolo e oracle SQLite original passaram. Isolamento de rede comprovado no recorte ensaiado; nenhum banco/credencial real foi consultado e não houve deploy. Helper operacional intacto; recursos novos preservados. A causa histórica continua desconhecida, o estado ativo não foi revalidado e **J5 ativo/produção permanecem NO-GO**. [Relatório](J5_SYNTHETIC_PHASE1.md), [evidências](evidence/j5-synthetic-phase1/result.json). Fase 2 e limpeza exigem autorização específica.
+
 
 **Atualização J3:** repetição isolada interrompida antes de iniciar o banco de teste: erro sintático no harness ao substituir `POSTGRES_PASSWORD`. Backup final com SHA-256 conferido; nesta tentativa não houve decriptação nem restore. Banco ativo verificado antes/depois sem alteração, API/web permanecem paradas. Correção de marcador preparada e compilada apenas com valor fictício; restore continua pendente e homologação/produção permanecem NO-GO. [Evidência](evidence/active-rc2-window/j3-retest/summary.json).
 

@@ -1,0 +1,222 @@
+{
+  "phase": "synthetic_phase1",
+  "result": "PASS",
+  "checked_at": "2026-11-02T13:06:16.322584+00:00",
+  "base_commit": "9a59450",
+  "active_metadata_read": false,
+  "real_credentials_accessed": false,
+  "deploy_attempted": false,
+  "production_approved": false,
+  "active_root_cause_proven": false,
+  "resources": {
+    "name": "configsentinel-j5-phase1-f72ab6b2a2",
+    "private_directory": "/home/franklin/.config/configsentinel-j5-phase1-f72ab6b2a2",
+    "network_id": "b9fc0b5e93f4598032225628c587bc5e3434ce563f37ff53a00e1e2c913ab9e7",
+    "db_container_id": "66cbeba8e28af33c1a729b8fce8927d67dfd444a007ce8f7bc69133df1353166",
+    "php_container_id": "23c4193969bdab2314f06de39a5b0870f04f226f4f9b4926367adc81f8911449",
+    "code_directory": "/home/franklin/.config/configsentinel-j5-phase1-code-dea4fdf055",
+    "preserved_running": true
+  },
+  "images": {
+    "coolify": "sha256:e4e662978b1ea86b9711149caa2e46497bf8f2c03f578c45324d33e42914ff61",
+    "postgres": "sha256:54e0dd8e8cddcdbb9156c2486eed5a43eccb7214d7c6828097d41ce049fb3984"
+  },
+  "isolation": {
+    "result": "PASS",
+    "negative_attempts_by_class": {
+      "host": 28,
+      "existing_service": 200
+    },
+    "all_connections_blocked": true,
+    "external_dns_blocked": true,
+    "synthetic_db_reachable": true,
+    "runtime_evidence": "runtime.json"
+  },
+  "matrix": {
+    "result": "PASS",
+    "tests": [
+      {
+        "test": "first_and_idempotent",
+        "result": "PASS",
+        "duration_ms": 598,
+        "model_saving_events": 0
+      },
+      {
+        "test": "rollback",
+        "result": "PASS",
+        "duration_ms": 169,
+        "model_saving_events": 0,
+        "exception_kind": "runtime",
+        "rollback_identical": true,
+        "buffer_bytes": 0
+      },
+      {
+        "test": "constraint",
+        "result": "PASS",
+        "duration_ms": 197,
+        "model_saving_events": 0,
+        "exception_kind": "database",
+        "rollback_identical": true,
+        "buffer_bytes": 0
+      },
+      {
+        "test": "warning",
+        "result": "PASS",
+        "duration_ms": 159,
+        "model_saving_events": 0,
+        "exception_kind": "php_warning",
+        "rollback_identical": true,
+        "buffer_bytes": 0
+      },
+      {
+        "test": "buffer",
+        "result": "PASS",
+        "duration_ms": 155,
+        "model_saving_events": 0,
+        "exception_kind": "output_buffer",
+        "rollback_identical": true,
+        "buffer_bytes": 23
+      },
+      {
+        "test": "preexisting_buffer",
+        "result": "PASS",
+        "duration_ms": 172,
+        "model_saving_events": 0,
+        "exception_kind": "output_buffer",
+        "rollback_identical": true,
+        "buffer_bytes": 28
+      },
+      {
+        "test": "queued",
+        "result": "PASS",
+        "duration_ms": 74,
+        "model_saving_events": 0,
+        "exception_kind": "runtime",
+        "rollback_identical": true,
+        "buffer_bytes": 0
+      },
+      {
+        "test": "in_progress",
+        "result": "PASS",
+        "duration_ms": 128,
+        "model_saving_events": 0,
+        "exception_kind": "runtime",
+        "rollback_identical": true,
+        "buffer_bytes": 0
+      },
+      {
+        "test": "duplicate_env",
+        "result": "PASS",
+        "duration_ms": 142,
+        "model_saving_events": 0,
+        "exception_kind": "runtime",
+        "rollback_identical": true,
+        "buffer_bytes": 0
+      },
+      {
+        "test": "wrong_password",
+        "result": "PASS",
+        "duration_ms": 148,
+        "model_saving_events": 0,
+        "exception_kind": "runtime",
+        "rollback_identical": true,
+        "buffer_bytes": 0
+      },
+      {
+        "test": "settings_drift",
+        "result": "PASS",
+        "duration_ms": 97,
+        "model_saving_events": 0,
+        "exception_kind": "runtime",
+        "rollback_identical": true,
+        "buffer_bytes": 0
+      },
+      {
+        "test": "lock_timeout",
+        "result": "PASS",
+        "duration_ms": 399,
+        "model_saving_events": 0,
+        "exception_kind": "database",
+        "rollback_identical": true,
+        "buffer_bytes": 0
+      },
+      {
+        "test": "response_ambiguous",
+        "result": "PASS",
+        "duration_ms": 216,
+        "model_saving_events": 0,
+        "committed_before_response_failure": true,
+        "response_stdout_bytes": 10,
+        "automatic_retry": false
+      },
+      {
+        "test": "encryption_flags",
+        "result": "PASS",
+        "duration_ms": 256,
+        "model_saving_events": 0
+      }
+    ],
+    "exec_disabled": {
+      "exec": true,
+      "system": true,
+      "passthru": true,
+      "shell_exec": true,
+      "proc_open": true,
+      "popen": true,
+      "pcntl_exec": true
+    },
+    "docker_socket_absent": true,
+    "synthetic_only": true,
+    "active_metadata_read": false,
+    "schemas_preserved": 14,
+    "original_cause_proven": false
+  },
+  "protocol": {
+    "tests": 11,
+    "passed": 11,
+    "command": "python3 -m unittest discover -s tests/operations -p 'test_j5_protocol.py' -v"
+  },
+  "original_sqlite_oracle": {
+    "sqlite_in_memory": true,
+    "fake_values_only": true,
+    "fault_rolled_back_all_writes": true,
+    "idempotent": true,
+    "invalid_digest_rejected": true,
+    "eloquent_encryption_roundtrip": true,
+    "installed_serializer_ran": true
+  },
+  "attempts": [
+    "attempt-1.json",
+    "attempt-2.json",
+    "attempt-3.json",
+    "attempt-4.json"
+  ],
+  "final_attempt_duration_seconds": 15.466,
+  "guard_adaptation": {
+    "guard_literals_changed": {
+      "uuid": 1,
+      "start": 1
+    },
+    "original_sha256": "bd67c1cea61b834f8913ed6fddccde1164640f31068ba18853c3c7200a5b60c4",
+    "copy_sha256": "113a4a30a6f12f3db32f4e50b06beb4f83371d6eda7949097dbb836f09f283f2"
+  },
+  "hash_manifest": "sha256.json",
+  "phase2_execution_authorized": false,
+  "recommendation": "Phase 1 PASS; Phase 2 requires scoped authorization; active J5 and production remain NO-GO",
+  "validation": {
+    "python_syntax": "PASS",
+    "git_diff_check": "PASS",
+    "gitleaks_code_findings": 0,
+    "gitleaks_evidence_findings": 0,
+    "hashes_verified": true
+  },
+  "dependencies": {
+    "laravel_version": "12.70.1",
+    "source_sha256": {
+      "composer.lock": "983bbfd22ad923bec132853bc7e9e4611935db0d4db7dd2e9d280278cf545de3",
+      "app/Models/Application.php": "d1aadec3cef4cddd33ab1049f19da3d00634b645a92076c22677e1a27514bfa7",
+      "app/Models/EnvironmentVariable.php": "4277886db69040d931dfddd1eb44a0d1b820a35acf84fc7e19c4be3f3e4a8839",
+      "app/Models/ApplicationDeploymentQueue.php": "b14fafeaf3d5562e4c335276c8088aa4bf2da004629e440bb44542c48c5ca698"
+    }
+  }
+}

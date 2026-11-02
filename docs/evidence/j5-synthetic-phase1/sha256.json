@@ -1,0 +1,16 @@
+{
+  "deploy/release-manifest.candidate.json": "cfa04c664cd964603aa9f00a6659660c36a50e0ebcdac31d025bdebbd2a28117",
+  "deploy/release-manifest.fallback.json": "ba390a12123aadd9772275171d06f6ffe5341bca37cbde39ca9b77c80b52c7a9",
+  "scripts/j5_coolify_entry.php": "9347c37f70bd087e7c0941b189e99ad555636cf4dbfede541778e347ac44b35a",
+  "scripts/j5_coolify_transaction.php": "bd67c1cea61b834f8913ed6fddccde1164640f31068ba18853c3c7200a5b60c4",
+  "scripts/j5_protocol.py": "4e6dde3a9760f76d9f0e60bd03238f8263f0b02e5bea186e88949d4323ffb32c",
+  "scripts/j5_synthetic/adapt.php": "408892961a05be11a3bd4b54a51a178aaebf7084a7f02469595352ffd2d899ee",
+  "scripts/j5_synthetic/continue.py": "0fe96dff7933e2a1d13371ab76151cf7037d7603becc2e5e9aa7c7c9dcd1e219",
+  "scripts/j5_synthetic/hold.php": "c82675ee350e8067f4ce289c26f9cbbb1e32e920803f84c52e922f8e40040dd5",
+  "scripts/j5_synthetic/isolation.php": "211f67b853fa58c1aa278f4e6507c0616f6bf48ae8c4980a2d40d06b0c3b1ede",
+  "scripts/j5_synthetic/launch.py": "dbf1a1490bf4f95ca39772b33e6e16673d019f9a8635d606ab8ef88b4ace2c9d",
+  "scripts/j5_synthetic/matrix.php": "3ab683f6088270cbc7c12945b8c54a2f6f9891363b299fcdad4c17cd39995bf5",
+  "scripts/j5_synthetic/resume.py": "07d5585313bf9321e8fdb71ac348baeb54831a0d9e1f0a9f4b3815b580dd29bc",
+  "scripts/j5_synthetic/run.py": "1e4d5a8942ea25f6e5dbd91465ae7250f0abc6dd4268c5a393f505642171019b",
+  "scripts/j5_synthetic/schema.sql": "a54ced631a4f3b59faea5768c5094de2a67cea93b74be62d00309b31769741ec"
+}

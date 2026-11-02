@@ -1,0 +1,9 @@
+{
+  "laravel_version": "12.70.1",
+  "source_sha256": {
+    "composer.lock": "983bbfd22ad923bec132853bc7e9e4611935db0d4db7dd2e9d280278cf545de3",
+    "app/Models/Application.php": "d1aadec3cef4cddd33ab1049f19da3d00634b645a92076c22677e1a27514bfa7",
+    "app/Models/EnvironmentVariable.php": "4277886db69040d931dfddd1eb44a0d1b820a35acf84fc7e19c4be3f3e4a8839",
+    "app/Models/ApplicationDeploymentQueue.php": "b14fafeaf3d5562e4c335276c8088aa4bf2da004629e440bb44542c48c5ca698"
+  }
+}

@@ -1,0 +1,357 @@
+{
+  "result": "FAIL",
+  "active_metadata_read": false,
+  "deploy_attempted": false,
+  "resources_preserved": true,
+  "resources": {
+    "name": "configsentinel-j5-phase1-f72ab6b2a2",
+    "private_directory": "/home/franklin/.config/configsentinel-j5-phase1-f72ab6b2a2",
+    "network_id": "b9fc0b5e93f4598032225628c587bc5e3434ce563f37ff53a00e1e2c913ab9e7",
+    "db_container_id": "66cbeba8e28af33c1a729b8fce8927d67dfd444a007ce8f7bc69133df1353166",
+    "php_container_id": "23c4193969bdab2314f06de39a5b0870f04f226f4f9b4926367adc81f8911449",
+    "code_directory": "/home/franklin/.config/configsentinel-j5-phase1-code-dea4fdf055"
+  },
+  "steps": [
+    {
+      "phase": "approved_image",
+      "exit_code": 0,
+      "stdout_bytes": 13412,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "approved_image",
+      "exit_code": 0,
+      "stdout_bytes": 2939,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "host_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 39677,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_container_ids",
+      "exit_code": 0,
+      "stdout_bytes": 455,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 558,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 558,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 554,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 504,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 528,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 3495,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 534,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 516,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 516,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 491,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 1598,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 1583,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 1046,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 1080,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 1066,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 528,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 1078,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 1063,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 527,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 572,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 568,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 548,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 572,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 568,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 548,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 572,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 552,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 572,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 560,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 572,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 552,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 572,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 560,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 626,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "existing_network_addresses",
+      "exit_code": 0,
+      "stdout_bytes": 626,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "create_network",
+      "exit_code": 0,
+      "stdout_bytes": 65,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "create_synthetic_postgres",
+      "exit_code": 0,
+      "stdout_bytes": 65,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "create_php_cli",
+      "exit_code": 0,
+      "stdout_bytes": 65,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "pg_isready",
+      "exit_code": 2,
+      "stdout_bytes": 29,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "pg_isready",
+      "exit_code": 2,
+      "stdout_bytes": 29,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "pg_isready",
+      "exit_code": 2,
+      "stdout_bytes": 29,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "pg_isready",
+      "exit_code": 2,
+      "stdout_bytes": 29,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "pg_isready",
+      "exit_code": 0,
+      "stdout_bytes": 39,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "inspect_network",
+      "exit_code": 0,
+      "stdout_bytes": 2000,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "inspect_new_resource",
+      "exit_code": 0,
+      "stdout_bytes": 9511,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "inspect_new_resource",
+      "exit_code": 0,
+      "stdout_bytes": 14982,
+      "stderr_bytes": 0
+    },
+    {
+      "phase": "copy_synthetic_code",
+      "exit_code": 1,
+      "stdout_bytes": 0,
+      "stderr_bytes": 65
+    }
+  ],
+  "started_at_unix": 1793624340.3792064,
+  "images": {
+    "coolify": "sha256:e4e662978b1ea86b9711149caa2e46497bf8f2c03f578c45324d33e42914ff61",
+    "postgres": "sha256:54e0dd8e8cddcdbb9156c2486eed5a43eccb7214d7c6828097d41ce049fb3984"
+  },
+  "capacity_gate": "PASS",
+  "credential_file_mode": "0o600",
+  "static_isolation": {
+    "result": "PASS",
+    "network_members": 2,
+    "ports_published": 0,
+    "active_mounts": 0,
+    "readonly_rootfs": true,
+    "capabilities_dropped": true
+  },
+  "failure": {
+    "category": "RuntimeError",
+    "phase": "copy_synthetic_code",
+    "code": "command_failed:copy_synthetic_code"
+  },
+  "duration_seconds": 12.336,
+  "package_sha256": {
+    "adapt.php": "f6de4c7d7dfb5b7fdc75005b92e3215bb34809b5c4ac1bf27910106c24cd43c0",
+    "candidate.json": "cfa04c664cd964603aa9f00a6659660c36a50e0ebcdac31d025bdebbd2a28117",
+    "fallback.json": "ba390a12123aadd9772275171d06f6ffe5341bca37cbde39ca9b77c80b52c7a9",
+    "hold.php": "c82675ee350e8067f4ce289c26f9cbbb1e32e920803f84c52e922f8e40040dd5",
+    "isolation.php": "211f67b853fa58c1aa278f4e6507c0616f6bf48ae8c4980a2d40d06b0c3b1ede",
+    "launch.py": "dbf1a1490bf4f95ca39772b33e6e16673d019f9a8635d606ab8ef88b4ace2c9d",
+    "matrix.php": "9716cbb6c8ed0a4d27f2d6693ed6c5cba5ceaec65dca2c1006ce754c6c17b623",
+    "operational.php": "bd67c1cea61b834f8913ed6fddccde1164640f31068ba18853c3c7200a5b60c4",
+    "original-oracle.php": "7c9ed9f4a6fb97468eab3ae1f759b06f4b632a594aeb7b501f8309912f0d7fa9",
+    "probe-original.php": "11465bc7687380aeecf0130d98c8cb9ce5a7f4b2214e3d27f42791357731a93c",
+    "run.py": "ac8bc8a44ef5094ce83329bec850fe59c0417a10b5dd3c737e06050d8f29ccf5",
+    "schema.sql": "a54ced631a4f3b59faea5768c5094de2a67cea93b74be62d00309b31769741ec"
+  }
+}
