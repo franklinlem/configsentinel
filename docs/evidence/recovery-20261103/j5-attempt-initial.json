@@ -1,0 +1,14 @@
+{
+  "status": "FAIL",
+  "diagnostic": {
+    "category": "helper",
+    "exit_code": 2,
+    "stdout_bytes": 102,
+    "stderr_bytes": 0,
+    "reason": "internal_error",
+    "phase": "apply",
+    "kind": "database"
+  },
+  "fallback_available": false,
+  "automatic_retry": false
+}

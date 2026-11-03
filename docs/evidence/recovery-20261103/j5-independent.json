@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "commit": "36baf66f4656f86d157cd070202323db9465c5f4",
+  "branch": "plan/active-homologation-rc2",
+  "compose": "/deploy/compose.active-homologation.yml",
+  "build_command_length": 255,
+  "protected_envs_verified": 7,
+  "auto_deploy": false,
+  "deploy_queue": 0,
+  "fallback_cached": false,
+  "runtime_database_image_still_original": true,
+  "secrets_recorded": false
+}

@@ -1,0 +1,32 @@
+{
+  "status": "PASS",
+  "phase": "container_health",
+  "containers": {
+    "api": {
+      "id": "8442f785bb4cbf3b156b185813ad8a91d24669d4cf342bf18744f61c987065c9",
+      "image_id": "sha256:ea0a14eda7478d9b4a5091effbb7a990a40594fd56085dd0c483809201a16ec4",
+      "state": "running",
+      "health": "healthy"
+    },
+    "web": {
+      "id": "86b2c0b09410ce243ae2fe4754eaa0b33d46215155c95a4bf40da61ec0189a13",
+      "image_id": "sha256:e7604db734053aed8834c0c4025001fcafab1026e50bca1f8b02aee1fb6cd8d3",
+      "state": "running",
+      "health": "healthy"
+    },
+    "db": {
+      "id": "08bd45897b416cf2cc537834dc8751da9f6be34478f2bcd14ac3efd5dbe93888",
+      "image_id": "sha256:266d3c257594e195b309ae9d1805e54c788f1d7b375f56bf6c367aac6c917e7b",
+      "state": "running",
+      "health": "healthy"
+    },
+    "db_id_unchanged": true,
+    "db_volumes_unchanged": true
+  },
+  "private_dir": "/home/franklin/.config/configsentinel-rc2-recovery-739bc2c6",
+  "db_recreated": false,
+  "pull_or_build": false,
+  "checked_at": "2026-11-03T10:59:51.768092+00:00",
+  "method": "manual RC2 api/web only, current database retained",
+  "fallback_cached": false
+}

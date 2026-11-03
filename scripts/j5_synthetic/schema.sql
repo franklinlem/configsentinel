@@ -2,7 +2,7 @@
 CREATE TABLE applications (
  id bigint PRIMARY KEY, uuid text NOT NULL UNIQUE, name text NOT NULL,
  git_branch text, git_commit_sha text, docker_compose_location text,
- docker_compose_custom_build_command text, docker_compose_custom_start_command text,
+ docker_compose_custom_build_command varchar(255), docker_compose_custom_start_command varchar(255),
  deleted_at timestamptz, created_at timestamptz, updated_at timestamptz
 );
 CREATE TABLE servers (id bigint PRIMARY KEY, deleted_at timestamptz);

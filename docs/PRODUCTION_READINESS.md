@@ -1,5 +1,7 @@
 # ConfigSentinel — candidato corrigido e preparação de release
 
+**03/11/2026 — homologação funcional.** API/web RC2 iniciadas manualmente e saudáveis; PostgreSQL original e dados preservados, site/readiness/login aprovados. J5 foi corrigido e os metadados do Coolify sincronizados. Banco ainda usa a imagem original e o fallback limpo não está em cache; job do Coolify não foi executado nesta recuperação. Produção permanece NO-GO. [Relatório](RECOVERY_2026-11-03.md).
+
 **02/11/2026 — Fase 1 do clone J5: PASS exclusivamente sintético.** Quatorze cenários PostgreSQL, 11 testes de protocolo e oracle SQLite original passaram. Isolamento de rede comprovado no recorte ensaiado; nenhum banco/credencial real foi consultado e não houve deploy. Helper operacional intacto; recursos novos preservados. A causa histórica continua desconhecida, o estado ativo não foi revalidado e **J5 ativo/produção permanecem NO-GO**. [Relatório](J5_SYNTHETIC_PHASE1.md), [evidências](evidence/j5-synthetic-phase1/result.json). Fase 2 e limpeza exigem autorização específica.
 
 

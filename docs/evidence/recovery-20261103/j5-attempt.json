@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "changed": true,
+  "commit": "36baf66f4656f86d157cd070202323db9465c5f4",
+  "envs_verified": 7,
+  "fallback_available": false,
+  "deploy_enqueued_by_helper": false
+}

@@ -225,3 +225,9 @@ Protocolo v2 registra fase/tipo por allowlist, código e tamanhos, sem conteúdo
 Isolamento anterior às fixtures: 228 tentativas negativas ao host/serviços sem rota, banco sintético alcançável, DNS externo bloqueado, nenhuma porta ou volume ativo, rootfs read-only e ausência de rota padrão nos dois containers. Imagens Coolify 4.5.3 e PostgreSQL 15 aprovadas, PHP 8.4.27, PostgreSQL 15.19 e Laravel 12.70.1. Helpers operacionais intactos. Quatro tentativas do harness preservadas, sendo as três primeiras falhas corrigidas na transferência e no bootstrap do clone; a quarta passou. Recursos isolados permanecem em execução; limpeza não autorizada.
 
 A causa do J5 ativo não foi identificada. Schema e valores são sintéticos; nenhum banco ativo, env real ou credencial real foi consultado. Homologação ativa não revalidada. Fase 2 depende de autorização específica e produção continua NO-GO.
+
+## Recuperação da homologação — 03/11/2026
+
+**PASS funcional:** site/readiness 200; login 200; eventos e organizações autenticados 200; eventos anônimos 401; logout 200 e sessão invalidada. API e web RC2 e PostgreSQL original healthy; mesmo container e volume do banco; schema 1 e registros originais de quatro eventos e dois reconhecimentos preservados. Backup periódico recente com checksum íntegro. [Evidências](evidence/recovery-20261103/smoke.json).
+
+**J5 corrigido:** SQLSTATE 22001 reproduzido com rollback devido a comando de 482 caracteres em `varchar(255)`. Comando de 255 caracteres usando três IDs SHA-256 completos passou em transação revertida, aplicação e verificação independente; sete variáveis, commit e Compose confirmados. Oracle SQLite sintético: sete verificações PASS. [Detalhes](RECOVERY_2026-11-03.md). O deploy de recuperação foi manual por Compose, sem recriar o banco; job Coolify e fallback ausente permanecem pendentes para futura janela. Produção continua NO-GO.

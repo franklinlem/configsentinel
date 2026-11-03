@@ -1,5 +1,7 @@
 # J5 — Fase 1 sintética concluída
 
+Atualização 03/11/2026: a reprodução no recurso identificou um limite `varchar(255)` ausente no schema sintético histórico. O helper e o schema de teste foram corrigidos; [relatório de recuperação](RECOVERY_2026-11-03.md). Os resultados abaixo permanecem como evidência histórica da Fase 1.
+
 Data: 02/11/2026. Base: `9a59450`. **PASS para o ensaio sintético; NO-GO para J5 ativo e produção.** Nenhum banco ativo, credencial real ou registro de aplicação do Coolify foi consultado. Não houve deploy, restart de serviços existentes, mudança de roles ou limpeza. A situação atual da homologação não foi revalidada: sua indisponibilidade é a última condição operacional documentada.
 
 Implementação: [harness](../scripts/j5_synthetic/README.md). Evidência consolidada: [result.json](evidence/j5-synthetic-phase1/result.json), [hashes](evidence/j5-synthetic-phase1/sha256.json), [runtime](evidence/j5-synthetic-phase1/runtime.json) e [dependências](evidence/j5-synthetic-phase1/dependencies.json).

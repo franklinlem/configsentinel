@@ -1,0 +1,11 @@
+{
+  "status": "FAIL",
+  "phase": "apply",
+  "kind": "database",
+  "sqlstate": "22001",
+  "operation": "update",
+  "table_category": "applications",
+  "class": "Illuminate\\Database\\QueryException",
+  "outer_transaction_rolled_back": true,
+  "buffer_bytes": 0
+}

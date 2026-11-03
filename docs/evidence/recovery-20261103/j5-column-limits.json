@@ -1,0 +1,36 @@
+{
+  "columns": [
+    {
+      "column_name": "docker_compose_custom_build_command",
+      "data_type": "character varying",
+      "character_maximum_length": 255
+    },
+    {
+      "column_name": "docker_compose_custom_start_command",
+      "data_type": "character varying",
+      "character_maximum_length": 255
+    },
+    {
+      "column_name": "docker_compose_location",
+      "data_type": "character varying",
+      "character_maximum_length": 255
+    },
+    {
+      "column_name": "git_branch",
+      "data_type": "character varying",
+      "character_maximum_length": 255
+    },
+    {
+      "column_name": "git_commit_sha",
+      "data_type": "character varying",
+      "character_maximum_length": 255
+    }
+  ],
+  "proposed_lengths": {
+    "docker_compose_custom_build_command": 482,
+    "docker_compose_custom_start_command": 84,
+    "git_commit_sha": 40,
+    "git_branch": 28,
+    "docker_compose_location": 39
+  }
+}

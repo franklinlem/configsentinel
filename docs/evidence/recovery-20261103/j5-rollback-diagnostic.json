@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "changed": true,
+  "outer_transaction_rolled_back": true,
+  "buffer_bytes": 0
+}

@@ -1,0 +1,10 @@
+{
+  "status": "FAIL",
+  "phase": "transport_or_parse",
+  "exit": 1,
+  "stdout_bytes": 0,
+  "stderr_bytes": 89,
+  "checked_at": "2026-11-03T10:59:18.361992+00:00",
+  "method": "manual RC2 api/web only, current database retained",
+  "fallback_cached": false
+}

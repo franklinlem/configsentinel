@@ -22,11 +22,14 @@ function configsentinel_j5_apply(array $p, bool $injectFailure = false): array {
     if (! $allowedTarget || count($p['env']) !== count($keys) || array_diff($keys,array_keys($p['env'])) || array_diff(array_keys($p['env']),$keys)) throw new RuntimeException('scope_rejected');
     if ($p['commit'] !== '36baf66f4656f86d157cd070202323db9465c5f4' || $p['compose'] !== '/deploy/compose.active-homologation.yml' || $p['branch'] !== 'plan/active-homologation-rc2') throw new RuntimeException('scope_rejected');
     $api='ghcr.io/franklinlem/configsentinel-api@sha256:ea0a14eda7478d9b4a5091effbb7a990a40594fd56085dd0c483809201a16ec4';
-    $fallback='ghcr.io/franklinlem/configsentinel-api@sha256:cacace0b74ddb9bdef72109436035c59305e4c6bb02c063fe0788ce069cffc66';
     $web='ghcr.io/franklinlem/configsentinel-web@sha256:e7604db734053aed8834c0c4025001fcafab1026e50bca1f8b02aee1fb6cd8d3';
     $db='ghcr.io/franklinlem/configsentinel-db@sha256:ceeafd17328e0a09fa2999be01ccdec407e3318306d392c00646cf1dc74b4447';
     if ($p['env']['CONFIGSENTINEL_API_IMAGE'] !== $api || $p['env']['CONFIGSENTINEL_MIGRATION_IMAGE'] !== $api || $p['env']['CONFIGSENTINEL_WEB_IMAGE'] !== $web || $p['env']['CONFIGSENTINEL_DB_IMAGE'] !== $db) throw new RuntimeException('invalid_input');
-    $build="docker image inspect --format '{{.Id}}' ".implode(' ',[$api,$fallback,$web,$db]);
+    // Coolify stores this command in varchar(255). Its active images are
+    // already pinned; use their full local IDs and verify the fallback separately.
+    $imageIds=array_map(static fn($image)=>explode('@',$image,2)[1],[$api,$web,$db]);
+    $build="docker image inspect --format '{{.Id}}' ".implode(' ',$imageIds);
+    if (strlen($build)>255) throw new RuntimeException('invalid_input');
     $start='docker compose --project-name oi6lvzwzomwtbbgzf5uzofuh up -d --pull never --no-build';
     if ($p['custom_build'] !== $build || $p['custom_start'] !== $start) throw new RuntimeException('scope_rejected');
     if ($injectFailure && $p['mode'] !== 'isolated') throw new RuntimeException('scope_rejected');
