@@ -313,3 +313,9 @@ Após autorização de Franklin para restabelecer a aplicação, API e web RC2 f
 A reprodução de J5 em transação revertida identificou `22001` ao gravar em `applications`: o comando tinha 482 caracteres para uma coluna `varchar(255)`. O comando foi corrigido para inspecionar os três IDs completos das imagens RC2 em exatamente 255 caracteres. Ensaio revertido e aplicação real passaram; commit, branch, Compose, sete variáveis protegidas, auto-deploy desligado e fila vazia foram confirmados independentemente. [Diagnóstico](evidence/recovery-20261103/j5-original-diagnostic.json), [resultado](evidence/recovery-20261103/j5-independent.json). A causa da tentativa histórica ainda não é comprovável com a evidência então preservada.
 
 O recurso está funcional, mas o último início não foi um job do Coolify e o PostgreSQL ainda usa a imagem original. O fallback limpo não está no cache; a tentativa de pull falhou. Um futuro deploy/rollback requer revalidar disponibilidade dos artefatos e os gates pertinentes. Produção não foi implantada nem aprovada.
+
+## 20. PostgreSQL RC2, fallback e gate do job — 03/11/2026
+
+Fallback e demais imagens foram recuperados e verificados pelo [workflow 41624552963](https://github.com/franklinlem/configsentinel/actions/runs/41624552963). Um novo backup foi restaurado isoladamente com contagens e registros correspondentes; após isso, o PostgreSQL 17.11 endurecido foi colocado no volume existente por Compose, sem recriar API/web. Aplicação, banco, login e readiness passaram; backup posterior e Kuma foram verificados. [Relatório e evidências](HOMOLOGATION_RC2_COMPLETION.md).
+
+O job Coolify **não foi enfileirado**: ele tenta conectar `coolify-proxy` à rede exclusiva do recurso, e o proxy não está atualmente nessa rede. A web continua acessível pela rede compartilhada `coolify`. A restrição anterior proíbe modificar o proxy; autorização específica para essa conexão é necessária antes do job. Produção permanece NO-GO.

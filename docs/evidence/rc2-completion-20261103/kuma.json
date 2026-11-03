@@ -1,0 +1,26 @@
+{
+  "monitors": [
+    {
+      "id": 20,
+      "name": "ConfigSentinel \u00b7 Homologa\u00e7\u00e3o",
+      "active": 1
+    },
+    {
+      "id": 21,
+      "name": "ConfigSentinel \u00b7 Backup criptografado",
+      "active": 1
+    }
+  ],
+  "latest": {
+    "20": {
+      "monitor_id": 20,
+      "status": 1,
+      "time": "2026-11-03T11:08:32.000Z"
+    },
+    "21": {
+      "monitor_id": 21,
+      "status": 1,
+      "time": "2026-11-03T11:04:45.000Z"
+    }
+  }
+}

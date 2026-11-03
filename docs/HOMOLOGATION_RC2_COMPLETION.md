@@ -1,0 +1,25 @@
+# Homologação RC2 — conclusão parcial, 03/11/2026
+
+A homologação está operacional com API, web e PostgreSQL RC2 por digest, todos saudáveis. O fallback limpo foi recuperado e verificado. O único item operacional pendente desta etapa é um deploy completo pelo job do Coolify, bloqueado antes do enfileiramento porque ele altera a conexão de rede do proxy, ação anteriormente proibida por Franklin.
+
+## Imagens e fallback
+
+O [workflow 41624552963](https://github.com/franklinlem/configsentinel/actions/runs/41624552963) passou na verificação dos cinco digests, assinaturas, provenance, SBOMs e scans e os colocou no cache da Contabo usando o mecanismo SSH restrito e token de leitura efêmero. API candidata e API fallback apresentaram cada uma um achado `UNKNOWN`; web, PostgreSQL e agente não apresentaram achados no resultado do workflow. Não houve achados HIGH/CRITICAL bloqueadores nesse gate. O agente ativo não foi atualizado. [Resultados](evidence/rc2-completion-20261103/images-verification.json).
+
+## Backup e PostgreSQL
+
+Antes da troca, foi criado um novo backup criptografado em caminho exclusivo, conferido por SHA-256 e restaurado em um PostgreSQL isolado com `pg_restore --exit-on-error`, streaming sem dump aberto e sem montar o volume ativo. Schema 1, 14 contagens, eventos e reconhecimentos coincidiram com a baseline ativa, que permaneceu igual ao final do ensaio. Restore: 3,712 s, excluindo criação de recursos e demais etapas. O banco de produção não foi usado. [Backup](evidence/rc2-completion-20261103/backup.json), [restore e recursos preservados](evidence/rc2-completion-20261103/restore.json).
+
+O banco antigo e a imagem endurecida são ambos PostgreSQL 17.11; a imagem endurecida parte exatamente da imagem anterior. A migração 1 existente não é reaplicada por `Migrate` quando `schema_migrations` já existe; a imagem inicia scripts de bootstrap apenas em diretório de dados vazio. O volume ativo não foi substituído nem restaurado.
+
+A imagem do banco foi trocada **diretamente pelo Compose exclusivo**, sem pull ou rebuild, preservando o mesmo volume; API e web não foram recriadas. Os três containers ficaram saudáveis e as 14 contagens voltaram a coincidir com o backup, preservando conteúdo dos eventos e reconhecimentos. [Mudança](evidence/rc2-completion-20261103/database-upgrade.json), [integridade](evidence/rc2-completion-20261103/integrity.json). Foi produzido e verificado mais um backup criptografado após a troca; o restore exercitado foi o anterior à troca. [Backup posterior](evidence/rc2-completion-20261103/post-backup.json).
+
+Site e readiness retornaram 200; login, leitura autenticada de eventos e organizações, logout e invalidação da sessão passaram; eventos sem autenticação retornaram 401. [Smoke](evidence/rc2-completion-20261103/smoke.json). Os monitores Kuma 20 e 21 estavam ativos e UP; a última amostra do monitor 20 é posterior à troca do banco. O último UP do 21 é anterior à troca, e o novo backup foi verificado separadamente. [Monitores](evidence/rc2-completion-20261103/kuma-final.json).
+
+## Gate para o job Coolify
+
+Nenhum job foi enfileirado. O precheck detectou que `coolify-proxy` **não** está conectado à rede Docker exclusiva `oi6lvzwzomwtbbgzf5uzofuh`; o proxy e a web estão ambos na rede `coolify`, pela qual o site funciona. Na implementação instalada de `ApplicationDeploymentJob`, o deploy Compose executa incondicionalmente `docker network connect <uuid> coolify-proxy` após parar os containers. Esse comando modificaria a conexão do proxy com uma rede, embora não altere suas regras ou configuração. A restrição anterior de Franklin proibia alterações em Traefik e outros serviços, portanto o job foi interrompido antes de sua solicitação. [Gate](evidence/rc2-completion-20261103/coolify-gate.json).
+
+Para tornar a próxima ação concreta: mediante autorização específica, conectar apenas o container existente `coolify-proxy` à rede exclusiva do ConfigSentinel e executar um único deploy manual do UUID autorizado, sem rebuild ou pull. O job poderá interromper temporariamente API, web e banco; deve manter o volume externo. Antes da execução, reconferir estado, fila, snapshot, frescor do backup e digests. Depois, conferir containers, login, readiness e registros existentes. Não mudar DNS, firewall, regras/configuração do Traefik, produção ou agente. Se o gate ou job falhar, registrar a situação e interromper sem restaurar sobre o banco ativo ou repetir automaticamente.
+
+**Decisão:** homologação funcional; deploy completo pelo Coolify ainda não validado. Produção permanece NO-GO. O container, rede e volume do restore isolado permanecem preservados; limpeza depende de autorização separada.

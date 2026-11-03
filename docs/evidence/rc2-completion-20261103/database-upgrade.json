@@ -1,0 +1,32 @@
+{
+  "status": "PASS",
+  "phase": "post_change_health",
+  "containers": {
+    "api": {
+      "id": "8442f785bb4cbf3b156b185813ad8a91d24669d4cf342bf18744f61c987065c9",
+      "image_id": "sha256:ea0a14eda7478d9b4a5091effbb7a990a40594fd56085dd0c483809201a16ec4",
+      "state": "running",
+      "health": "healthy"
+    },
+    "web": {
+      "id": "86b2c0b09410ce243ae2fe4754eaa0b33d46215155c95a4bf40da61ec0189a13",
+      "image_id": "sha256:e7604db734053aed8834c0c4025001fcafab1026e50bca1f8b02aee1fb6cd8d3",
+      "state": "running",
+      "health": "healthy"
+    },
+    "db": {
+      "id": "4885e6ef8de094f7010b2a620b92f54aae9e7e9f3bd1e2acb2488670bce50040",
+      "image_id": "sha256:ceeafd17328e0a09fa2999be01ccdec407e3318306d392c00646cf1dc74b4447",
+      "state": "running",
+      "health": "healthy"
+    }
+  },
+  "old_db_id": "08bd45897b416cf2cc537834dc8751da9f6be34478f2bcd14ac3efd5dbe93888",
+  "volume_unchanged": true,
+  "api_web_not_recreated": true,
+  "images_cached": true,
+  "build_or_pull": false,
+  "checked_at": "2026-11-03T11:09:05.408790+00:00",
+  "user_authorized_homologation_only": true,
+  "automatic_retry": false
+}

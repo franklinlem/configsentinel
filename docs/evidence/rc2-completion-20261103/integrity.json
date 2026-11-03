@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "schema": 1,
+  "original_events_and_acknowledgements_preserved": true,
+  "counts": {
+    "schema_migrations": 1,
+    "organizations": 1,
+    "users": 1,
+    "projects": 1,
+    "memberships": 1,
+    "environments": 1,
+    "servers": 1,
+    "agents": 3,
+    "agent_tokens": 3,
+    "user_sessions": 1,
+    "change_events": 4,
+    "file_observations": 1,
+    "acknowledgements": 2,
+    "audit_logs": 6
+  },
+  "backup_baseline_all_counts_match": true
+}

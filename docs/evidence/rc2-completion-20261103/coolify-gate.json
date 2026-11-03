@@ -1,0 +1,15 @@
+{
+  "status": "BLOCKED",
+  "reason": "coolify_job_would_connect_proxy_to_resource_network",
+  "resource_uuid": "oi6lvzwzomwtbbgzf5uzofuh",
+  "job_enqueued": false,
+  "proxy_modified": false,
+  "resource_network_state": {
+    "resource_network_proxy_connected": false,
+    "shared_network_proxy_connected": true,
+    "shared_network_web_connected": true
+  },
+  "auto_deploy": false,
+  "deployment_queue": 0,
+  "requires_specific_authorization_for_proxy_connection": true
+}
