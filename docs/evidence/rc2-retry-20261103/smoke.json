@@ -1,0 +1,15 @@
+{
+  "site": 200,
+  "readiness": 200,
+  "events_unauthenticated": 401,
+  "login": 200,
+  "authenticated_events": 200,
+  "organizations": 200,
+  "logout": 200,
+  "session_after_logout": 401,
+  "schema": 1,
+  "original_events_and_acknowledgements_preserved": true,
+  "event_count": 4,
+  "acknowledgement_count": 2,
+  "secrets_recorded": false
+}
