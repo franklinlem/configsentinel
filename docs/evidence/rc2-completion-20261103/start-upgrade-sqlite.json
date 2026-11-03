@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "checks": {
+    "sqlite_in_memory": true,
+    "fake_values_only": true,
+    "fault_rolled_back_all_writes": true,
+    "idempotent": true,
+    "legacy_start_upgraded_without_env_writes": true,
+    "invalid_digest_rejected": true,
+    "eloquent_encryption_roundtrip": true,
+    "installed_serializer_ran": true
+  },
+  "synthetic_only": true
+}

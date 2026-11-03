@@ -1,5 +1,7 @@
 # ConfigSentinel — candidato corrigido e preparação de release
 
+**03/11/2026 — job Coolify ainda pendente.** A tentativa autorizada falhou ao buscar `.env` do host dentro do container de deploy; a homologação permaneceu saudável. Correção de caminhos relativos foi testada em isolamento e aguarda aplicação e nova autorização para deploy. Produção permanece NO-GO. [Relatório](HOMOLOGATION_RC2_COMPLETION.md).
+
 **03/11/2026 — RC2 de homologação operacional por digest.** Fallback recuperado, backup novo restaurado isoladamente e PostgreSQL endurecido aplicado no volume original; smoke e integridade passaram. Deploy completo pelo job Coolify aguarda autorização para conexão de rede do proxy. Produção continua NO-GO. [Relatório](HOMOLOGATION_RC2_COMPLETION.md).
 
 **03/11/2026 — homologação funcional.** API/web RC2 iniciadas manualmente e saudáveis; PostgreSQL original e dados preservados, site/readiness/login aprovados. J5 foi corrigido e os metadados do Coolify sincronizados. Banco ainda usa a imagem original e o fallback limpo não está em cache; job do Coolify não foi executado nesta recuperação. Produção permanece NO-GO. [Relatório](RECOVERY_2026-11-03.md).

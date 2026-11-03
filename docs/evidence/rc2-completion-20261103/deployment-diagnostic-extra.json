@@ -1,0 +1,66 @@
+[
+  {
+    "index": 20,
+    "bytes": 434,
+    "matches": [
+      "directory"
+    ],
+    "trimmed_hex_only": false,
+    "contains_newline": false
+  },
+  {
+    "index": 21,
+    "bytes": 80,
+    "matches": [
+      "env file"
+    ],
+    "trimmed_hex_only": false,
+    "contains_newline": false
+  },
+  {
+    "index": 22,
+    "bytes": 40,
+    "matches": [],
+    "trimmed_hex_only": false,
+    "contains_newline": false
+  },
+  {
+    "index": 23,
+    "bytes": 574,
+    "matches": [
+      "env file",
+      "exit code 1",
+      "directory"
+    ],
+    "trimmed_hex_only": false,
+    "contains_newline": true
+  },
+  {
+    "index": 24,
+    "bytes": 46,
+    "matches": [],
+    "trimmed_hex_only": false,
+    "contains_newline": false
+  },
+  {
+    "index": 25,
+    "bytes": 13,
+    "matches": [],
+    "trimmed_hex_only": false,
+    "contains_newline": false
+  },
+  {
+    "index": 26,
+    "bytes": 63,
+    "matches": [],
+    "trimmed_hex_only": false,
+    "contains_newline": false
+  },
+  {
+    "index": 27,
+    "bytes": 40,
+    "matches": [],
+    "trimmed_hex_only": false,
+    "contains_newline": false
+  }
+]

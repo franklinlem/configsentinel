@@ -1,7 +1,7 @@
 {
   "status": "PASS",
-  "path": "/home/franklin/.local/share/configsentinel-predeploy-832fd4acfc67/daily/2026-11-03T110518585730Z.dump.gpg",
-  "sha256": "86c7babd72124441641067bb1b18cd57c88bf304a183b6fbe6efb9912d60308d",
-  "size": 8436,
+  "path": "/home/franklin/.local/share/configsentinel-predeploy-47d7cc8528bc/daily/2026-11-03T111047956791Z.dump.gpg",
+  "sha256": "74a142792456909dbbf56c8f49e67395d2e640e18106f97b12221ba37f2666f0",
+  "size": 8568,
   "mode": "0o600"
 }

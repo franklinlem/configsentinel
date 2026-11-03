@@ -1,0 +1,14 @@
+{
+  "result": "PASS",
+  "installed_job_validator_accepted": true,
+  "installed_flag_injector_preserved_relative_paths": true,
+  "project_directory_is_workdir": true,
+  "no_host_only_paths": true,
+  "env_flags": 1,
+  "command_length": 144,
+  "pull_never_no_build": true,
+  "synthetic_only": true,
+  "compose_render": "PASS",
+  "images_volume_networks_verified": true,
+  "no_build_or_ports": true
+}

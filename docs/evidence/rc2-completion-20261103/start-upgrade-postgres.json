@@ -1,0 +1,166 @@
+{
+  "result": "PASS",
+  "tests": [
+    {
+      "test": "first_and_idempotent",
+      "result": "PASS",
+      "duration_ms": 811,
+      "model_saving_events": 0
+    },
+    {
+      "test": "previous_start_upgrade",
+      "result": "PASS",
+      "duration_ms": 243,
+      "model_saving_events": 0
+    },
+    {
+      "test": "previous_start_buffer_rollback",
+      "result": "PASS",
+      "duration_ms": 308,
+      "model_saving_events": 0,
+      "exception_kind": "output_buffer",
+      "rollback_identical": true,
+      "buffer_bytes": 28
+    },
+    {
+      "test": "rollback",
+      "result": "PASS",
+      "duration_ms": 188,
+      "model_saving_events": 0,
+      "exception_kind": "runtime",
+      "rollback_identical": true,
+      "buffer_bytes": 0
+    },
+    {
+      "test": "constraint",
+      "result": "PASS",
+      "duration_ms": 187,
+      "model_saving_events": 0,
+      "exception_kind": "database",
+      "rollback_identical": true,
+      "buffer_bytes": 0
+    },
+    {
+      "test": "warning",
+      "result": "PASS",
+      "duration_ms": 241,
+      "model_saving_events": 0,
+      "exception_kind": "php_warning",
+      "rollback_identical": true,
+      "buffer_bytes": 0
+    },
+    {
+      "test": "buffer",
+      "result": "PASS",
+      "duration_ms": 275,
+      "model_saving_events": 0,
+      "exception_kind": "output_buffer",
+      "rollback_identical": true,
+      "buffer_bytes": 23
+    },
+    {
+      "test": "preexisting_buffer",
+      "result": "PASS",
+      "duration_ms": 258,
+      "model_saving_events": 0,
+      "exception_kind": "output_buffer",
+      "rollback_identical": true,
+      "buffer_bytes": 28
+    },
+    {
+      "test": "queued",
+      "result": "PASS",
+      "duration_ms": 147,
+      "model_saving_events": 0,
+      "exception_kind": "runtime",
+      "rollback_identical": true,
+      "buffer_bytes": 0
+    },
+    {
+      "test": "in_progress",
+      "result": "PASS",
+      "duration_ms": 202,
+      "model_saving_events": 0,
+      "exception_kind": "runtime",
+      "rollback_identical": true,
+      "buffer_bytes": 0
+    },
+    {
+      "test": "duplicate_env",
+      "result": "PASS",
+      "duration_ms": 186,
+      "model_saving_events": 0,
+      "exception_kind": "runtime",
+      "rollback_identical": true,
+      "buffer_bytes": 0
+    },
+    {
+      "test": "wrong_password",
+      "result": "PASS",
+      "duration_ms": 220,
+      "model_saving_events": 0,
+      "exception_kind": "runtime",
+      "rollback_identical": true,
+      "buffer_bytes": 0
+    },
+    {
+      "test": "settings_drift",
+      "result": "PASS",
+      "duration_ms": 164,
+      "model_saving_events": 0,
+      "exception_kind": "runtime",
+      "rollback_identical": true,
+      "buffer_bytes": 0
+    },
+    {
+      "test": "lock_timeout",
+      "result": "PASS",
+      "duration_ms": 380,
+      "model_saving_events": 0,
+      "exception_kind": "database",
+      "rollback_identical": true,
+      "buffer_bytes": 0
+    },
+    {
+      "test": "response_ambiguous",
+      "result": "PASS",
+      "duration_ms": 200,
+      "model_saving_events": 0,
+      "committed_before_response_failure": true,
+      "response_stdout_bytes": 10,
+      "automatic_retry": false
+    },
+    {
+      "test": "encryption_flags",
+      "result": "PASS",
+      "duration_ms": 298,
+      "model_saving_events": 0
+    }
+  ],
+  "exec_disabled": {
+    "exec": true,
+    "system": true,
+    "passthru": true,
+    "shell_exec": true,
+    "proc_open": true,
+    "popen": true,
+    "pcntl_exec": true
+  },
+  "docker_socket_absent": true,
+  "synthetic_only": true,
+  "active_metadata_read": false,
+  "schemas_preserved": 16,
+  "original_cause_proven": false,
+  "adaptation": {
+    "guard_literals_changed": {
+      "uuid": 1,
+      "start": 1,
+      "previous_start": 1
+    },
+    "original_sha256": "2dd3cda7fec8d46716dce7929e8e572170245a56a58286f8d9714ffc2dde0929",
+    "copy_sha256": "82f3553dafbb2565c889b21e904e6ed65b576fd7f48e838a771d6a017361bd84"
+  },
+  "synthetic_resource_preserved": true,
+  "test_root": "/tmp/j5-0eb5379b",
+  "active_resource_accessed": false
+}

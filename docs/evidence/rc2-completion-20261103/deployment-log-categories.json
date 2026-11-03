@@ -1,0 +1,183 @@
+{
+  "status": "failed",
+  "entries": [
+    {
+      "index": 5,
+      "type": "stdout",
+      "output_bytes": 80,
+      "patterns": []
+    },
+    {
+      "index": 6,
+      "type": "stdout",
+      "output_bytes": 40,
+      "patterns": []
+    },
+    {
+      "index": 7,
+      "type": "stdout",
+      "output_bytes": 171,
+      "patterns": []
+    },
+    {
+      "index": 8,
+      "type": "stderr",
+      "output_bytes": 65,
+      "patterns": []
+    },
+    {
+      "index": 9,
+      "type": "stdout",
+      "output_bytes": 20,
+      "patterns": []
+    },
+    {
+      "index": 10,
+      "type": "stderr",
+      "output_bytes": 126,
+      "patterns": [
+        "git"
+      ]
+    },
+    {
+      "index": 11,
+      "type": "stdout",
+      "output_bytes": 82,
+      "patterns": [
+        "pull"
+      ]
+    },
+    {
+      "index": 12,
+      "type": "stdout",
+      "output_bytes": 46,
+      "patterns": []
+    },
+    {
+      "index": 13,
+      "type": "stdout",
+      "output_bytes": 35,
+      "patterns": [
+        "image",
+        "pull"
+      ]
+    },
+    {
+      "index": 14,
+      "type": "stdout",
+      "output_bytes": 69,
+      "patterns": []
+    },
+    {
+      "index": 15,
+      "type": "stdout",
+      "output_bytes": 215,
+      "patterns": []
+    },
+    {
+      "index": 16,
+      "type": "stdout",
+      "output_bytes": 56,
+      "patterns": []
+    },
+    {
+      "index": 17,
+      "type": "stdout",
+      "output_bytes": 140,
+      "patterns": [
+        "compose",
+        "image",
+        "command",
+        "pull"
+      ]
+    },
+    {
+      "index": 18,
+      "type": "stdout",
+      "output_bytes": 24,
+      "patterns": []
+    },
+    {
+      "index": 19,
+      "type": "stdout",
+      "output_bytes": 25,
+      "patterns": []
+    },
+    {
+      "index": 20,
+      "type": "stdout",
+      "output_bytes": 434,
+      "patterns": [
+        "compose",
+        "pull"
+      ]
+    },
+    {
+      "index": 21,
+      "type": "stdout",
+      "output_bytes": 80,
+      "patterns": []
+    },
+    {
+      "index": 22,
+      "type": "stderr",
+      "output_bytes": 40,
+      "patterns": []
+    },
+    {
+      "index": 23,
+      "type": "stderr",
+      "output_bytes": 574,
+      "patterns": [
+        "error",
+        "fail",
+        "compose",
+        "command",
+        "pull"
+      ]
+    },
+    {
+      "index": 24,
+      "type": "stderr",
+      "output_bytes": 46,
+      "patterns": [
+        "error",
+        "exception"
+      ]
+    },
+    {
+      "index": 25,
+      "type": "stderr",
+      "output_bytes": 13,
+      "patterns": [
+        "error"
+      ]
+    },
+    {
+      "index": 26,
+      "type": "stderr",
+      "output_bytes": 63,
+      "patterns": [
+        "command"
+      ]
+    },
+    {
+      "index": 27,
+      "type": "stderr",
+      "output_bytes": 40,
+      "patterns": []
+    },
+    {
+      "index": 28,
+      "type": "stdout",
+      "output_bytes": 78,
+      "patterns": []
+    },
+    {
+      "index": 29,
+      "type": "stdout",
+      "output_bytes": 36,
+      "patterns": []
+    }
+  ]
+}

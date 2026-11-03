@@ -1,0 +1,26 @@
+{
+  "checked_at": "2026-11-03T11:18:37.160424+00:00",
+  "application_operational": true,
+  "deploy_job": "failed",
+  "deploy_attempts": 1,
+  "proxy_connected_with_authorization": true,
+  "reason": "host_env_file_path_unavailable_inside_deployment_container",
+  "corrected_start_applied_to_active": false,
+  "second_deploy_enqueued": false,
+  "synthetic_tests": {
+    "postgres_cases": 16,
+    "sqlite_checks": 8,
+    "protocol_tests": 11,
+    "installed_injector_and_compose_render": "PASS"
+  },
+  "active_data_preserved": true,
+  "production_approved": false,
+  "sha256": {
+    "scripts/j5_coolify_transaction.php": "2dd3cda7fec8d46716dce7929e8e572170245a56a58286f8d9714ffc2dde0929",
+    "scripts/j5_synthetic/adapt.php": "3afa782798a0b1cfde4f8a2a065790d4b1c6b00eb2ecaedff7062767ace05e98",
+    "scripts/j5_synthetic/matrix.php": "eff07f96992f5b704ed6083173023e2d2a57791079d89057fd32519f625eec64",
+    "scripts/j5_synthetic/schema.sql": "228b42b64ad9de094f22721b13875871aab9a92a9e6727a692d4293163717331",
+    "scripts/j5_synthetic/verify-start-path.php": "600e1f75d92919f43c5704b6f831d4ab43acc5806fec87f8a800be127d8ec5fb",
+    "scripts/probe_j5_isolated.php": "d9e3a2b508baea7b2955b80058ff8eb4c4ee84299b5f2b45ec2ee060ee228592"
+  }
+}

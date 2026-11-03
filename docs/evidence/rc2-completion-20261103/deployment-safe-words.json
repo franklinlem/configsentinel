@@ -1,0 +1,157 @@
+[
+  {
+    "index": 11,
+    "safe_words": [
+      "read",
+      "pull",
+      "cache",
+      "skip"
+    ]
+  },
+  {
+    "index": 12,
+    "safe_words": [
+      "no",
+      "build"
+    ]
+  },
+  {
+    "index": 13,
+    "safe_words": [
+      "required",
+      "images"
+    ]
+  },
+  {
+    "index": 14,
+    "safe_words": [
+      "build",
+      "env",
+      "file",
+      "artifacts",
+      "docker"
+    ]
+  },
+  {
+    "index": 15,
+    "safe_words": [
+      "sha",
+      "sha",
+      "sha"
+    ]
+  },
+  {
+    "index": 16,
+    "safe_words": [
+      "env",
+      "file",
+      "runtime",
+      "container"
+    ]
+  },
+  {
+    "index": 17,
+    "safe_words": [
+      "skipping",
+      "the",
+      "image",
+      "pull",
+      "the",
+      "the",
+      "build",
+      "command",
+      "build",
+      "images",
+      "docker",
+      "compose"
+    ]
+  },
+  {
+    "index": 18,
+    "safe_words": []
+  },
+  {
+    "index": 19,
+    "safe_words": []
+  },
+  {
+    "index": 20,
+    "safe_words": [
+      "docker",
+      "artifacts",
+      "docker",
+      "compose",
+      "compose",
+      "env",
+      "file",
+      "env",
+      "project",
+      "artifacts",
+      "project",
+      "pull",
+      "no",
+      "build"
+    ]
+  },
+  {
+    "index": 21,
+    "safe_words": [
+      "env",
+      "file",
+      "env"
+    ]
+  },
+  {
+    "index": 22,
+    "safe_words": []
+  },
+  {
+    "index": 23,
+    "safe_words": [
+      "failed",
+      "command",
+      "failed",
+      "exit",
+      "code",
+      "docker",
+      "artifacts",
+      "docker",
+      "compose",
+      "compose",
+      "env",
+      "file",
+      "env",
+      "project",
+      "artifacts",
+      "project",
+      "pull",
+      "no",
+      "build",
+      "error",
+      "env",
+      "file",
+      "env"
+    ]
+  },
+  {
+    "index": 24,
+    "safe_words": [
+      "error"
+    ]
+  },
+  {
+    "index": 25,
+    "safe_words": [
+      "error",
+      "code"
+    ]
+  },
+  {
+    "index": 26,
+    "safe_words": []
+  },
+  {
+    "index": 27,
+    "safe_words": []
+  }
+]

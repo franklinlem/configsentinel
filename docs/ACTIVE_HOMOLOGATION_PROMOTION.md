@@ -319,3 +319,9 @@ O recurso está funcional, mas o último início não foi um job do Coolify e o 
 Fallback e demais imagens foram recuperados e verificados pelo [workflow 41624552963](https://github.com/franklinlem/configsentinel/actions/runs/41624552963). Um novo backup foi restaurado isoladamente com contagens e registros correspondentes; após isso, o PostgreSQL 17.11 endurecido foi colocado no volume existente por Compose, sem recriar API/web. Aplicação, banco, login e readiness passaram; backup posterior e Kuma foram verificados. [Relatório e evidências](HOMOLOGATION_RC2_COMPLETION.md).
 
 O job Coolify **não foi enfileirado**: ele tenta conectar `coolify-proxy` à rede exclusiva do recurso, e o proxy não está atualmente nessa rede. A web continua acessível pela rede compartilhada `coolify`. A restrição anterior proíbe modificar o proxy; autorização específica para essa conexão é necessária antes do job. Produção permanece NO-GO.
+
+## 21. Tentativa manual autorizada e correção preparada — 03/11/2026
+
+A conexão específica do proxy foi autorizada e concluída. O backup foi renovado e restaurado por diferença de uma sessão na baseline; as 14 contagens e registros coincidiram. Um único job Coolify foi enfileirado e terminou **FAIL**: o comando personalizado recebeu um caminho de `.env` do host, indisponível dentro do container de deploy. Aplicação, banco e dados continuam íntegros e saudáveis; não houve repetição. [Evidências](HOMOLOGATION_RC2_COMPLETION.md).
+
+O helper agora prepara um comando com caminhos relativos e atualização transacional idempotente do comando anterior. Validador/injetor instalado, Compose sintético, 16 cenários PostgreSQL e oito verificações SQLite passaram. **Esse ajuste ainda não foi aplicado ao recurso ativo**, e o job completo permanece não validado. A próxima execução exige autorização específica para aplicar o ajuste e tentar um único novo deploy; produção continua NO-GO.

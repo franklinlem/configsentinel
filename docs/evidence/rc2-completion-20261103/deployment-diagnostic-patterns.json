@@ -1,0 +1,60 @@
+[
+  {
+    "index": 3,
+    "output_bytes": 83,
+    "matches": [
+      "no such",
+      "error response",
+      "error"
+    ]
+  },
+  {
+    "index": 8,
+    "output_bytes": 65,
+    "matches": []
+  },
+  {
+    "index": 10,
+    "output_bytes": 126,
+    "matches": []
+  },
+  {
+    "index": 22,
+    "output_bytes": 40,
+    "matches": []
+  },
+  {
+    "index": 23,
+    "output_bytes": 574,
+    "matches": [
+      "exit code",
+      "failed",
+      "error",
+      "compose"
+    ]
+  },
+  {
+    "index": 24,
+    "output_bytes": 46,
+    "matches": [
+      "error"
+    ]
+  },
+  {
+    "index": 25,
+    "output_bytes": 13,
+    "matches": [
+      "error"
+    ]
+  },
+  {
+    "index": 26,
+    "output_bytes": 63,
+    "matches": []
+  },
+  {
+    "index": 27,
+    "output_bytes": 40,
+    "matches": []
+  }
+]

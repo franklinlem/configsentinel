@@ -30,7 +30,7 @@ function configsentinel_j5_apply(array $p, bool $injectFailure = false): array {
     $imageIds=array_map(static fn($image)=>explode('@',$image,2)[1],[$api,$web,$db]);
     $build="docker image inspect --format '{{.Id}}' ".implode(' ',$imageIds);
     if (strlen($build)>255) throw new RuntimeException('invalid_input');
-    $start='docker compose --project-name oi6lvzwzomwtbbgzf5uzofuh up -d --pull never --no-build';
+    $start='docker compose --env-file .env -f ./deploy/compose.active-homologation.yml --project-name oi6lvzwzomwtbbgzf5uzofuh up -d --pull never --no-build';
     if ($p['custom_build'] !== $build || $p['custom_start'] !== $start) throw new RuntimeException('scope_rejected');
     if ($injectFailure && $p['mode'] !== 'isolated') throw new RuntimeException('scope_rejected');
     foreach ($p['env'] as $v) if (!is_string($v) || $v === '' || trim($v) !== $v || str_contains($v,"\n") || str_contains($v,"\r")) throw new RuntimeException('invalid_input');
@@ -43,15 +43,25 @@ function configsentinel_j5_apply(array $p, bool $injectFailure = false): array {
         if (!$settings || !$settings->is_raw_compose_deployment_enabled || $settings->is_build_server_enabled || $settings->is_auto_deploy_enabled) throw new RuntimeException('state_drift');
         $old = $a->git_commit_sha === '5819b7fce93c10cceabbe59fde5fac4f647b707c' && $a->git_branch === 'main' && $a->docker_compose_location === '/deploy/compose.coolify.yml';
         $desired = $a->git_commit_sha === $p['commit'] && $a->git_branch === $p['branch'] && $a->docker_compose_location === $p['compose'] && $a->docker_compose_custom_build_command === $p['custom_build'] && $a->docker_compose_custom_start_command === $p['custom_start'];
-        if (!$old && !$desired) throw new RuntimeException('state_drift');
+        $previousStart='docker compose --project-name oi6lvzwzomwtbbgzf5uzofuh up -d --pull never --no-build';
+        $previousDesired = $a->git_commit_sha === $p['commit'] && $a->git_branch === $p['branch'] && $a->docker_compose_location === $p['compose'] && $a->docker_compose_custom_build_command === $p['custom_build'] && $a->docker_compose_custom_start_command === $previousStart;
+        if (!$old && !$desired && !$previousDesired) throw new RuntimeException('state_drift');
         foreach ($p['env'] as $key=>$value) {
             if ($a->environment_variables()->where('key',$key)->count() > 1) throw new RuntimeException('state_drift');
             $v=$a->environment_variables()->where('key',$key)->first();
-            if ($desired && (!$v || $v->value !== $value || !$v->is_literal || !$v->is_runtime || $v->is_buildtime || !$v->is_shown_once)) throw new RuntimeException('state_drift');
+            if (($desired || $previousDesired) && (!$v || $v->value !== $value || !$v->is_literal || !$v->is_runtime || $v->is_buildtime || !$v->is_shown_once)) throw new RuntimeException('state_drift');
         }
         if ($desired) {
             if (ob_get_level() && ob_get_length() !== 0) throw new J5UnexpectedOutput('internal_error');
             return ['uuid'=>$p['uuid'],'commit'=>$p['commit'],'changed'=>false,'protected_envs_verified'=>count($p['env'])];
+        }
+        if ($previousDesired) {
+            $a->docker_compose_custom_start_command=$p['custom_start'];
+            $a->saveQuietly();
+            $a->refresh();
+            if ($a->docker_compose_custom_start_command !== $p['custom_start']) throw new RuntimeException('transaction_failed');
+            if (ob_get_level() && ob_get_length() !== 0) throw new J5UnexpectedOutput('internal_error');
+            return ['uuid'=>$p['uuid'],'commit'=>$p['commit'],'changed'=>true,'protected_envs_verified'=>count($p['env'])];
         }
         // Protect the existing database password from accidental rotation.
         $current=$a->environment_variables()->where('key','POSTGRES_PASSWORD')->firstOrFail();

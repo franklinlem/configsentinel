@@ -235,3 +235,7 @@ A causa do J5 ativo não foi identificada. Schema e valores são sintéticos; ne
 ## PostgreSQL RC2 e fallback — 03/11/2026
 
 PASS: cinco digests assinados/verificados e cacheados; backup criptografado e restore isolado correspondentes à baseline; PostgreSQL 17.11 endurecido no volume original; API/web preservadas; 14 contagens, eventos e reconhecimentos íntegros; site, readiness, login, eventos e logout; backup criptografado posterior com checksum. Kuma 20 e 21 UP na última consulta, com amostra de 20 posterior à troca. [Evidências](HOMOLOGATION_RC2_COMPLETION.md). O deploy pelo Coolify não foi executado porque seu job conectaria o proxy à rede dedicada, ação anteriormente proibida. Produção permanece NO-GO.
+
+## Job Coolify e caminhos relativos — 03/11/2026
+
+O único job manual autorizado terminou FAIL ao procurar `.env` do host dentro do container de deploy. Serviço permaneceu saudável e registros originais preservados. Foi preparada correção com `--env-file .env` e `-f ./deploy/compose.active-homologation.yml`: validador e injetor instalados e render Compose sintético PASS; PostgreSQL sintético 16/16, SQLite 8/8 e protocolo 11/11 PASS. O comando corrigido ainda não foi aplicado ao ativo e nenhum segundo job foi solicitado. [Relatório](HOMOLOGATION_RC2_COMPLETION.md). Produção continua NO-GO.

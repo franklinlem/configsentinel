@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "schema": 1,
+  "events": 4,
+  "acknowledgements": 2,
+  "original_records_preserved": true,
+  "coolify": {
+    "commit": "36baf66f4656f86d157cd070202323db9465c5f4",
+    "auto": false,
+    "queue": 0,
+    "old_start": true
+  },
+  "new_command_applied_to_active": false
+}

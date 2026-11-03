@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "network": "oi6lvzwzomwtbbgzf5uzofuh",
+  "container": "coolify-proxy",
+  "user_authorized": true,
+  "proxy_network_connection_added": true,
+  "proxy_configuration_or_routes_changed": false
+}

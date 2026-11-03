@@ -1,0 +1,28 @@
+[
+  {
+    "index": 21,
+    "tokens": [
+      "env file",
+      "file",
+      "could",
+      "couldn"
+    ]
+  },
+  {
+    "index": 22,
+    "tokens": []
+  },
+  {
+    "index": 23,
+    "tokens": [
+      "failed",
+      "error",
+      "directory",
+      "env file",
+      "file",
+      "could",
+      "couldn",
+      "exit"
+    ]
+  }
+]
