@@ -1,0 +1,15 @@
+{
+  "scope": "web-only homologation candidate; not yet deployed",
+  "source_commit": "48e4108da9065172bbbd7778cfa539453a843c98",
+  "image": "ghcr.io/franklinlem/configsentinel-web@sha256:e28a1b50c5242cf615e0531399daea63c93e7989370cdfa912c1243784f65bba",
+  "fallback_web": "ghcr.io/franklinlem/configsentinel-web@sha256:e7604db734053aed8834c0c4025001fcafab1026e50bca1f8b02aee1fb6cd8d3",
+  "sbom_sha256": "8926d5db40070588046c6db49d39616ceb684b3b635ed4ff999f38198f451e12",
+  "scan_high": 0,
+  "scan_critical": 0,
+  "signature_verified": true,
+  "provenance_verified": true,
+  "workflow": "https://github.com/franklinlem/configsentinel/actions/runs/41752792766",
+  "rollback_evidence": "docs/evidence/review-20261104/web-rollback.json",
+  "active_deployed": false,
+  "production_approved": false
+}

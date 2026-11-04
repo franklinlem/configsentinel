@@ -1,0 +1,22 @@
+{
+  "checked_at": "2026-11-04T01:18:20.606846+00:00",
+  "agent": {
+    "host": "frank-note2",
+    "container": "configsentinel-agent-lab",
+    "state": "running",
+    "last_seen_recent": true,
+    "reported_queue_depth": 0,
+    "sqlite_immutable_event_count": 0,
+    "sqlite_snapshot_limit": "read-only immutable snapshot; WAL was observed empty before snapshot",
+    "agent_updated": false
+  },
+  "roles": {
+    "scope": "synthetic PostgreSQL container configsentinel-review-20261104-db",
+    "tests": 2,
+    "passed": 2,
+    "schema": 1,
+    "runtime_admin_grants_denied": true,
+    "initial_setup_duplicate_schema_version": "migration already inserted version; grants applied separately after duplicate insert failed"
+  },
+  "production_modified": false
+}

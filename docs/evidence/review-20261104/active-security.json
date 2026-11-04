@@ -1,0 +1,8 @@
+{
+  "login": 200,
+  "audit_read": 200,
+  "csrf_invalid_logout": 403,
+  "session_after_rejected_logout": 200,
+  "valid_logout": 200,
+  "no_secrets_recorded": true
+}

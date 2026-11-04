@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "scope": "isolated web image selection only; no active resource or database",
+  "sequence": [
+    {
+      "selected": "old",
+      "html_sha256": "ab2968f479153427f70b8f5ac95ba579928791fb2fefaa76122037f7ca81751a",
+      "health": "PASS"
+    },
+    {
+      "selected": "new",
+      "html_sha256": "4c0318c90b223b1a06c457f4e1f9159a210f15aaf6e0dca74ef77641c3bbd898",
+      "health": "PASS"
+    },
+    {
+      "selected": "old",
+      "html_sha256": "ab2968f479153427f70b8f5ac95ba579928791fb2fefaa76122037f7ca81751a",
+      "health": "PASS"
+    }
+  ],
+  "network_id": "2bfdadb44e0067ba5499df94e3c4bc9c8e2fe14511f954428027b8767c027b80",
+  "container_ids": {
+    "stub": "aa93d2a5b7af0321aef00ae712949c1e07889bb559e99aaadaa365993c3befb2",
+    "old": "e92e320eea66085e5cf0d51a8c65d5425b6f4bc8e33c3402bcb43082a39bd04a",
+    "new": "ff12e78d2ff4fc77f56d2e4d1175f893afd00a93c3cecccd7e3315eccede6ae5"
+  },
+  "public_ports": false,
+  "resources_preserved": true
+}

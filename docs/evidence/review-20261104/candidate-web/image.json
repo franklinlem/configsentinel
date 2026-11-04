@@ -1,0 +1,13 @@
+{
+  "component": "web",
+  "image": "ghcr.io/franklinlem/configsentinel-web@sha256:e28a1b50c5242cf615e0531399daea63c93e7989370cdfa912c1243784f65bba",
+  "commit": "48e4108da9065172bbbd7778cfa539453a843c98",
+  "sbom_sha256": "8926d5db40070588046c6db49d39616ceb684b3b635ed4ff999f38198f451e12",
+  "scan_high": 0,
+  "scan_critical": 0,
+  "counts": {},
+  "build_attestations": true,
+  "provenance_verified": true,
+  "signature_verified": true,
+  "signature_policy": "pinned repository public key; private registry; no public transparency log"
+}
