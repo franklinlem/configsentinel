@@ -857,8 +857,8 @@ function Servers() {
               <dd>{date(s.last_observed_at)}</dd>
               <dt>Agente / fila</dt>
               <dd>
-                {s.agent_version || "Não instalado"} · {s.queue_depth || 0}{" "}
-                pendentes
+                {s.agent_version || "Não instalado"} · {s.queue_depth || 0}
+                {s.queue_capacity ? ` / ${s.queue_capacity}` : ""} pendentes
               </dd>
             </dl>
             <span className="text-link">

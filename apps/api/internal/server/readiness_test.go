@@ -55,6 +55,17 @@ func reviewServer(t *testing.T, tracer pgx.QueryTracer) (*Server, string, string
 	if e = app.Migrate(ctx, string(sql)); e != nil {
 		t.Fatal(e)
 	}
+	next, e := os.ReadFile("../../../../db/migrations/002_queue_capacity.sql")
+	if e != nil {
+		t.Fatal(e)
+	}
+	if e = app.MigrateNext(ctx, 2, string(next)); e != nil {
+		t.Fatal(e)
+	}
+	if e = app.MigrateNext(ctx, 2, string(next)); e != nil {
+		t.Fatal("migration must be idempotent", e)
+	}
+
 	if e = app.Bootstrap(ctx, "review@example.test", "synthetic-review-password"); e != nil {
 		t.Fatal(e)
 	}
@@ -181,6 +192,7 @@ func TestReadinessAlertCharacterization(t *testing.T) {
 		queue          int
 		want           []string
 	}{{"healthy", 0, 0, 0, nil}, {"offline", 6 * time.Minute, 0, 0, []string{"agent_offline"}}, {"delayed", 0, 6 * time.Minute, 0, []string{"collection_delayed"}}, {"queue", 0, 0, 8000, []string{"queue_high"}}, {"offline_plus_queue", 6 * time.Minute, 0, 8000, []string{"agent_offline", "queue_high"}}}
+	// Existing agents omit queue_capacity and keep the previous 8000 threshold.
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
 			now := time.Now().UTC()
@@ -216,7 +228,32 @@ func TestReadinessAlertCharacterization(t *testing.T) {
 			}
 		})
 	}
-	t.Log("queue threshold remains fixed at 8000, not 80% of configured queue")
+	for _, tc := range []struct {
+		capacity, depth int
+		want            bool
+	}{{10, 7, false}, {10, 8, true}, {3, 2, false}, {3, 3, true}, {1, 1, true}, {10, 12, true}} {
+		if _, err := app.DB.Exec(ctx, "UPDATE agents SET last_seen_at=now(),last_observed_at=now(),queue_depth=$2,queue_capacity=$3 WHERE id=$1", aid, tc.depth, tc.capacity); err != nil {
+			t.Fatal(err)
+		}
+		w := reviewRequest(app.Routes(), "GET", "/alerts", nil, "", cookie, csrf)
+		var result struct {
+			Items []struct {
+				Kind string `json:"kind"`
+			} `json:"items"`
+		}
+		if w.Code != 200 || json.Unmarshal(w.Body.Bytes(), &result) != nil {
+			t.Fatal("alerts unavailable")
+		}
+		found := false
+		for _, item := range result.Items {
+			if item.Kind == "queue_high" {
+				found = true
+			}
+		}
+		if found != tc.want {
+			t.Fatalf("capacity %d depth %d: alert %v", tc.capacity, tc.depth, found)
+		}
+	}
 }
 
 type reviewTrace struct {

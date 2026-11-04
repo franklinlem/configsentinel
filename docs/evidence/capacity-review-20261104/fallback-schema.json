@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "fallback_api": "ghcr.io/franklinlem/configsentinel-api@sha256:c51e92c3cdb4b0ec7f64f79423a1684f4905cebf8753ae0670b21abbf95b1581",
+  "checks": [
+    {
+      "schema": 1,
+      "readiness": "PASS"
+    },
+    {
+      "schema": 2,
+      "readiness": "PASS"
+    }
+  ],
+  "network_id": "9e15e9b101327ceeb9f30f278b45be06d2a9f370b6a653ea18b89660058b687e",
+  "db_container_id": "fec579d7e4fc1612d798eb6167c73be4c342b59d32037e92dfca793545951374",
+  "api_container_ids": [
+    "476d60788ace9a74ce19aaabe3a26f48f914700c7e82895c1f276b9f2f54be9c",
+    "4687627f51556edcd9be89a911caab16ae05e3f0e8b5d8b58864d06490cd56a2"
+  ],
+  "public_ports": false,
+  "data": "synthetic",
+  "resources_preserved": true
+}

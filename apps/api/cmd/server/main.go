@@ -68,6 +68,13 @@ func run() error {
 		if err = app.Migrate(ctx, string(sql)); err != nil {
 			return err
 		}
+		next, err := os.ReadFile("/app/migrations/002_queue_capacity.sql")
+		if err != nil {
+			return err
+		}
+		if err = app.MigrateNext(ctx, 2, string(next)); err != nil {
+			return err
+		}
 		if err = app.Bootstrap(ctx, os.Getenv("ADMIN_EMAIL"), os.Getenv("ADMIN_PASSWORD")); err != nil {
 			return err
 		}

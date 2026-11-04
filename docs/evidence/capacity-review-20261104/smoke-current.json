@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "failure": null,
+  "http_statuses": {
+    "readiness_attempt_1": 200,
+    "site": 200,
+    "events_unauthenticated": 401,
+    "login": 200,
+    "events": 200,
+    "alerts": 200,
+    "organizations": 200,
+    "logout": 200,
+    "after_logout": 401
+  },
+  "secrets_recorded": false
+}

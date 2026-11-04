@@ -48,6 +48,25 @@ func TestPostgresAuthorizationAndIngestion(t *testing.T) {
 	if e = app.Migrate(ctx, string(sql)); e != nil {
 		t.Fatal(e)
 	}
+	// A failed incremental migration must roll back both DDL and version.
+	if e = app.MigrateNext(ctx, 2, "ALTER TABLE agents ADD COLUMN synthetic_failure integer; SELECT missing_synthetic_function();"); e == nil {
+		t.Fatal("failed migration accepted")
+	}
+	var partial bool
+	if e = db.QueryRow(ctx, "SELECT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema=current_schema() AND table_name='agents' AND column_name='synthetic_failure')").Scan(&partial); e != nil || partial {
+		t.Fatal("failed migration left partial schema")
+	}
+	next, e := os.ReadFile("../../../../db/migrations/002_queue_capacity.sql")
+	if e != nil {
+		t.Fatal(e)
+	}
+	if e = app.MigrateNext(ctx, 2, string(next)); e != nil {
+		t.Fatal(e)
+	}
+	if e = app.MigrateNext(ctx, 2, string(next)); e != nil {
+		t.Fatal("migration must be idempotent", e)
+	}
+
 	if e = app.Bootstrap(ctx, "owner@example.com", "initial-password-long-enough"); e != nil {
 		t.Fatal(e)
 	}
@@ -111,6 +130,18 @@ func TestPostgresAuthorizationAndIngestion(t *testing.T) {
 	batch["events"] = []Event{ev}
 	request("POST", "/agent/events:batch", batch, token, 202)
 	request("POST", "/agent/heartbeat", map[string]any{"agent_version": "0.1.0", "queue_depth": 0, "observed_at": time.Now().UTC()}, token, 202)
+	request("POST", "/agent/heartbeat", map[string]any{"agent_version": "0.1.0", "queue_depth": 9, "queue_capacity": 10, "observed_at": time.Now().UTC()}, token, 202)
+	var capacity int
+	if e = db.QueryRow(ctx, "SELECT queue_capacity FROM agents WHERE id=$1", agent).Scan(&capacity); e != nil || capacity != 10 {
+		t.Fatal("queue capacity not persisted")
+	}
+	request("POST", "/agent/heartbeat", map[string]any{"agent_version": "0.1.0", "queue_depth": 0, "queue_capacity": 0, "observed_at": time.Now().UTC()}, token, 422)
+	request("POST", "/agent/heartbeat", map[string]any{"agent_version": "0.1.0", "queue_depth": 0, "observed_at": time.Now().UTC()}, token, 202)
+	var legacy bool
+	if e = db.QueryRow(ctx, "SELECT queue_capacity IS NULL FROM agents WHERE id=$1", agent).Scan(&legacy); e != nil || !legacy {
+		t.Fatal("legacy heartbeat must clear stale capacity")
+	}
+
 	request("GET", "/servers", nil, "", 200)
 	request("GET", "/alerts", nil, "", 200)
 	events := request("GET", "/events?limit=1", nil, "", 200)

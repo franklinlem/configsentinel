@@ -121,6 +121,7 @@ func (s *Server) heartbeat(w http.ResponseWriter, r *http.Request) {
 	var b struct {
 		Version  string    `json:"agent_version"`
 		Queue    int       `json:"queue_depth"`
+		Capacity *int      `json:"queue_capacity,omitempty"`
 		Observed time.Time `json:"observed_at"`
 	}
 	if !decode(w, r, &b) {
@@ -130,12 +131,16 @@ func (s *Server) heartbeat(w http.ResponseWriter, r *http.Request) {
 		problem(w, 422, "Heartbeat inválido")
 		return
 	}
+	if b.Capacity != nil && (*b.Capacity < 1 || *b.Capacity > 100000) {
+		problem(w, 422, "Capacidade da fila inválida")
+		return
+	}
 	if b.Version != "0.1.0" {
 		problem(w, 409, "Versão de agente incompatível")
 		return
 	}
 	skew := time.Since(b.Observed).Abs() > 5*time.Minute
-	_, e := s.DB.Exec(r.Context(), `UPDATE agents SET last_seen_at=now(),last_observed_at=$2,agent_version=$3,queue_depth=$4,clock_skew_warning=$5 WHERE id=$1`, p(r).Agent, b.Observed, b.Version, b.Queue, skew)
+	_, e := s.DB.Exec(r.Context(), `UPDATE agents SET last_seen_at=now(),last_observed_at=$2,agent_version=$3,queue_depth=$4,clock_skew_warning=$5,queue_capacity=$6 WHERE id=$1`, p(r).Agent, b.Observed, b.Version, b.Queue, skew, b.Capacity)
 	if e != nil {
 		problem(w, 503, "Heartbeat indisponível")
 		return

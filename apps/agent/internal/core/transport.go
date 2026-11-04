@@ -14,6 +14,12 @@ import (
 	"time"
 )
 
+type responseError struct{ status int }
+
+func (e responseError) Error() string {
+	return fmt.Sprintf("central retornou HTTP %d; lote preservado", e.status)
+}
+
 type Transport struct {
 	Config Config
 	Client *http.Client
@@ -54,7 +60,7 @@ func (t *Transport) post(ctx context.Context, path string, body any, out any) er
 	}
 	defer res.Body.Close()
 	if res.StatusCode != 202 {
-		return fmt.Errorf("central retornou HTTP %d; lote preservado", res.StatusCode)
+		return responseError{status: res.StatusCode}
 	}
 	d := json.NewDecoder(io.LimitReader(res.Body, 65536))
 	d.DisallowUnknownFields()
@@ -107,5 +113,14 @@ func (t *Transport) Heartbeat(ctx context.Context, q *Queue, observed time.Time)
 		Time time.Time `json:"server_time"`
 		Skew bool      `json:"clock_skew_warning"`
 	}
-	return t.post(ctx, "/agent/heartbeat", map[string]any{"agent_version": "0.1.0", "queue_depth": depth, "observed_at": observed}, &out)
+	body := map[string]any{"agent_version": "0.1.0", "queue_depth": depth, "queue_capacity": q.Max, "observed_at": observed}
+	err := t.post(ctx, "/agent/heartbeat", body, &out)
+	var rejected responseError
+	if errors.As(err, &rejected) && rejected.status == http.StatusUnprocessableEntity {
+		// A pre-capacity server rejects unknown fields. Preserve compatibility
+		// during a server rollback without dropping or modifying the local queue.
+		delete(body, "queue_capacity")
+		return t.post(ctx, "/agent/heartbeat", body, &out)
+	}
+	return err
 }

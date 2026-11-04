@@ -324,6 +324,46 @@ func (s *Server) Migrate(ctx context.Context, sql string) error {
 	}
 	return tx.Commit(ctx)
 }
+
+// MigrateNext applies one sequential migration under the same advisory lock as
+// initial setup. Each migration and its version marker commit atomically.
+func (s *Server) MigrateNext(ctx context.Context, version int, sql string) error {
+	conn, err := s.DB.Acquire(ctx)
+	if err != nil {
+		return err
+	}
+	defer conn.Release()
+	if _, err = conn.Exec(ctx, "SELECT pg_advisory_lock(72819921)"); err != nil {
+		return err
+	}
+	defer conn.Exec(ctx, "SELECT pg_advisory_unlock(72819921)")
+	var current int
+	if err = conn.QueryRow(ctx, "SELECT max(version) FROM schema_migrations").Scan(&current); err != nil {
+		return err
+	}
+	if current == version {
+		return nil
+	}
+	if current != version-1 {
+		return fmt.Errorf("unsupported schema version %d for migration %d", current, version)
+	}
+	tx, err := conn.Begin(ctx)
+	if err != nil {
+		return err
+	}
+	defer tx.Rollback(ctx)
+	if _, err = tx.Exec(ctx, sql); err != nil {
+		return err
+	}
+	var actual int
+	if err = tx.QueryRow(ctx, "SELECT max(version) FROM schema_migrations").Scan(&actual); err != nil {
+		return err
+	}
+	if actual != version {
+		return errors.New("migration did not record expected version")
+	}
+	return tx.Commit(ctx)
+}
 func Config() (string, string, bool, error) {
 	origin := os.Getenv("PUBLIC_URL")
 	u, e := url.Parse(origin)
