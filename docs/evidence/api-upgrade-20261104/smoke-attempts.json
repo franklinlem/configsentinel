@@ -1,0 +1,5 @@
+{
+  "first_attempt": "FAIL: a combined HTTP assertion failed; individual statuses were not captured",
+  "second_attempt": "PASS: individual HTTP statuses and data integrity captured in smoke.json",
+  "automatic_deploy_retry": false
+}

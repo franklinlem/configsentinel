@@ -1,0 +1,11 @@
+{
+  "alerts_status": 200,
+  "counts_by_kind": {
+    "agent_offline": 5,
+    "deleted": 1,
+    "modified": 1
+  },
+  "logout": 200,
+  "no_fixture_or_agent_modification": true,
+  "secrets_recorded": false
+}

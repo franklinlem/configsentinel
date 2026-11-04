@@ -1,0 +1,28 @@
+{
+  "scope": "active homologation only",
+  "api": {
+    "image": "ghcr.io/franklinlem/configsentinel-api@sha256:745d45e4dca060fc3fd2101feee8a9bc789c802e462ec0172c1def48a98a6830",
+    "source_commit": "9057bda04385cff31a60c6ac72e4b7a3a462ddda",
+    "sbom_sha256": "a5efbd3a8953bf25a5d60e81bc6e1235db881350e007927f7411d2d0a0df1a5a",
+    "scan_high": 0,
+    "scan_critical": 0,
+    "signature_verified": true
+  },
+  "migrator": {
+    "image": "ghcr.io/franklinlem/configsentinel-api@sha256:745d45e4dca060fc3fd2101feee8a9bc789c802e462ec0172c1def48a98a6830"
+  },
+  "web": {
+    "image": "ghcr.io/franklinlem/configsentinel-web@sha256:e28a1b50c5242cf615e0531399daea63c93e7989370cdfa912c1243784f65bba",
+    "source_commit": "48e4108da9065172bbbd7778cfa539453a843c98",
+    "sbom_sha256": "8926d5db40070588046c6db49d39616ceb684b3b635ed4ff999f38198f451e12",
+    "signature_verified": true
+  },
+  "database": {
+    "image": "ghcr.io/franklinlem/configsentinel-db@sha256:ceeafd17328e0a09fa2999be01ccdec407e3318306d392c00646cf1dc74b4447",
+    "schema_version": 1
+  },
+  "previous_api": "ghcr.io/franklinlem/configsentinel-api@sha256:ea0a14eda7478d9b4a5091effbb7a990a40594fd56085dd0c483809201a16ec4",
+  "previous_web": "ghcr.io/franklinlem/configsentinel-web@sha256:e7604db734053aed8834c0c4025001fcafab1026e50bca1f8b02aee1fb6cd8d3",
+  "deployment_uuid": "73e64dbb-21c8-42fd-96bf-2170593c92c8",
+  "production_approved": false
+}

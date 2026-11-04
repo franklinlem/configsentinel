@@ -1,0 +1,21 @@
+{
+  "checked_at": "2026-11-04T01:33:20.849769+00:00",
+  "resource": {
+    "commit": "36baf66f4656f86d157cd070202323db9465c5f4",
+    "branch": "plan/active-homologation-rc2",
+    "compose": "/deploy/compose.active-homologation.yml",
+    "custom_build": "docker image inspect --format '{{.Id}}' sha256:745d45e4dca060fc3fd2101feee8a9bc789c802e462ec0172c1def48a98a6830 sha256:e28a1b50c5242cf615e0531399daea63c93e7989370cdfa912c1243784f65bba sha256:ceeafd17328e0a09fa2999be01ccdec407e3318306d392c00646cf1dc74b4447",
+    "custom_start": "docker compose --env-file .env -f ./deploy/compose.active-homologation.yml --project-name oi6lvzwzomwtbbgzf5uzofuh up -d --pull never --no-build",
+    "auto": false,
+    "raw": true,
+    "build_server": false,
+    "queue": 0
+  },
+  "seven_protected_values_and_flags_match": true,
+  "actual_installed_runtime_serializer": true,
+  "render_images_dsns_volume_networks_verified": true,
+  "no_ports_or_build": true,
+  "active_database_baseline_unchanged": true,
+  "no_deployment_queued": true,
+  "credentials_disclosed": false
+}

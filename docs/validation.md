@@ -255,3 +255,7 @@ Integração PostgreSQL sintética com race, Playwright/axe na homologação, np
 ## Atualização web e alertas — 04/11/2026 UTC
 
 Web corrigida implantada em homologação e validada; correção da API para alertas simultâneos testada em PostgreSQL isolado e ainda pendente de promoção. Detalhes e evidências em [revisão](REVIEW_2026-11-04.md). Produção permanece NO-GO.
+
+## API de alertas — 04/11/2026 UTC
+
+API corrigida promovida à homologação por digest; smoke repetido passou após primeira tentativa com asserção HTTP não identificada. Backup/restore e integridade dos dados passaram. Detalhes em [revisão](REVIEW_2026-11-04.md). Produção NO-GO.
