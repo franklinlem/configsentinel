@@ -1,0 +1,17 @@
+{
+  "sqlite": {
+    "rollback": "PASS",
+    "invalid_digest": "PASS",
+    "queue_guard": "PASS",
+    "update": "PASS",
+    "idempotence": "PASS"
+  },
+  "postgres": {
+    "rollback": "PASS",
+    "queue_guard": "PASS",
+    "update": "PASS",
+    "idempotence": "PASS",
+    "schema_preserved": "web_review_4de0297a"
+  },
+  "active_resource_tested": false
+}
