@@ -179,8 +179,8 @@ func TestReadinessAlertCharacterization(t *testing.T) {
 		name           string
 		seen, observed time.Duration
 		queue          int
-		want           string
-	}{{"healthy", 0, 0, 0, ""}, {"offline", 6 * time.Minute, 0, 0, "agent_offline"}, {"delayed", 0, 6 * time.Minute, 0, "collection_delayed"}, {"queue", 0, 0, 8000, "queue_high"}, {"offline_plus_queue_priority", 6 * time.Minute, 0, 8000, "queue_high"}}
+		want           []string
+	}{{"healthy", 0, 0, 0, nil}, {"offline", 6 * time.Minute, 0, 0, []string{"agent_offline"}}, {"delayed", 0, 6 * time.Minute, 0, []string{"collection_delayed"}}, {"queue", 0, 0, 8000, []string{"queue_high"}}, {"offline_plus_queue", 6 * time.Minute, 0, 8000, []string{"agent_offline", "queue_high"}}}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
 			now := time.Now().UTC()
@@ -200,15 +200,23 @@ func TestReadinessAlertCharacterization(t *testing.T) {
 			if json.Unmarshal(w.Body.Bytes(), &result) != nil {
 				t.Fatal("invalid alerts")
 			}
-			if tc.want == "" && len(result.Items) != 0 {
-				t.Fatal("healthy agent alerted")
+			if len(result.Items) != len(tc.want) {
+				t.Fatalf("unexpected alert count for %s: got %d, want %d", tc.name, len(result.Items), len(tc.want))
 			}
-			if tc.want != "" && (len(result.Items) != 1 || result.Items[0].Kind != tc.want) {
-				t.Fatalf("unexpected alert classification for %s", tc.name)
+			for _, want := range tc.want {
+				found := false
+				for _, item := range result.Items {
+					if item.Kind == want {
+						found = true
+					}
+				}
+				if !found {
+					t.Fatalf("missing alert %s for %s", want, tc.name)
+				}
 			}
 		})
 	}
-	t.Log("KNOWN GAP: queue_high masks simultaneous offline; threshold is fixed at 8000, not 80% of configured queue")
+	t.Log("queue threshold remains fixed at 8000, not 80% of configured queue")
 }
 
 type reviewTrace struct {

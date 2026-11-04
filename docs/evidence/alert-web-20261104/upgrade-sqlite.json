@@ -1,0 +1,9 @@
+{
+  "rollback": "PASS",
+  "invalid_digest": "PASS",
+  "queue_guard": "PASS",
+  "update": "PASS",
+  "idempotence": "PASS",
+  "scope": "synthetic sqlite in memory",
+  "no_values_logged": true
+}
