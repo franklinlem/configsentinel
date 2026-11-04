@@ -335,3 +335,7 @@ A correção do caminho relativo do Compose foi aplicada ao recurso de homologa�
 Antes da mudança, um backup criptografado novo teve checksum conferido e restore isolado com `pg_restore --exit-on-error` em 3,647 s; schema 1 e as 14 contagens corresponderam à baseline. Após o deploy, site e readiness retornaram 200; login, eventos autenticados, organizações e logout passaram, com 401 antes do login e após o logout. Os quatro eventos e dois reconhecimentos originais foram preservados. Evidências sanitizadas: [backup](evidence/rc2-retry-20261103/backup.json), [restore](evidence/rc2-retry-20261103/restore.json), [configuração](evidence/rc2-retry-20261103/independent.json), [job](evidence/rc2-retry-20261103/deployment-result.json) e [smoke](evidence/rc2-retry-20261103/smoke.json).
 
 A homologação está operacional. Este smoke não substitui a revisão completa de RBAC, CSRF, heartbeat, auditoria, alertas Kuma e observação prolongada; nem foi realizado novo ensaio de rollback após este deploy. O agente não foi atualizado. Produção permanece **NO-GO**, sem autorização de implantação. Os recursos do restore isolado foram preservados.
+
+## Atualização web e alertas — 04/11/2026 UTC
+
+Web corrigida implantada em homologação e validada; correção da API para alertas simultâneos testada em PostgreSQL isolado e ainda pendente de promoção. Detalhes e evidências em [revisão](REVIEW_2026-11-04.md). Produção permanece NO-GO.

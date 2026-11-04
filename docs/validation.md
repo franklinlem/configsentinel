@@ -251,3 +251,7 @@ A homologação está operacional. Este smoke não substitui a revisão completa
 ## Revisão de 04/11/2026 UTC
 
 Integração PostgreSQL sintética com race, Playwright/axe na homologação, npm audit e build web passaram; monitores 20/21 UP em histórico recente. Correção local para indisponibilidade inicial da sessão testada; imagem nova construída localmente e ainda não implantada. Detalhes e limites em [revisão](REVIEW_2026-11-04.md). Produção NO-GO.
+
+## Atualização web e alertas — 04/11/2026 UTC
+
+Web corrigida implantada em homologação e validada; correção da API para alertas simultâneos testada em PostgreSQL isolado e ainda pendente de promoção. Detalhes e evidências em [revisão](REVIEW_2026-11-04.md). Produção permanece NO-GO.

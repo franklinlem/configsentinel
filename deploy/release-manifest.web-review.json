@@ -10,6 +10,7 @@
   "provenance_verified": true,
   "workflow": "https://github.com/franklinlem/configsentinel/actions/runs/41752792766",
   "rollback_evidence": "docs/evidence/review-20261104/web-rollback.json",
-  "active_deployed": false,
-  "production_approved": false
+  "active_deployed": true,
+  "production_approved": false,
+  "deployment_uuid": "7bcb31b1-0531-483c-a9ec-7e9c1ea29874"
 }
