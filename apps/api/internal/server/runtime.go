@@ -23,7 +23,7 @@ func (s *Server) CheckRuntime(ctx context.Context) error {
 	if err := s.DB.QueryRow(ctx, "SELECT max(version) FROM schema_migrations").Scan(&version); err != nil {
 		return errors.New("database migration required before runtime startup")
 	}
-	if version != 1 {
+	if version != 1 && version != 2 {
 		return errors.New("unsupported database schema; refusing startup")
 	}
 	return nil
