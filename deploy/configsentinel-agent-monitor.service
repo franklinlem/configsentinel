@@ -1,0 +1,9 @@
+[Unit]
+Description=ConfigSentinel scoped agent alert supervision
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 %h/.local/bin/configsentinel-monitor-agent-alerts.py --config %h/.config/configsentinel-agent-monitor/config.json
+TimeoutStartSec=75
+KillMode=control-group
+UMask=0077
+NoNewPrivileges=true

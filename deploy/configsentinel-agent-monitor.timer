@@ -1,0 +1,9 @@
+[Unit]
+Description=Check scoped ConfigSentinel agents every two minutes
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=2min
+AccuracySec=15s
+Persistent=true
+[Install]
+WantedBy=timers.target
