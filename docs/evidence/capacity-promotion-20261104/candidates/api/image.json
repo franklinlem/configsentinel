@@ -1,0 +1,15 @@
+{
+  "component": "api",
+  "image": "ghcr.io/franklinlem/configsentinel-api@sha256:3ffaecb7c7f3db5883c1b56a661e6ce7629288cb8eeaf87722bdb3cf4f13fedb",
+  "commit": "95f65ae147db78d13d22ea1fef0b4f63a9c56c80",
+  "sbom_sha256": "7451a20029ab880d06ea6470e42b755a23d2efb3e7efe65150b5506779ddd4ea",
+  "scan_high": 0,
+  "scan_critical": 0,
+  "counts": {
+    "UNKNOWN": 1
+  },
+  "build_attestations": true,
+  "provenance_verified": true,
+  "signature_verified": true,
+  "signature_policy": "pinned repository public key; private registry; no public transparency log"
+}

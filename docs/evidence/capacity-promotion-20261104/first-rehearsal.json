@@ -1,0 +1,8 @@
+{
+  "status": "FAIL",
+  "scope": "isolated restored copy",
+  "phase": "fallback schema 1 readiness",
+  "reason": "runtime grants were not applied to restored tables",
+  "active_database_modified": false,
+  "resolution": "applied runtime-grants.sql in a new isolated restored copy; repeat passed"
+}

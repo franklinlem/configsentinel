@@ -1,0 +1,19 @@
+{
+  "sqlite": {
+    "forward": "PASS",
+    "failure_rollback": "PASS",
+    "queue_guard": "PASS",
+    "idempotence": "PASS",
+    "fallback": "PASS",
+    "scope": "synthetic sqlite"
+  },
+  "postgres": {
+    "forward": "PASS",
+    "failure_rollback": "PASS",
+    "queue_guard": "PASS",
+    "idempotence": "PASS",
+    "fallback": "PASS",
+    "scope": "synthetic PostgreSQL",
+    "schema_preserved": "web_review_b2814541"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "schema_before": 1,
+  "schema_after": 2,
+  "fallback_v1": "PASS",
+  "candidate_v2": "PASS",
+  "fallback_v2": "PASS",
+  "event_and_ack_identity_preserved": true,
+  "event_count": 4,
+  "acknowledgements_count": 2,
+  "network_id": "5c9ad795a25150187cff85f8c3306f7609a19dd2f1308005718e4b9e85e58121",
+  "test_db": "configsentinel-j3-only-6f5b6c1fc382-db",
+  "containers": {
+    "fallback_v1": "1a9d3c76a679ce32e947802991d420e2588b863c6ac557ab8f20fa2a3880440b",
+    "migrate": "70a7deb428ace23f39b8aeed2546d5af8d2f9e1a73979caf9bf36194b38fee71",
+    "candidate": "5763068e2fe5916e4144288361c40511cf8900c0ef9b855b6d044b69b2ff9ae4",
+    "fallback_v2": "d0547f95a463642fef8d0f3ccaa64ce563ebeb95dd9a89986b6b264a5deca9b9"
+  },
+  "public_ports": false,
+  "active_database_modified": false,
+  "resources_preserved": true
+}
