@@ -1,5 +1,7 @@
 # ConfigSentinel — candidato corrigido e preparação de release
 
+> **Estado atual — 04/11/2026:** o deploy manual RC2 foi concluído e a homologação está operacional. Os estados anteriores neste documento são históricos. Produção permanece NO-GO. Consulte [a revisão mais recente](REVIEW_2026-11-04.md).
+
 **03/11/2026 — job Coolify ainda pendente.** A tentativa autorizada falhou ao buscar `.env` do host dentro do container de deploy; a homologação permaneceu saudável. Correção de caminhos relativos foi testada em isolamento e aguarda aplicação e nova autorização para deploy. Produção permanece NO-GO. [Relatório](HOMOLOGATION_RC2_COMPLETION.md).
 
 **03/11/2026 — RC2 de homologação operacional por digest.** Fallback recuperado, backup novo restaurado isoladamente e PostgreSQL endurecido aplicado no volume original; smoke e integridade passaram. Deploy completo pelo job Coolify aguarda autorização para conexão de rede do proxy. Produção continua NO-GO. [Relatório](HOMOLOGATION_RC2_COMPLETION.md).

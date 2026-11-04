@@ -1,5 +1,14 @@
 export type Row = Record<string, any>;
 export type Listing = { items: Row[]; next_cursor?: string };
+export class ApiError extends Error {
+  constructor(
+    public readonly status: number,
+    message: string,
+  ) {
+    super(message);
+    this.name = "ApiError";
+  }
+}
 export async function api<T = Row>(
   path: string,
   method = "GET",
@@ -14,9 +23,12 @@ export async function api<T = Row>(
     },
     body: body === undefined ? undefined : JSON.stringify(body),
   });
-  const data = await res.json();
+  const data = await res.json().catch(() => ({}));
   if (!res.ok)
-    throw new Error(data.detail || "Não foi possível concluir a operação");
+    throw new ApiError(
+      res.status,
+      data.detail || "Não foi possível concluir a operação",
+    );
   return data;
 }
 export const date = (v: string | null | undefined) =>

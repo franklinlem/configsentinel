@@ -1,5 +1,7 @@
 # ConfigSentinel RC2 — procedimento de homologação ativa
 
+> **Estado atual — 04/11/2026:** o deploy manual RC2 foi concluído e a homologação está operacional. Os estados anteriores neste documento são históricos. Produção permanece NO-GO. Consulte [a revisão mais recente](REVIEW_2026-11-04.md).
+
 Atualizado em **01/11/2026, America/Sao_Paulo**. Branch `plan/active-homologation-rc2`.
 
 **Uma única nova tentativa de J5 retornou internal_error; homologação indisponível e NO-GO.** API/web continuam **paradas desde 09:41:52 -03**; banco RC1 saudável no volume original. As três roles de J4 foram aplicadas; configuração Coolify permanece RC1 e nenhum deploy RC2 foi solicitado. Produção continua não autorizada. [Resultado da janela](evidence/active-rc2-window/execution-summary.json).

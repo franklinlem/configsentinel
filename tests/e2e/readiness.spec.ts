@@ -116,7 +116,7 @@ test("one-time credential stays out of browser storage and vanishes after closin
   await expect(page.getByRole("dialog")).toHaveCount(0);
   await expect(page.getByLabel("Token", { exact: true })).toHaveCount(0);
 });
-test("initial API outage characterization", async ({ page }) => {
+test("initial API outage offers a retry", async ({ page }) => {
   await page.route("**/api/v1/me", (route) =>
     route.fulfill({
       status: 503,
@@ -125,10 +125,15 @@ test("initial API outage characterization", async ({ page }) => {
     }),
   );
   await page.goto("/");
+  await expect(page.getByRole("alert")).toContainText(
+    "Não foi possível verificar sua sessão",
+  );
+  await page.unroute("**/api/v1/me");
+  await page.route("**/api/v1/me", (route) =>
+    route.fulfill({ status: 401, contentType: "application/json", body: "{}" }),
+  );
+  await page.getByRole("button", { name: "Tentar novamente" }).click();
   await expect(
     page.getByRole("heading", { name: "Acesse seu observatório" }),
   ).toBeVisible();
-  console.log(
-    "READINESS_KNOWN_GAP: initial /me 503 is presented as login without an availability error",
-  );
 });

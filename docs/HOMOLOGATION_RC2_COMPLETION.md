@@ -1,5 +1,7 @@
 # Homologação RC2 — conclusão parcial, 03/11/2026
 
+> **Estado atual — 04/11/2026:** o deploy manual RC2 foi concluído e a homologação está operacional. Os estados anteriores neste documento são históricos. Produção permanece NO-GO. Consulte [a revisão mais recente](REVIEW_2026-11-04.md).
+
 A homologação está operacional com API, web e PostgreSQL RC2 por digest, todos saudáveis. O fallback limpo foi recuperado e verificado. O único item operacional pendente desta etapa é um deploy completo pelo job do Coolify, bloqueado antes do enfileiramento porque ele altera a conexão de rede do proxy, ação anteriormente proibida por Franklin.
 
 ## Imagens e fallback

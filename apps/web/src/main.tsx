@@ -38,7 +38,7 @@ import {
   Plus,
   Copy,
 } from "lucide-react";
-import { api, date, labels, type Row, type Listing } from "./api";
+import { api, ApiError, date, labels, type Row, type Listing } from "./api";
 import "./styles.css";
 const client = new QueryClient({
   defaultOptions: { queries: { retry: false, refetchInterval: 30000 } },
@@ -90,6 +90,18 @@ function App() {
       <div className="loading" role="status">
         Carregando ConfigSentinel…
       </div>
+    );
+  if (me.isError && !(me.error instanceof ApiError && me.error.status === 401))
+    return (
+      <main className="loading">
+        <div role="alert">
+          Não foi possível verificar sua sessão. Verifique a conexão e tente
+          novamente.
+        </div>
+        <button className="primary" onClick={() => me.refetch()}>
+          Tentar novamente
+        </button>
+      </main>
     );
   if (!me.data)
     return (
