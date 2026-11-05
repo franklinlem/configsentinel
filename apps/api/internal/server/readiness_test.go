@@ -257,9 +257,11 @@ func TestReadinessAlertCharacterization(t *testing.T) {
 }
 
 type reviewTrace struct {
-	mu         sync.Mutex
-	statements int
-	duration   time.Duration
+	mu             sync.Mutex
+	statements     int
+	batches        int
+	batchedQueries int
+	duration       time.Duration
 }
 
 func (tr *reviewTrace) TraceQueryStart(ctx context.Context, _ *pgx.Conn, _ pgx.TraceQueryStartData) context.Context {
@@ -275,6 +277,18 @@ func (tr *reviewTrace) TraceQueryEnd(ctx context.Context, _ *pgx.Conn, _ pgx.Tra
 	tr.duration += time.Since(start)
 	tr.mu.Unlock()
 }
+func (tr *reviewTrace) TraceBatchStart(ctx context.Context, _ *pgx.Conn, _ pgx.TraceBatchStartData) context.Context {
+	tr.mu.Lock()
+	tr.batches++
+	tr.mu.Unlock()
+	return ctx
+}
+func (tr *reviewTrace) TraceBatchQuery(_ context.Context, _ *pgx.Conn, _ pgx.TraceBatchQueryData) {
+	tr.mu.Lock()
+	tr.batchedQueries++
+	tr.mu.Unlock()
+}
+func (tr *reviewTrace) TraceBatchEnd(context.Context, *pgx.Conn, pgx.TraceBatchEndData) {}
 func TestReadinessIngestionQueryCost(t *testing.T) {
 	tr := &reviewTrace{}
 	app, _, _, aid := reviewServer(t, tr)
@@ -288,6 +302,8 @@ func TestReadinessIngestionQueryCost(t *testing.T) {
 	}
 	tr.mu.Lock()
 	tr.statements = 0
+	tr.batches = 0
+	tr.batchedQueries = 0
 	tr.duration = 0
 	tr.mu.Unlock()
 	start := time.Now()
@@ -297,8 +313,8 @@ func TestReadinessIngestionQueryCost(t *testing.T) {
 	}
 	tr.mu.Lock()
 	defer tr.mu.Unlock()
-	t.Logf("100 events: traced PostgreSQL statements=%d cumulative_query_ms=%.2f handler_ms=%.2f (no race timing is a performance SLO)", tr.statements, float64(tr.duration.Microseconds())/1000, float64(time.Since(start).Microseconds())/1000)
-	if tr.statements < 300 {
-		t.Fatal("baseline query shape changed; re-evaluate investigation")
+	t.Logf("100 events: non-batched statements=%d batches=%d batched queries=%d handler_ms=%.2f (race timing is not a performance SLO)", tr.statements, tr.batches, tr.batchedQueries, float64(time.Since(start).Microseconds())/1000)
+	if tr.batches != 2 || tr.batchedQueries != 300 {
+		t.Fatal("ingestion did not pipeline replay checks and writes")
 	}
 }

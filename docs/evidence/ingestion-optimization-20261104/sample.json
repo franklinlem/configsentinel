@@ -1,0 +1,28 @@
+{
+  "scope": "isolated local Docker PostgreSQL; in-process HTTP handler; non-race; one sample per implementation",
+  "agents": 25,
+  "batch_size": 100,
+  "concurrency": 5,
+  "events": 2500,
+  "baseline_commit": "95f65ae147db78d13d22ea1fef0b4f63a9c56c80",
+  "baseline": {
+    "p50_batch_ms": 186.103,
+    "p95_batch_ms": 244.146,
+    "max_batch_ms": 246.087,
+    "total_seconds": 0.976720429,
+    "errors": 0
+  },
+  "pipelined": {
+    "p50_batch_ms": 75.938,
+    "p95_batch_ms": 145.159,
+    "max_batch_ms": 156.162,
+    "total_seconds": 0.455241776,
+    "errors": 0
+  },
+  "trace": {
+    "non_batched_statements": 4,
+    "batched_queries": 300,
+    "send_batch_calls": 2
+  },
+  "limitations": "small sample, different setup from earlier end-to-end benchmark; not proof of a production SLO"
+}

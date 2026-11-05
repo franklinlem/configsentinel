@@ -72,43 +72,86 @@ func (s *Server) batch(w http.ResponseWriter, r *http.Request) {
 		problem(w, 503, "Agente indisponível")
 		return
 	}
+	// Pipeline replay checks and writes separately. The agent row lock keeps
+	// concurrent batches serialized; pending maps preserve the original
+	// in-order replay/conflict semantics for events within this batch.
+	checks := &pgx.Batch{}
+	for _, ev := range b.Events {
+		checks.Queue(`SELECT payload_hash FROM change_events WHERE agent_id=$1 AND (sequence=$2 OR event_uuid=$3) LIMIT 1`, agent, ev.Sequence, ev.UUID)
+	}
+	results := tx.SendBatch(r.Context(), checks)
+	type pendingEvent struct {
+		event Event
+		hash  string
+	}
 	accepted, duplicates := []string{}, []string{}
+	pending := make([]pendingEvent, 0, len(b.Events))
+	bySequence, byUUID := map[int64]string{}, map[string]string{}
+	conflict, queryFailed := false, false
 	for _, ev := range b.Events {
 		data, _ := json.Marshal(ev)
 		fingerprint := digest(string(data))
 		var existing string
-		err := tx.QueryRow(r.Context(), `SELECT payload_hash FROM change_events WHERE agent_id=$1 AND (sequence=$2 OR event_uuid=$3) LIMIT 1`, agent, ev.Sequence, ev.UUID).Scan(&existing)
+		err := results.QueryRow().Scan(&existing)
+		if err != nil && err != pgx.ErrNoRows {
+			queryFailed = true
+			break
+		}
+		if err == pgx.ErrNoRows {
+			if value, ok := bySequence[ev.Sequence]; ok {
+				existing, err = value, nil
+			} else if value, ok := byUUID[ev.UUID]; ok {
+				existing, err = value, nil
+			}
+		}
 		if err == nil {
 			if existing != fingerprint {
-				s.ingestErrors.Add(1)
-				_ = tx.Rollback(r.Context())
-				_, _ = s.DB.Exec(r.Context(), `INSERT INTO audit_logs(id,organization_id,operation,target_type,target_id) SELECT $1,pr.organization_id,'ingest.sequence_conflict','agent',a.id FROM agents a JOIN servers se ON se.id=a.server_id JOIN environments en ON en.id=se.environment_id JOIN projects pr ON pr.id=en.project_id WHERE a.id=$2`, id(), agent)
-				problem(w, 409, "Sequência ou UUID reutilizado com payload divergente; lote não aceito")
-				return
+				conflict = true
+				break
 			}
 			duplicates = append(duplicates, ev.UUID)
 			continue
 		}
-		if err != pgx.ErrNoRows {
-			problem(w, 503, "Consulta indisponível")
-			return
-		}
+		bySequence[ev.Sequence], byUUID[ev.UUID] = fingerprint, fingerprint
+		pending = append(pending, pendingEvent{event: ev, hash: fingerprint})
+		accepted = append(accepted, ev.UUID)
+	}
+	if err := results.Close(); err != nil || queryFailed {
+		problem(w, 503, "Consulta indisponível")
+		return
+	}
+	if conflict {
+		s.ingestErrors.Add(1)
+		_ = tx.Rollback(r.Context())
+		_, _ = s.DB.Exec(r.Context(), `INSERT INTO audit_logs(id,organization_id,operation,target_type,target_id) SELECT $1,pr.organization_id,'ingest.sequence_conflict','agent',a.id FROM agents a JOIN servers se ON se.id=a.server_id JOIN environments en ON en.id=se.environment_id JOIN projects pr ON pr.id=en.project_id WHERE a.id=$2`, id(), agent)
+		problem(w, 409, "Sequência ou UUID reutilizado com payload divergente; lote não aceito")
+		return
+	}
+	writes := &pgx.Batch{}
+	for _, item := range pending {
+		ev := item.event
 		severity := "info"
 		switch ev.Kind {
 		case "modified", "deleted", "unreadable", "unstable", "missing_initial":
 			severity = "warning"
 		}
-		_, e = tx.Exec(r.Context(), `INSERT INTO change_events(id,agent_id,sequence,event_uuid,file_alias,kind,old_sha256,new_sha256,file_size,mode,mtime,observed_at,payload_hash,severity) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)`, id(), agent, ev.Sequence, ev.UUID, ev.Alias, ev.Kind, ev.Old, ev.New, ev.Size, ev.Mode, ev.Mtime, ev.Observed, fingerprint, severity)
-		if e != nil {
+		writes.Queue(`INSERT INTO change_events(id,agent_id,sequence,event_uuid,file_alias,kind,old_sha256,new_sha256,file_size,mode,mtime,observed_at,payload_hash,severity) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)`, id(), agent, ev.Sequence, ev.UUID, ev.Alias, ev.Kind, ev.Old, ev.New, ev.Size, ev.Mode, ev.Mtime, ev.Observed, item.hash, severity)
+		writes.Queue(`INSERT INTO file_observations(agent_id,file_alias,sha256,state,file_size,mode,mtime,observed_at,sequence) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) ON CONFLICT(agent_id,file_alias) DO UPDATE SET sha256=EXCLUDED.sha256,state=EXCLUDED.state,file_size=EXCLUDED.file_size,mode=EXCLUDED.mode,mtime=EXCLUDED.mtime,observed_at=EXCLUDED.observed_at,sequence=EXCLUDED.sequence,received_at=now() WHERE file_observations.sequence<EXCLUDED.sequence`, agent, ev.Alias, ev.New, ev.Kind, ev.Size, ev.Mode, ev.Mtime, ev.Observed, ev.Sequence)
+	}
+	if len(pending) > 0 {
+		results = tx.SendBatch(r.Context(), writes)
+		for range pending {
+			if _, e = results.Exec(); e != nil {
+				break
+			}
+			if _, e = results.Exec(); e != nil {
+				break
+			}
+		}
+		if err := results.Close(); err != nil || e != nil {
 			problem(w, 503, "Gravação indisponível")
 			return
 		}
-		_, e = tx.Exec(r.Context(), `INSERT INTO file_observations(agent_id,file_alias,sha256,state,file_size,mode,mtime,observed_at,sequence) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) ON CONFLICT(agent_id,file_alias) DO UPDATE SET sha256=EXCLUDED.sha256,state=EXCLUDED.state,file_size=EXCLUDED.file_size,mode=EXCLUDED.mode,mtime=EXCLUDED.mtime,observed_at=EXCLUDED.observed_at,sequence=EXCLUDED.sequence,received_at=now() WHERE file_observations.sequence<EXCLUDED.sequence`, agent, ev.Alias, ev.New, ev.Kind, ev.Size, ev.Mode, ev.Mtime, ev.Observed, ev.Sequence)
-		if e != nil {
-			problem(w, 503, "Observação indisponível")
-			return
-		}
-		accepted = append(accepted, ev.UUID)
 	}
 	if tx.Commit(r.Context()) != nil {
 		problem(w, 503, "Commit indisponível")

@@ -129,6 +129,43 @@ func TestPostgresAuthorizationAndIngestion(t *testing.T) {
 	ev.Kind = "modified"
 	batch["events"] = []Event{ev}
 	request("POST", "/agent/events:batch", batch, token, 202)
+	// A replay inside one request is handled in order, and a later conflict
+	// rolls the whole request back without persisting its preceding event.
+	ev.Sequence = 3
+	ev.UUID = uuid.NewString()
+	batch["events"] = []Event{ev, ev}
+	within := request("POST", "/agent/events:batch", batch, token, 202)
+	if len(within["accepted"].([]any)) != 1 || len(within["duplicates"].([]any)) != 1 {
+		t.Fatal("intra-batch replay not recognized")
+	}
+	ev.Sequence = 4
+	ev.UUID = uuid.NewString()
+	conflicting := ev
+	conflicting.New = strings.Repeat("c", 64)
+	batch["events"] = []Event{ev, conflicting}
+	request("POST", "/agent/events:batch", batch, token, 409)
+	var persisted int
+	if e = db.QueryRow(ctx, "SELECT count(*) FROM change_events WHERE agent_id=$1 AND sequence=4", agent).Scan(&persisted); e != nil || persisted != 0 {
+		t.Fatal("conflicting batch partially persisted")
+	}
+	// A database error after the first pipelined write must roll back the batch.
+	_, e = db.Exec(ctx, `CREATE FUNCTION synthetic_reject_sequence() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN IF NEW.sequence=6 THEN RAISE EXCEPTION 'synthetic failure'; END IF; RETURN NEW; END $$; CREATE TRIGGER synthetic_reject BEFORE INSERT ON change_events FOR EACH ROW EXECUTE FUNCTION synthetic_reject_sequence()`)
+	if e != nil {
+		t.Fatal(e)
+	}
+	ev.Sequence = 5
+	ev.UUID = uuid.NewString()
+	nextEvent := ev
+	nextEvent.Sequence = 6
+	nextEvent.UUID = uuid.NewString()
+	batch["events"] = []Event{ev, nextEvent}
+	request("POST", "/agent/events:batch", batch, token, 503)
+	if e = db.QueryRow(ctx, "SELECT count(*) FROM change_events WHERE agent_id=$1 AND sequence IN (5,6)", agent).Scan(&persisted); e != nil || persisted != 0 {
+		t.Fatal("failed write batch partially persisted")
+	}
+	if _, e = db.Exec(ctx, "DROP TRIGGER synthetic_reject ON change_events; DROP FUNCTION synthetic_reject_sequence()"); e != nil {
+		t.Fatal(e)
+	}
 	request("POST", "/agent/heartbeat", map[string]any{"agent_version": "0.1.0", "queue_depth": 0, "observed_at": time.Now().UTC()}, token, 202)
 	request("POST", "/agent/heartbeat", map[string]any{"agent_version": "0.1.0", "queue_depth": 9, "queue_capacity": 10, "observed_at": time.Now().UTC()}, token, 202)
 	var capacity int
@@ -184,7 +221,7 @@ func TestPostgresAuthorizationAndIngestion(t *testing.T) {
 	request("POST", "/agent/events:batch", batch, token, 401)
 	request("GET", "/organizations/"+org+"/audit-logs", nil, "", 200)
 	var count int
-	if e = db.QueryRow(ctx, "SELECT count(*) FROM change_events").Scan(&count); e != nil || count != 2 {
+	if e = db.QueryRow(ctx, "SELECT count(*) FROM change_events").Scan(&count); e != nil || count != 3 {
 		t.Fatalf("persisted events = %d, err=%v", count, e)
 	}
 	// Project-scoped admins cannot cross another project in the same organization.
