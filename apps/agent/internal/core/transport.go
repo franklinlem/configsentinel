@@ -129,11 +129,14 @@ func (t *Transport) Heartbeat(ctx context.Context, q *Queue, observed time.Time)
 	err := t.post(ctx, "/agent/heartbeat", body, &out)
 	var rejected responseError
 	if errors.As(err, &rejected) && rejected.status == http.StatusUnprocessableEntity {
-		// A pre-capacity server rejects unknown fields. Preserve compatibility
-		// during a server rollback without dropping or modifying the local queue.
-		delete(body, "queue_capacity")
+		// Roll back optional fields one at a time, retaining queue capacity on
+		// servers that support it but predate sent_at.
 		delete(body, "sent_at")
-		return t.post(ctx, "/agent/heartbeat", body, &out)
+		err = t.post(ctx, "/agent/heartbeat", body, &out)
+		if errors.As(err, &rejected) && rejected.status == http.StatusUnprocessableEntity {
+			delete(body, "queue_capacity")
+			return t.post(ctx, "/agent/heartbeat", body, &out)
+		}
 	}
 	return err
 }

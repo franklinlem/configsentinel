@@ -14,8 +14,8 @@ import (
 )
 
 func TestHeartbeatCapacityAndLegacyFallback(t *testing.T) {
-	for _, legacy := range []bool{false, true} {
-		t.Run(map[bool]string{false: "capacity", true: "legacy"}[legacy], func(t *testing.T) {
+	for _, mode := range []string{"current", "capacity_only", "legacy"} {
+		t.Run(mode, func(t *testing.T) {
 			calls := 0
 			central := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 				calls++
@@ -29,16 +29,13 @@ func TestHeartbeatCapacityAndLegacyFallback(t *testing.T) {
 				if calls == 1 && (!exists || capacity != float64(3)) {
 					t.Error("capacity not sent")
 				}
-				if legacy && calls == 1 {
+				_, hasSentAt := body["sent_at"]
+				if (mode != "current" && hasSentAt) || (mode == "legacy" && exists) {
 					w.WriteHeader(422)
 					return
 				}
-				if legacy && calls == 2 && exists {
-					t.Error("legacy fallback contains capacity")
-				}
-				_, hasSentAt := body["sent_at"]
-				if (calls == 1 && !hasSentAt) || (legacy && calls == 2 && hasSentAt) {
-					t.Error("sent_at compatibility fallback incorrect")
+				if mode == "capacity_only" && !exists {
+					t.Error("capacity was discarded for a compatible server")
 				}
 				w.WriteHeader(202)
 				_, _ = w.Write([]byte(`{"ok":true,"server_time":"2026-10-31T00:00:00Z","clock_skew_warning":false}`))
@@ -61,8 +58,10 @@ func TestHeartbeatCapacityAndLegacyFallback(t *testing.T) {
 				t.Fatal(e)
 			}
 			want := 1
-			if legacy {
+			if mode == "capacity_only" {
 				want = 2
+			} else if mode == "legacy" {
+				want = 3
 			}
 			if calls != want {
 				t.Fatalf("got %d requests", calls)
