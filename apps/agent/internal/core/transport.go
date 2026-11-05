@@ -9,7 +9,6 @@ import (
 	"github.com/google/uuid"
 	"io"
 	"net/http"
-	"os"
 	"strings"
 	"time"
 )
@@ -28,21 +27,34 @@ type Transport struct {
 func NewTransport(c Config) *Transport {
 	return &Transport{Config: c, Client: &http.Client{Timeout: 15 * time.Second, CheckRedirect: func(r *http.Request, via []*http.Request) error { return errors.New("redirect não permitido") }}}
 }
-func (t *Transport) post(ctx context.Context, path string, body any, out any) error {
-	fi, e := os.Stat(t.Config.Agent.TokenFile)
+func readToken(path string) (string, error) {
+	f, e := safeOpen(path)
 	if e != nil {
-		return errors.New("token indisponível")
+		return "", errors.New("token indisponível")
+	}
+	defer f.Close()
+	fi, e := f.Stat()
+	if e != nil || !fi.Mode().IsRegular() || fi.Size() > 128 {
+		return "", errors.New("token indisponível")
 	}
 	if fi.Mode().Perm()&0077 != 0 {
-		return errors.New("token deve ser legível somente pelo proprietário")
+		return "", errors.New("token deve ser legível somente pelo proprietário")
 	}
-	b, e := os.ReadFile(t.Config.Agent.TokenFile)
+	b, e := io.ReadAll(io.LimitReader(f, 129))
 	if e != nil {
-		return errors.New("token indisponível")
+		return "", errors.New("token indisponível")
 	}
 	token := strings.TrimSpace(string(b))
-	if !strings.HasPrefix(token, "cs_") || len(token) != 46 {
-		return errors.New("formato de token inválido")
+	if len(b) > 128 || !strings.HasPrefix(token, "cs_") || len(token) != 46 {
+		return "", errors.New("formato de token inválido")
+	}
+	return token, nil
+}
+
+func (t *Transport) post(ctx context.Context, path string, body any, out any) error {
+	token, e := readToken(t.Config.Agent.TokenFile)
+	if e != nil {
+		return e
 	}
 	data, e := json.Marshal(body)
 	if e != nil {

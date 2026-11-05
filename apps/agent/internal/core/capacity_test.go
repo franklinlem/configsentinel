@@ -40,7 +40,7 @@ func TestHeartbeatCapacityAndLegacyFallback(t *testing.T) {
 				_, _ = w.Write([]byte(`{"ok":true,"server_time":"2026-10-31T00:00:00Z","clock_skew_warning":false}`))
 			}))
 			defer central.Close()
-			d := t.TempDir()
+			d := privateTestDir(t)
 			token := filepath.Join(d, "token")
 			if e := os.WriteFile(token, []byte("cs_"+strings.Repeat("s", 43)), 0600); e != nil {
 				t.Fatal(e)

@@ -7,8 +7,6 @@ import (
 	"fmt"
 	"github.com/google/uuid"
 	_ "modernc.org/sqlite"
-	"os"
-	"path/filepath"
 	"time"
 )
 
@@ -32,17 +30,11 @@ type Queue struct {
 var ErrFull = errors.New("fila cheia: snapshot não avançou")
 
 func OpenQueue(path, agentID string, max int) (*Queue, error) {
-	if e := os.MkdirAll(filepath.Dir(path), 0700); e != nil {
-		return nil, e
-	}
-	f, e := os.OpenFile(path, os.O_CREATE|os.O_RDWR, 0600)
+	f, e := OpenStateFile(path)
 	if e != nil {
 		return nil, e
 	}
 	f.Close()
-	if e = os.Chmod(path, 0600); e != nil {
-		return nil, e
-	}
 	db, e := sql.Open("sqlite", path)
 	if e != nil {
 		return nil, e

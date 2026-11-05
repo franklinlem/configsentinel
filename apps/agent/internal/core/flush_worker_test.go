@@ -29,7 +29,7 @@ func TestFlushWorkerDoesNotBlockHeartbeatAndCancels(t *testing.T) {
 	}))
 	defer central.Close()
 	defer close(release)
-	dir := t.TempDir()
+	dir := privateTestDir(t)
 	token := filepath.Join(dir, "agent.token")
 	if err := os.WriteFile(token, []byte("cs_"+strings.Repeat("s", 43)), 0600); err != nil {
 		t.Fatal(err)

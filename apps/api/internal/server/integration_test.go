@@ -260,15 +260,19 @@ func TestPostgresAuthorizationAndIngestion(t *testing.T) {
 	if len(scoped) != 1 {
 		t.Fatal("project admin scope leak")
 	}
-	// Retention removes old events and their acknowledgements, preserving administrative audit.
+	// Retention preserves events until an explicit retention policy is approved.
 	if _, e = db.Exec(ctx, `UPDATE change_events SET received_at=now()-interval '91 days'`); e != nil {
+		t.Fatal(e)
+	}
+	var beforeRetention int
+	if e = db.QueryRow(ctx, "SELECT count(*) FROM change_events").Scan(&beforeRetention); e != nil {
 		t.Fatal(e)
 	}
 	if e = app.Retain(ctx); e != nil {
 		t.Fatal(e)
 	}
-	if e = db.QueryRow(ctx, "SELECT count(*) FROM change_events").Scan(&count); e != nil || count != 0 {
-		t.Fatal("retention failed")
+	if e = db.QueryRow(ctx, "SELECT count(*) FROM change_events").Scan(&count); e != nil || count != beforeRetention {
+		t.Fatal("retention deleted events")
 	}
 	if e = db.QueryRow(ctx, "SELECT count(*) FROM audit_logs").Scan(&count); e != nil || count == 0 {
 		t.Fatal("administrative audit erased")

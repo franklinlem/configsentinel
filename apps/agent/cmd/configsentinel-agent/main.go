@@ -14,7 +14,6 @@ import (
 	"log/slog"
 	"os"
 	"os/signal"
-	"path/filepath"
 	"syscall"
 	"time"
 )
@@ -37,10 +36,7 @@ func run() error {
 	if e != nil {
 		return e
 	}
-	if e = os.MkdirAll(filepath.Dir(c.Agent.QueueDB), 0700); e != nil {
-		return e
-	}
-	lock, e := os.OpenFile(c.Agent.QueueDB+".lock", os.O_CREATE|os.O_RDWR, 0600)
+	lock, e := core.OpenStateFile(c.Agent.QueueDB + ".lock")
 	if e != nil {
 		return e
 	}

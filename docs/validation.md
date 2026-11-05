@@ -273,3 +273,9 @@ O monitor externo de alertas de agente está implementado e testado com destino 
 ## Monitor de agentes — 05/11/2026
 
 Monitor Kuma 22 e timer no frank-note2 ativados para o agente sintético selecionado, com conta viewer dedicada. Teste controlado de DOWN/UP registrado e entrega de ambos os avisos confirmada por Franklin; o teste de transição foi enviado ao monitor, sem simular falhas reais no agente. Ver [supervisão](CAPACITY_AND_ALERT_DELIVERY.md) e [evidências](evidence/agent-monitor-20261105/). Produção continua NO-GO.
+
+## Preparação de produção — 05/11/2026
+
+[Lista atual de pendências](PRODUCTION_TODO.md). Correções locais: a manutenção volta a tentar após falha e preserva eventos e reconhecimentos até definição de política; sessões vencidas continuam sendo removidas. O agente abre o token sem links e valida diretório, arquivo de fila e lock antes de usá-los. A exigência de diretório previamente provisionado corresponde ao `StateDirectory` do serviço e ao diretório do piloto; ela restringe implantações personalizadas que usavam criação automática. A proteção não trata comprometimento do próprio UID ou ACLs que concedam escrita adicional.
+
+Testes Go com detector de corridas passaram nos dois módulos; a API foi exercitada com PostgreSQL sintético, incluindo preservação de eventos antigos e limpeza de sessões. As correções ainda não estão implantadas. A versão ativa mantém a exclusão de eventos após 90 dias, com exclusão em cascata dos reconhecimentos. Produção permanece NO-GO.

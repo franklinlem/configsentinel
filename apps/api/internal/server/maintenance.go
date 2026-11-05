@@ -2,30 +2,29 @@ package server
 
 import (
 	"context"
+	"log/slog"
 	"time"
 )
 
-// Retain runs bounded retention batches. Administrative audits have independent,
-// deliberately non-destructive retention until the operator defines its policy.
+// Retain removes expired sessions. Events, acknowledgements and administrative
+// audits are preserved until an explicit data-retention policy is approved.
 func (s *Server) Retain(ctx context.Context) error {
-	for {
-		tag, e := s.DB.Exec(ctx, `DELETE FROM change_events WHERE id IN(SELECT id FROM change_events WHERE received_at<now()-interval '90 days' LIMIT 5000)`)
-		if e != nil {
-			return e
-		}
-		if tag.RowsAffected() < 5000 {
-			break
-		}
-	}
 	_, e := s.DB.Exec(ctx, `DELETE FROM user_sessions WHERE expires_at<now()-interval '1 day' OR revoked_at<now()-interval '1 day'`)
 	return e
 }
 func (s *Server) Maintenance(ctx context.Context) {
-	ticker := time.NewTicker(time.Hour)
+	maintenanceLoop(ctx, time.Hour, s.Retain)
+}
+
+func maintenanceLoop(ctx context.Context, interval time.Duration, retain func(context.Context) error) {
+	ticker := time.NewTicker(interval)
 	defer ticker.Stop()
 	for {
-		if e := s.Retain(ctx); e != nil && ctx.Err() == nil {
+		if ctx.Err() != nil {
 			return
+		}
+		if e := retain(ctx); e != nil && ctx.Err() == nil {
+			slog.Error("retention failed; will retry on next scheduled run", "error", e)
 		}
 		select {
 		case <-ctx.Done():

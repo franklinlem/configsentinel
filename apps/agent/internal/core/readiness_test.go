@@ -16,7 +16,7 @@ import (
 )
 
 func TestReadinessTokenFileAndQueuePersistence(t *testing.T) {
-	folder := t.TempDir()
+	folder := privateTestDir(t)
 	tokenPath := filepath.Join(folder, "agent.token")
 	canary := "cs_" + strings.Repeat("s", 43)
 	if e := os.WriteFile(tokenPath, []byte(canary), 0600); e != nil {
@@ -59,7 +59,7 @@ func TestReadinessFilesystemPermissionAndConcurrentSwap(t *testing.T) {
 	if os.Geteuid() == 0 {
 		t.Skip("permission check requires unprivileged test process")
 	}
-	d := t.TempDir()
+	d := privateTestDir(t)
 	p := filepath.Join(d, "watched.conf")
 	canary := filepath.Join(d, "canary.conf")
 	os.WriteFile(canary, []byte("synthetic-canary"), 0600)

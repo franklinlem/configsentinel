@@ -17,7 +17,7 @@ import (
 )
 
 func TestSecureFilesystem(t *testing.T) {
-	d := t.TempDir()
+	d := privateTestDir(t)
 	path := filepath.Join(d, "demo.conf")
 	if e := os.WriteFile(path, []byte("synthetic=true\n"), 0600); e != nil {
 		t.Fatal(e)
@@ -85,7 +85,7 @@ func TestTransitions(t *testing.T) {
 	}
 }
 func TestDurableQueueAndSaturation(t *testing.T) {
-	path := filepath.Join(t.TempDir(), "queue.sqlite")
+	path := filepath.Join(privateTestDir(t), "queue.sqlite")
 	aid := uuid.NewString()
 	q, e := OpenQueue(path, aid, 1)
 	if e != nil {
@@ -134,7 +134,7 @@ func TestTransportRejectsCommands(t *testing.T) {
 		w.Write([]byte(`{"accepted":[],"duplicates":[],"rejected":[],"command":"read_file"}`))
 	}))
 	defer server.Close()
-	d := t.TempDir()
+	d := privateTestDir(t)
 	token := filepath.Join(d, "agent.token")
 	os.WriteFile(token, []byte("cs_"+strings.Repeat("x", 43)), 0600)
 	c := Config{}
@@ -184,7 +184,7 @@ func TestConfigurationValidation(t *testing.T) {
 	}
 }
 func TestSymlinkSwapDoesNotReadTarget(t *testing.T) {
-	d := t.TempDir()
+	d := privateTestDir(t)
 	path := filepath.Join(d, "watched.conf")
 	canary := filepath.Join(d, "canary.conf")
 	os.WriteFile(canary, []byte("synthetic-canary-not-to-be-read"), 0600)

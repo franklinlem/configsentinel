@@ -78,7 +78,7 @@ func TestReadinessRunnerHeartbeatUnderIngestionFailure(t *testing.T) {
 		_ = json.NewEncoder(w).Encode(map[string]any{"accepted": accepted, "duplicates": duplicates, "rejected": []string{}})
 	}))
 	defer central.Close()
-	dir := t.TempDir()
+	dir := privateTestDir(t)
 	var c core.Config
 	c.Agent.URL = central.URL + "/api/v1"
 	c.Agent.ID = uuid.NewString()
