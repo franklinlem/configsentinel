@@ -1,0 +1,89 @@
+{
+  "scope": "local isolated Docker PostgreSQL, in-process HTTP handler, no race",
+  "runs": [
+    {
+      "variant": "new",
+      "agents": 25,
+      "batch_size": 100,
+      "concurrency": 5,
+      "environment": "local isolated Docker PostgreSQL; in-process HTTP handler",
+      "errors": 0,
+      "events": 2500,
+      "max_batch_ms": 153.024,
+      "p50_batch_ms": 80.061,
+      "p95_batch_ms": 151.32,
+      "total_seconds": 0.461402186
+    },
+    {
+      "variant": "old",
+      "agents": 25,
+      "batch_size": 100,
+      "concurrency": 5,
+      "environment": "local isolated Docker PostgreSQL; in-process HTTP handler",
+      "errors": 0,
+      "events": 2500,
+      "max_batch_ms": 310.228,
+      "p50_batch_ms": 230.493,
+      "p95_batch_ms": 302.324,
+      "total_seconds": 1.13517352
+    },
+    {
+      "variant": "new",
+      "agents": 25,
+      "batch_size": 100,
+      "concurrency": 5,
+      "environment": "local isolated Docker PostgreSQL; in-process HTTP handler",
+      "errors": 0,
+      "events": 2500,
+      "max_batch_ms": 167.564,
+      "p50_batch_ms": 81.285,
+      "p95_batch_ms": 166.745,
+      "total_seconds": 0.474157113
+    },
+    {
+      "variant": "old",
+      "agents": 25,
+      "batch_size": 100,
+      "concurrency": 5,
+      "environment": "local isolated Docker PostgreSQL; in-process HTTP handler",
+      "errors": 0,
+      "events": 2500,
+      "max_batch_ms": 221.876,
+      "p50_batch_ms": 170.439,
+      "p95_batch_ms": 219.418,
+      "total_seconds": 0.894914439
+    },
+    {
+      "variant": "new",
+      "agents": 25,
+      "batch_size": 100,
+      "concurrency": 5,
+      "environment": "local isolated Docker PostgreSQL; in-process HTTP handler",
+      "errors": 0,
+      "events": 2500,
+      "max_batch_ms": 162.475,
+      "p50_batch_ms": 105.222,
+      "p95_batch_ms": 158.721,
+      "total_seconds": 0.559545361
+    },
+    {
+      "variant": "old",
+      "agents": 25,
+      "batch_size": 100,
+      "concurrency": 5,
+      "environment": "local isolated Docker PostgreSQL; in-process HTTP handler",
+      "errors": 0,
+      "events": 2500,
+      "max_batch_ms": 263.684,
+      "p50_batch_ms": 201.71,
+      "p95_batch_ms": 260.478,
+      "total_seconds": 1.050158056
+    }
+  ],
+  "median_of_run_p95_ms": {
+    "old": 260.478,
+    "new": 158.721
+  },
+  "samples_per_variant": 3,
+  "limitation": "local test, not production SLO"
+}

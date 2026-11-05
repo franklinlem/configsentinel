@@ -138,6 +138,10 @@ func TestPostgresAuthorizationAndIngestion(t *testing.T) {
 	if len(within["accepted"].([]any)) != 1 || len(within["duplicates"].([]any)) != 1 {
 		t.Fatal("intra-batch replay not recognized")
 	}
+	crossSequence := ev
+	crossSequence.Sequence = 4
+	batch["events"] = []Event{crossSequence}
+	request("POST", "/agent/events:batch", batch, token, 409)
 	ev.Sequence = 4
 	ev.UUID = uuid.NewString()
 	conflicting := ev
