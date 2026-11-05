@@ -14,6 +14,8 @@ Compatível com Linux com openat2 (kernel >= 5.6). Sem fallback para symlinks. R
 4. Fixture piloto: `/opt/configsentinel-lab/demo.conf`, texto inteiramente sintético, root:root 0644. O agente tem somente leitura; o administrador altera a fixture para ensaios.
 5. `systemctl daemon-reload` e `systemctl enable --now configsentinel-agent`. Validar journal, estado online e baseline no painel.
 
+O diretório da fila deve existir antes de iniciar o agente, pertencer ao UID do agente e não permitir escrita por grupo ou outros. A unit fornecida o cria com `StateDirectoryMode=0700`; em instalações sem systemd, provisione-o antecipadamente. A fila e o lock devem ser arquivos regulares pertencentes ao agente e sem links adicionais. O caminho do token não pode conter symlinks. Não mova nem substitua uma fila existente sem preservar seus dados e validar a recuperação.
+
 Não monitorar `/home`, `/root`, `/proc`, `/sys`, `/dev`, segredos, `.env`, PEM/keys ou diretórios inteiros. Nunca alterar permissões de configurações reais para acelerar piloto. Arquivos regulares com múltiplos hardlinks são recusados. Arquivos podem mudar e voltar entre polls sem detecção. Root comprometido pode adulterar evidências.
 
 ## Rotação
