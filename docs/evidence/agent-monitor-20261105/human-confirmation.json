@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "channel": "HermesFranklem",
+  "monitor_id": 22,
+  "controlled_alert_and_recovery_received": true,
+  "confirmation_source": "Franklin confirmed both messages in conversation",
+  "secrets_disclosed": false
+}

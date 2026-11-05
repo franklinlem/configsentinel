@@ -21,8 +21,10 @@ class AgentMonitor(unittest.TestCase):
             return {'items':alerts}
         config={'agent_ids':[AGENT],'email':'x','password':'fake'}
         with patch.dict(m['assess'].__globals__,{'request':fetch}):
-            alerts=[{'id':AGENT,'source':'agent','kind':'queue_high'}]
-            self.assertEqual(m['assess'](config,None)['status'],'down')
+            for kind in ('queue_high', 'agent_offline', 'collection_delayed', 'clock_skew'):
+                with self.subTest(kind=kind):
+                    alerts=[{'id':AGENT,'source':'agent','kind':kind}]
+                    self.assertEqual(m['assess'](config,None)['status'],'down')
             alerts=[{'id':'other','source':'agent','kind':'agent_offline'}]
             self.assertEqual(m['assess'](config,None)['status'],'up')
             alerts=[{}]*100

@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "viewer_create_organization_status": 403,
+  "read_only_role_verified": true,
+  "secrets_disclosed": false
+}

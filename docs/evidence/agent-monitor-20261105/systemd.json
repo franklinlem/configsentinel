@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "timer_enabled_and_active": true,
+  "service_result": "success",
+  "config_mode": "0600",
+  "interval_minutes": 2,
+  "kuma_timeout_minutes": 10,
+  "credentials_disclosed": false
+}

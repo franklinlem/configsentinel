@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "python_unittest_cases": 3,
+  "alert_kinds": [
+    "agent_offline",
+    "collection_delayed",
+    "queue_high",
+    "clock_skew"
+  ],
+  "unselected_agent_ignored": true,
+  "incomplete_list_fails_closed": true,
+  "isolated_push_sink": true,
+  "viewer_write_denied": true,
+  "kuma_helper_syntax": "PASS"
+}

@@ -1,0 +1,43 @@
+{
+  "checked_at": "2026-11-05T11:14:39.918Z",
+  "monitor": [
+    {
+      "id": 22,
+      "name": "ConfigSentinel \u00b7 Agente sint\u00e9tico",
+      "type": "push",
+      "active": 1,
+      "interval": 600,
+      "retry_interval": 60,
+      "maxretries": 0
+    }
+  ],
+  "history": [
+    {
+      "status": 1,
+      "msg": "agents_healthy",
+      "time": "2026-11-05T11:14:34.000Z"
+    },
+    {
+      "status": 0,
+      "msg": "teste_controlado_agente",
+      "time": "2026-11-05T11:14:31.000Z"
+    },
+    {
+      "status": 1,
+      "msg": "agents_healthy",
+      "time": "2026-11-05T11:14:29.000Z"
+    },
+    {
+      "status": 1,
+      "msg": "agents_healthy",
+      "time": "2026-11-05T11:14:22.000Z"
+    }
+  ],
+  "notification_names": [
+    {
+      "id": 1,
+      "name": "HermesFranklem"
+    }
+  ],
+  "scope": "read-only metadata/history of ConfigSentinel monitor 22; no credentials/global settings accessed"
+}

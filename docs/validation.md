@@ -269,3 +269,7 @@ Central, interface e agente sintético promovidos com schema 2; heartbeat inform
 A API otimizada foi implantada por digest no recurso de homologação, sem alteração de schema ou volume. O job terminou `finished`, os três serviços ficaram saudáveis e o smoke passou. Backup criptografado foi restaurado em banco isolado; as 14 contagens e identidades dos quatro eventos e dois reconhecimentos conferiram. A reversão da configuração para a API anterior foi testada somente em fixtures sintéticas. Em três medições alternadas locais a mediana dos p95 caiu de 260,48 para 158,72 ms; esse resultado não comprova o desempenho em produção. [Detalhes e evidências](INGESTION_OPTIMIZATION.md).
 
 O monitor externo de alertas de agente está implementado e testado com destino simulado, porém ainda não foi ativado no Kuma; a entrega real de alertas de agente permanece pendente. Produção continua **NO-GO**.
+
+## Monitor de agentes — 05/11/2026
+
+Monitor Kuma 22 e timer no frank-note2 ativados para o agente sintético selecionado, com conta viewer dedicada. Teste controlado de DOWN/UP registrado e entrega de ambos os avisos confirmada por Franklin; o teste de transição foi enviado ao monitor, sem simular falhas reais no agente. Ver [supervisão](CAPACITY_AND_ALERT_DELIVERY.md) e [evidências](evidence/agent-monitor-20261105/). Produção continua NO-GO.
