@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "encrypted": true,
+  "roundtrip": true,
+  "exclusive_config_only": true,
+  "sha256": "3685b88ee636ec4c0c019fa058f06bba215786bfe1afa219730a9a2904866d20",
+  "secrets_recorded": false
+}

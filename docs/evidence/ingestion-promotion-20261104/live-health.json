@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "containers": {
+    "api": {
+      "state": "running",
+      "health": "healthy",
+      "image": "ghcr.io/franklinlem/configsentinel-api@sha256:f8fdc1ffe8b4f8cf1a1480a6d3d69d95e332cf90f2c1589c99459046f158c39f"
+    },
+    "web": {
+      "state": "running",
+      "health": "healthy",
+      "image": "ghcr.io/franklinlem/configsentinel-web@sha256:64c4e53b1784d01cef1e35c5c1d34e5aa05174c64d2b01903e93b8e7fa95c44b"
+    },
+    "db": {
+      "state": "running",
+      "health": "healthy",
+      "image": "ghcr.io/franklinlem/configsentinel-db@sha256:ceeafd17328e0a09fa2999be01ccdec407e3318306d392c00646cf1dc74b4447"
+    }
+  },
+  "synthetic_agent_recent": true,
+  "agent_capacity": 10000,
+  "agent_queue_depth": 0
+}

@@ -263,3 +263,9 @@ API corrigida promovida à homologação por digest; smoke repetido passou após
 ## Capacidade e migration — 04/11/2026
 
 Central, interface e agente sintético promovidos com schema 2; heartbeat informa capacidade e alerta usa 80%. Backup posterior restaurado e testes relevantes passaram. Monitor externo de agente preparado, porém ainda não ativado. Ver [detalhes](CAPACITY_AND_ALERT_DELIVERY.md). Produção NO-GO.
+
+## Ingestão e promoção em homologação — 04/11/2026
+
+A API otimizada foi implantada por digest no recurso de homologação, sem alteração de schema ou volume. O job terminou `finished`, os três serviços ficaram saudáveis e o smoke passou. Backup criptografado foi restaurado em banco isolado; as 14 contagens e identidades dos quatro eventos e dois reconhecimentos conferiram. A reversão da configuração para a API anterior foi testada somente em fixtures sintéticas. Em três medições alternadas locais a mediana dos p95 caiu de 260,48 para 158,72 ms; esse resultado não comprova o desempenho em produção. [Detalhes e evidências](INGESTION_OPTIMIZATION.md).
+
+O monitor externo de alertas de agente está implementado e testado com destino simulado, porém ainda não foi ativado no Kuma; a entrega real de alertas de agente permanece pendente. Produção continua **NO-GO**.
