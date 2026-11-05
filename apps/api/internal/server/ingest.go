@@ -162,10 +162,11 @@ func (s *Server) batch(w http.ResponseWriter, r *http.Request) {
 }
 func (s *Server) heartbeat(w http.ResponseWriter, r *http.Request) {
 	var b struct {
-		Version  string    `json:"agent_version"`
-		Queue    int       `json:"queue_depth"`
-		Capacity *int      `json:"queue_capacity,omitempty"`
-		Observed time.Time `json:"observed_at"`
+		Version  string     `json:"agent_version"`
+		Queue    int        `json:"queue_depth"`
+		Capacity *int       `json:"queue_capacity,omitempty"`
+		Observed time.Time  `json:"observed_at"`
+		SentAt   *time.Time `json:"sent_at,omitempty"`
 	}
 	if !decode(w, r, &b) {
 		return
@@ -182,7 +183,15 @@ func (s *Server) heartbeat(w http.ResponseWriter, r *http.Request) {
 		problem(w, 409, "Versão de agente incompatível")
 		return
 	}
-	skew := time.Since(b.Observed).Abs() > 5*time.Minute
+	clockSample := b.Observed // Legacy agents do not send a separate clock sample.
+	if b.SentAt != nil {
+		if b.SentAt.IsZero() {
+			problem(w, 422, "Heartbeat inválido")
+			return
+		}
+		clockSample = *b.SentAt
+	}
+	skew := time.Since(clockSample).Abs() > 5*time.Minute
 	_, e := s.DB.Exec(r.Context(), `UPDATE agents SET last_seen_at=now(),last_observed_at=$2,agent_version=$3,queue_depth=$4,clock_skew_warning=$5,queue_capacity=$6 WHERE id=$1`, p(r).Agent, b.Observed, b.Version, b.Queue, skew, b.Capacity)
 	if e != nil {
 		problem(w, 503, "Heartbeat indisponível")

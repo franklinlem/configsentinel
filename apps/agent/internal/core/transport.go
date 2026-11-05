@@ -125,13 +125,14 @@ func (t *Transport) Heartbeat(ctx context.Context, q *Queue, observed time.Time)
 		Time time.Time `json:"server_time"`
 		Skew bool      `json:"clock_skew_warning"`
 	}
-	body := map[string]any{"agent_version": "0.1.0", "queue_depth": depth, "queue_capacity": q.Max, "observed_at": observed}
+	body := map[string]any{"agent_version": "0.1.0", "queue_depth": depth, "queue_capacity": q.Max, "observed_at": observed, "sent_at": time.Now().UTC()}
 	err := t.post(ctx, "/agent/heartbeat", body, &out)
 	var rejected responseError
 	if errors.As(err, &rejected) && rejected.status == http.StatusUnprocessableEntity {
 		// A pre-capacity server rejects unknown fields. Preserve compatibility
 		// during a server rollback without dropping or modifying the local queue.
 		delete(body, "queue_capacity")
+		delete(body, "sent_at")
 		return t.post(ctx, "/agent/heartbeat", body, &out)
 	}
 	return err

@@ -256,6 +256,42 @@ func TestReadinessAlertCharacterization(t *testing.T) {
 	}
 }
 
+func TestHeartbeatClockSampleSeparatesStaleCollection(t *testing.T) {
+	app, _, _, aid := reviewServer(t, nil)
+	cookie, csrf := reviewLogin(t, app)
+	issued := reviewRequest(app.Routes(), "POST", "/agents/"+aid+"/tokens", nil, "", cookie, csrf)
+	if issued.Code != 201 {
+		t.Fatal("token issue failed")
+	}
+	var credentials map[string]string
+	if json.Unmarshal(issued.Body.Bytes(), &credentials) != nil {
+		t.Fatal("invalid token response")
+	}
+	now := time.Now().UTC()
+	for _, tc := range []struct {
+		name           string
+		observed, sent time.Time
+		wantSkew       bool
+	}{
+		{"stale collection and correct clock", now.Add(-10 * time.Minute), now, false},
+		{"incorrect clock", now, now.Add(-10 * time.Minute), true},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			body := map[string]any{"agent_version": "0.1.0", "queue_depth": 0, "observed_at": tc.observed, "sent_at": tc.sent}
+			w := reviewRequest(app.Routes(), "POST", "/agent/heartbeat", body, credentials["token"], nil, "")
+			if w.Code != 202 {
+				t.Fatalf("heartbeat status %d", w.Code)
+			}
+			var result struct {
+				Skew bool `json:"clock_skew_warning"`
+			}
+			if json.Unmarshal(w.Body.Bytes(), &result) != nil || result.Skew != tc.wantSkew {
+				t.Fatal("incorrect skew classification")
+			}
+		})
+	}
+}
+
 type reviewTrace struct {
 	mu             sync.Mutex
 	statements     int

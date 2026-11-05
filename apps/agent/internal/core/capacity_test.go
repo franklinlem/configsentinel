@@ -36,6 +36,10 @@ func TestHeartbeatCapacityAndLegacyFallback(t *testing.T) {
 				if legacy && calls == 2 && exists {
 					t.Error("legacy fallback contains capacity")
 				}
+				_, hasSentAt := body["sent_at"]
+				if (calls == 1 && !hasSentAt) || (legacy && calls == 2 && hasSentAt) {
+					t.Error("sent_at compatibility fallback incorrect")
+				}
 				w.WriteHeader(202)
 				_, _ = w.Write([]byte(`{"ok":true,"server_time":"2026-10-31T00:00:00Z","clock_skew_warning":false}`))
 			}))

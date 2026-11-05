@@ -14,6 +14,7 @@ import (
 	"log/slog"
 	"os"
 	"os/signal"
+	"sync/atomic"
 	"syscall"
 	"time"
 )
@@ -60,10 +61,26 @@ func run() error {
 		return e
 	}
 	wake := make(chan struct{}, 1)
+	heartbeatWake := make(chan struct{}, 1)
 	done := make(chan struct{})
+	var observedUnix atomic.Int64
+	if !observed.IsZero() {
+		observedUnix.Store(observed.UnixNano())
+	}
 	if !*once {
+		heartbeatDone := make(chan struct{})
 		go func() { defer close(done); transport.RunFlush(ctx, q, wake) }()
-		defer func() { stop(); <-done }()
+		go func() {
+			defer close(heartbeatDone)
+			transport.RunHeartbeat(ctx, q, func() time.Time {
+				n := observedUnix.Load()
+				if n == 0 {
+					return time.Time{}
+				}
+				return time.Unix(0, n).UTC()
+			}, time.Duration(c.Agent.Interval)*time.Second, heartbeatWake)
+		}()
+		defer func() { stop(); <-done; <-heartbeatDone }()
 	}
 	for {
 		start := time.Now().UTC()
@@ -83,6 +100,11 @@ func run() error {
 				return e
 			}
 			observed = start
+			observedUnix.Store(start.UnixNano())
+			select {
+			case heartbeatWake <- struct{}{}:
+			default:
+			}
 		}
 		if *once {
 			// Even one-shot lab runs exercise delivery and heartbeat independently.
@@ -94,9 +116,6 @@ func run() error {
 		select {
 		case wake <- struct{}{}:
 		default:
-		}
-		if err := transport.Heartbeat(ctx, q, observed); err != nil && ctx.Err() == nil {
-			slog.Warn("heartbeat deferred", "error", err)
 		}
 		timer := time.NewTimer(time.Duration(c.Agent.Interval) * time.Second)
 		select {
