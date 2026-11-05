@@ -1,0 +1,16 @@
+{
+  "container_name": "configsentinel-j3-only-f357d5b00e58-db",
+  "container_id": "7ac334f711d9c60b0dfab13e2716bb609537aa096c5bc66cbea5258cda6cdd64",
+  "network_id": "8b15b85069335bf3c42f23fdf09ab6862c3f25fdffddf2c883bb003df4e5abf0",
+  "volume_name": "configsentinel-j3-only-f357d5b00e58-data",
+  "image_id": "sha256:ceeafd17328e0a09fa2999be01ccdec407e3318306d392c00646cf1dc74b4447",
+  "network_internal": true,
+  "public_ports": false,
+  "active_volume_mounted": false,
+  "host_mount_parent_mode": "0o711",
+  "empty_init_mode": "0o755",
+  "credential_directory_mode": "0o700",
+  "credential_file_mode": "0o600",
+  "uid70_visible_parent_and_init_access": true,
+  "pg_isready": true
+}

@@ -1,0 +1,9 @@
+{
+  "status": "FAIL",
+  "deploy_enqueued": false,
+  "reason": "historic schema-1 fallback image missing from cache",
+  "schema2_fallback_cached": true,
+  "current_api_and_web_cached": true,
+  "attempt_to_repair": "readonly-pull workflow 41815892521",
+  "active_containers_modified": false
+}

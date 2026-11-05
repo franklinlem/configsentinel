@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "schema": 2,
+  "unchanged_all_other_table_counts": true,
+  "events": 4,
+  "acknowledgements": 2,
+  "event_and_ack_identity_preserved": true
+}

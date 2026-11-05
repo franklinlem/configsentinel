@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "baseline_matches_restore": true,
+  "images_and_fallback_verified_cached": true,
+  "containers": {
+    "cached": true,
+    "api": {
+      "healthy": true,
+      "running": true
+    },
+    "web": {
+      "healthy": true,
+      "running": true
+    },
+    "db": {
+      "healthy": true,
+      "running": true,
+      "original_volume": true
+    },
+    "proxy_connected": true
+  },
+  "three_roles_unprivileged": true,
+  "workflow": 41814748221
+}

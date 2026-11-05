@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "source_image": "ghcr.io/franklinlem/configsentinel-agent@sha256:563365fa8c73c511ea9e7d71c5a1a96b81c7d25d2f95a835e488c5e3c9c917b7",
+  "sha256": "2715936f76816a17fb810764f22abcde8bb288be8e22a1b6f894746504e924e7",
+  "staged_path": "/home/franklin/apps/configsentinel-lab/configsentinel-agent-capacity-2715936f7681",
+  "staging_container_id": "914d2d03259f38144dc7ee516f402b6b60cbe7cb1e82b89376467e40dc48ef5b",
+  "active_agent_modified": false,
+  "token_or_queue_read": false
+}

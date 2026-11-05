@@ -223,3 +223,7 @@ Web corrigida implantada em homologação e validada; correção da API para ale
 ## API de alertas — 04/11/2026 UTC
 
 API corrigida promovida à homologação por digest; smoke repetido passou após primeira tentativa com asserção HTTP não identificada. Backup/restore e integridade dos dados passaram. Detalhes em [revisão](REVIEW_2026-11-04.md). Produção NO-GO.
+
+## Capacidade e migration — 04/11/2026
+
+Central, interface e agente sintético promovidos com schema 2; heartbeat informa capacidade e alerta usa 80%. Backup posterior restaurado e testes relevantes passaram. Monitor externo de agente preparado, porém ainda não ativado. Ver [detalhes](CAPACITY_AND_ALERT_DELIVERY.md). Produção NO-GO.

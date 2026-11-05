@@ -1,0 +1,7 @@
+{
+  "playwright_all_pages": "PASS",
+  "axe_wcag_2a_2aa_21aa": "PASS",
+  "responsive": "PASS",
+  "environment": "active homologation",
+  "visual_human_review": "not performed"
+}

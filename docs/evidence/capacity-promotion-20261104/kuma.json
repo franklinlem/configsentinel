@@ -1,0 +1,27 @@
+{
+  "checked_at": "2026-11-05T00:40:03.007Z",
+  "monitors": [
+    {
+      "id": 20,
+      "name": "ConfigSentinel · Homologação",
+      "active": 1
+    },
+    {
+      "id": 21,
+      "name": "ConfigSentinel · Backup criptografado",
+      "active": 1
+    }
+  ],
+  "last": [
+    {
+      "monitor_id": 20,
+      "status": 1,
+      "time": "2026-11-05T00:39:04.000Z"
+    },
+    {
+      "monitor_id": 21,
+      "status": 1,
+      "time": "2026-11-05T00:35:25.000Z"
+    }
+  ]
+}
