@@ -1,9 +1,13 @@
 package server
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
+	"net/http"
+	"net/http/httptest"
 	"os"
 	"sort"
 	"strings"
@@ -18,6 +22,14 @@ func TestIngestionPerformanceSample(t *testing.T) {
 		t.Skip("explicit benchmark opt-in required")
 	}
 	app, _, server, _ := reviewServer(t, nil)
+	network := os.Getenv("INGEST_BENCHMARK_TCP") == "1"
+	var endpoint string
+	client := &http.Client{Timeout: 30 * time.Second}
+	if network {
+		tcpServer := httptest.NewServer(app.Routes())
+		defer tcpServer.Close()
+		endpoint = tcpServer.URL + "/api/v1/agent/events:batch"
+	}
 	type fixture struct {
 		token  string
 		events []Event
@@ -50,9 +62,27 @@ func TestIngestionPerformanceSample(t *testing.T) {
 			sem <- struct{}{}
 			defer func() { <-sem }()
 			begin := time.Now()
-			w := reviewRequest(app.Routes(), "POST", "/agent/events:batch", map[string]any{"batch_id": id(), "schema_version": 1, "events": fixtures[i].events}, fixtures[i].token, nil, "")
+			body := map[string]any{"batch_id": id(), "schema_version": 1, "events": fixtures[i].events}
+			status := 0
+			if network {
+				payload, _ := json.Marshal(body)
+				req, err := http.NewRequest(http.MethodPost, endpoint, bytes.NewReader(payload))
+				if err == nil {
+					req.Header.Set("Content-Type", "application/json")
+					req.Header.Set("Authorization", "Bearer "+fixtures[i].token)
+					var response *http.Response
+					response, err = client.Do(req)
+					if err == nil {
+						status = response.StatusCode
+						_, _ = io.Copy(io.Discard, response.Body)
+						response.Body.Close()
+					}
+				}
+			} else {
+				status = reviewRequest(app.Routes(), "POST", "/agent/events:batch", body, fixtures[i].token, nil, "").Code
+			}
 			durations[i] = float64(time.Since(begin).Microseconds()) / 1000
-			if w.Code != 202 {
+			if status != 202 {
 				mu.Lock()
 				failures++
 				mu.Unlock()
@@ -61,7 +91,11 @@ func TestIngestionPerformanceSample(t *testing.T) {
 	}
 	wg.Wait()
 	sort.Float64s(durations)
-	result, _ := json.Marshal(map[string]any{"environment": "local isolated Docker PostgreSQL; in-process HTTP handler", "agents": 25, "batch_size": 100, "concurrency": 5, "events": 2500, "p50_batch_ms": durations[12], "p95_batch_ms": durations[23], "max_batch_ms": durations[24], "total_seconds": time.Since(start).Seconds(), "errors": failures})
+	environment := "local isolated Docker PostgreSQL; in-process HTTP handler"
+	if network {
+		environment = "local isolated Docker PostgreSQL; HTTP over loopback TCP, no TLS"
+	}
+	result, _ := json.Marshal(map[string]any{"environment": environment, "agents": 25, "batch_size": 100, "concurrency": 5, "events": 2500, "p50_batch_ms": durations[12], "p95_batch_ms": durations[23], "max_batch_ms": durations[24], "total_seconds": time.Since(start).Seconds(), "errors": failures})
 	t.Logf("INGEST_SAMPLE %s", result)
 	if failures != 0 {
 		t.Fatalf("%d requests failed", failures)

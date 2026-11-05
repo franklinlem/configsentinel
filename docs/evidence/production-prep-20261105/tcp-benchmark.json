@@ -1,0 +1,43 @@
+{
+  "samples": [
+    {
+      "agents": 25,
+      "batch_size": 100,
+      "concurrency": 5,
+      "environment": "local isolated Docker PostgreSQL; HTTP over loopback TCP, no TLS",
+      "errors": 0,
+      "events": 2500,
+      "max_batch_ms": 141.091,
+      "p50_batch_ms": 79.614,
+      "p95_batch_ms": 136.961,
+      "total_seconds": 0.447578969
+    },
+    {
+      "agents": 25,
+      "batch_size": 100,
+      "concurrency": 5,
+      "environment": "local isolated Docker PostgreSQL; HTTP over loopback TCP, no TLS",
+      "errors": 0,
+      "events": 2500,
+      "max_batch_ms": 165.043,
+      "p50_batch_ms": 91.469,
+      "p95_batch_ms": 145.817,
+      "total_seconds": 0.515495144
+    },
+    {
+      "agents": 25,
+      "batch_size": 100,
+      "concurrency": 5,
+      "environment": "local isolated Docker PostgreSQL; HTTP over loopback TCP, no TLS",
+      "errors": 0,
+      "events": 2500,
+      "max_batch_ms": 131.987,
+      "p50_batch_ms": 98.306,
+      "p95_batch_ms": 128.744,
+      "total_seconds": 0.506325503
+    }
+  ],
+  "median_p95_ms": 136.961,
+  "scope": "loopback TCP and isolated PostgreSQL; not production network",
+  "errors": 0
+}

@@ -9,3 +9,5 @@ Uma amostra local sem detector de corridas, com 25 agentes, 100 eventos por lote
 Em três execuções alternadas por implementação, a mediana dos p95 por execução foi **260,48 ms antes** e **158,72 ms depois**, com zero erros. O mesmo limite se aplica: é ambiente local e não comprova SLO em produção. [Amostras](evidence/ingestion-optimization-20261104/paired.json).
 
 Em 04/11, o job Coolify `f35f690b-5f82-4b8f-9cf0-a4abfab14753` terminou com sucesso. API, web e banco saudáveis, smoke e integridade passaram; agente sintético com heartbeat recente e fila vazia. O retorno à API anterior foi ensaiado no helper em SQLite e PostgreSQL sintéticos, sem executar rollback ativo. [Evidências](evidence/ingestion-promotion-20261104/).
+
+Em 05/11, três amostras adicionais pela interface HTTP sobre TCP local, com PostgreSQL isolado, registraram mediana dos p95 de **136,96 ms** e zero erros. Não incluem TLS, proxy ou rede externa, portanto não caracterizam o SLO de produção. [Evidência](evidence/production-prep-20261105/tcp-benchmark.json).
