@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "schema": 2,
+  "all_non_session_table_counts_preserved": true,
+  "sessions_excluded_due_to_monitor_logins": true,
+  "four_events_and_two_acknowledgements_identical": true
+}

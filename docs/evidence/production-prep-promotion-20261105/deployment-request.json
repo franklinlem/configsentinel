@@ -1,0 +1,6 @@
+{
+  "status": "queued",
+  "deployment_uuid": "10cb583e-a2c4-4988-b4cc-0c9e1781ca25",
+  "force_rebuild": false,
+  "only_this_server": true
+}

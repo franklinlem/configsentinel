@@ -1,0 +1,34 @@
+{
+  "status": "PASS",
+  "same_database_baseline_as_restored_backup": false,
+  "signed_images_workflow": 42018749020,
+  "five_images_cached": true,
+  "existing_proxy_connection": true,
+  "containers": {
+    "api": {
+      "id": "24a3681eb81a5726a38cc1da4fed0e48c4abd683ef474647b1d31a3e1db77409",
+      "health": "healthy",
+      "state": "running"
+    },
+    "web": {
+      "id": "168025f58a4ec847084b2cbadda490a10135c0f9490c45d5e95132a0a9cc5f8b",
+      "health": "healthy",
+      "state": "running"
+    },
+    "db": {
+      "id": "fd20c9671ebe1f1d43868131226ef0a719f481ecdaf0adfe6acb06a236b4d845",
+      "health": "healthy",
+      "state": "running",
+      "volume_names": [
+        "oi6lvzwzomwtbbgzf5uzofuh_postgres_data"
+      ]
+    },
+    "all_images_cached": true,
+    "proxy_already_connected": true
+  },
+  "metadata_verified": true,
+  "auto_deploy": false,
+  "queue_before": 0,
+  "non_session_counts_and_event_ack_identity_match_restore": true,
+  "sessions_excluded_due_to_monitor_logins": true
+}

@@ -1,0 +1,13 @@
+{
+  "component": "agent",
+  "image": "ghcr.io/franklinlem/configsentinel-agent@sha256:e6a30a4b2771b7938fefc62b94d01ac01d7f8f7ac5766c818b54cfa33a80ffb5",
+  "commit": "13a8c18dfab0fab81d149727d3081f64c1b5659e",
+  "sbom_sha256": "08faff8a4a2614c0027a96333e2a9d170bf6110ffe10ed2c6617811169f21be5",
+  "scan_high": 0,
+  "scan_critical": 0,
+  "counts": {},
+  "build_attestations": true,
+  "provenance_verified": true,
+  "signature_verified": true,
+  "signature_policy": "pinned repository public key; private registry; no public transparency log"
+}

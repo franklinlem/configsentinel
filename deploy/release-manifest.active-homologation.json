@@ -1,15 +1,15 @@
 {
   "scope": "active homologation only",
   "api": {
-    "image": "ghcr.io/franklinlem/configsentinel-api@sha256:f8fdc1ffe8b4f8cf1a1480a6d3d69d95e332cf90f2c1589c99459046f158c39f",
-    "sbom_sha256": "0adcc979c1b6a96dccad5e50bb46ae7ad12840560bafeb21a32213d34c0e77d0",
+    "image": "ghcr.io/franklinlem/configsentinel-api@sha256:89e789ffb0eba2b2567d741cddf06648ffb1837604bcf4e28d75a4db65601124",
+    "sbom_sha256": "c2b3a2d1a8b384111bbbe79409c53ecdb228537a73d114bb716ea12226b09936",
     "scan_high": 0,
     "scan_critical": 0,
     "signature_verified": true,
-    "source_commit": "6328c62c838990e2ecfd2711416c62808d2ab043"
+    "source_commit": "13a8c18dfab0fab81d149727d3081f64c1b5659e"
   },
   "migrator": {
-    "image": "ghcr.io/franklinlem/configsentinel-api@sha256:f8fdc1ffe8b4f8cf1a1480a6d3d69d95e332cf90f2c1589c99459046f158c39f"
+    "image": "ghcr.io/franklinlem/configsentinel-api@sha256:89e789ffb0eba2b2567d741cddf06648ffb1837604bcf4e28d75a4db65601124"
   },
   "web": {
     "image": "ghcr.io/franklinlem/configsentinel-web@sha256:64c4e53b1784d01cef1e35c5c1d34e5aa05174c64d2b01903e93b8e7fa95c44b",
@@ -22,12 +22,12 @@
     "schema_version": 2
   },
   "synthetic_agent": {
-    "source_image": "ghcr.io/franklinlem/configsentinel-agent@sha256:563365fa8c73c511ea9e7d71c5a1a96b81c7d25d2f95a835e488c5e3c9c917b7",
-    "binary_sha256": "2715936f76816a17fb810764f22abcde8bb288be8e22a1b6f894746504e924e7",
+    "source_image": "ghcr.io/franklinlem/configsentinel-agent@sha256:e6a30a4b2771b7938fefc62b94d01ac01d7f8f7ac5766c818b54cfa33a80ffb5",
+    "binary_sha256": "0369d823c0a8e02406945ecac9ffe1db1cbd155ff2018bea480626f92a9f14bb",
     "capacity": 10000
   },
   "schema2_fallback_api": "ghcr.io/franklinlem/configsentinel-api@sha256:c51e92c3cdb4b0ec7f64f79423a1684f4905cebf8753ae0670b21abbf95b1581",
-  "deployment_uuid": "f35f690b-5f82-4b8f-9cf0-a4abfab14753",
+  "deployment_uuid": "10cb583e-a2c4-4988-b4cc-0c9e1781ca25",
   "production_approved": false,
-  "performance_rollback_api": "ghcr.io/franklinlem/configsentinel-api@sha256:3ffaecb7c7f3db5883c1b56a661e6ce7629288cb8eeaf87722bdb3cf4f13fedb"
+  "performance_rollback_api": "ghcr.io/franklinlem/configsentinel-api@sha256:f8fdc1ffe8b4f8cf1a1480a6d3d69d95e332cf90f2c1589c99459046f158c39f"
 }
