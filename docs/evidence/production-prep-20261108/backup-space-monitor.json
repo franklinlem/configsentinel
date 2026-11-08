@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "synthetic_low_space_tests": true,
+  "actual_probe_healthy": true,
+  "monitor_service_exit": 0,
+  "previous_script_preserved": true,
+  "secrets_disclosed": false
+}

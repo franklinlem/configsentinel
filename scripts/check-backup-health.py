@@ -6,10 +6,11 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import shutil
 import subprocess
 
 
-def check(base, max_age_hours=26, now=None, service_result='success'):
+def check(base, max_age_hours=26, now=None, service_result='success', min_free_bytes=1 << 30, min_free_fraction=0.05):
     now = now or dt.datetime.now(dt.timezone.utc)
     def fail(reason, **extra):return {'status':'error','reason':reason,**extra}
     if service_result not in ('success', ''):return fail('backup_service_failed')
@@ -27,6 +28,9 @@ def check(base, max_age_hours=26, now=None, service_result='success'):
         with backup.open('rb') as stream:
             digest=hashlib.file_digest(stream,'sha256').hexdigest()
         if not re.fullmatch('[a-f0-9]{64}',checksum) or digest!=checksum:return fail('checksum_mismatch')
+        usage=shutil.disk_usage(base)
+        if usage.free < min_free_bytes or usage.free < usage.total * min_free_fraction:
+            return fail('backup_low_space', free_bytes=usage.free)
         return {'status':'ok','age_seconds':round(age),'checksum':'verified'}
     except (OSError,ValueError,IndexError):return fail('backup_metadata_unavailable')
 

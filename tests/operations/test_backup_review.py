@@ -77,6 +77,12 @@ class BackupHealthProbe(unittest.TestCase):
             dump.with_suffix('.gpg.sha256').write_text(hashlib.sha256(dump.read_bytes()).hexdigest()+'  '+dump.name+'\n')
             marker=base/'last-success.txt';marker.write_text(now.isoformat()+' '+dump.name+'\n')
             self.assertEqual(check(base,now=now)['status'],'ok')
+            from collections import namedtuple
+            disk=namedtuple('disk', ['total','used','free'])
+            with patch('shutil.disk_usage',return_value=disk(100*(1<<30), 99*(1<<30), 1<<30)):
+                self.assertEqual(check(base,now=now)['reason'],'backup_low_space')
+            with patch('shutil.disk_usage',return_value=disk(10*(1<<30), 10*(1<<30)-(512<<20), 512<<20)):
+                self.assertEqual(check(base,now=now)['reason'],'backup_low_space')
             self.assertEqual(check(base,now=now+dt.timedelta(hours=27))['reason'],'backup_overdue')
             self.assertEqual(check(base,now=now,service_result='exit-code')['reason'],'backup_service_failed')
             dump.write_bytes(b'corrupt synthetic encrypted fixture'*100)
