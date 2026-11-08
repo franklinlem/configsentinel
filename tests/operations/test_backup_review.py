@@ -16,6 +16,26 @@ check=runpy.run_path(str(SCRIPTS/'check-backup-health.py'))['check']
 
 
 class BackupReview(unittest.TestCase):
+    def test_success_preserves_all_existing_recovery_points(self):
+        with tempfile.TemporaryDirectory(prefix='configsentinel-backup-retention-') as folder:
+            base=Path(folder)/'backup';config=Path(folder)/'config';config.mkdir();(base/'daily').mkdir(parents=True);(base/'weekly').mkdir()
+            key=config/'encryption.key';key.write_text('synthetic fixture '*4);key.chmod(0o600)
+            existing=[]
+            for day in range(1,10):
+                p=base/'daily'/f'2026-01-{day:02d}T000000000000Z.dump.gpg';p.write_bytes(b'old synthetic point');existing.append(p)
+            for week in range(1,6):
+                p=base/'weekly'/f'2026-W{week:02d}.dump.gpg';p.write_bytes(b'old synthetic point');existing.append(p)
+            original=subprocess.Popen
+            def synthetic_pipeline(command, **kwargs):
+                if command[0]=='ssh':
+                    return original(['python3','-c','import sys;sys.stdout.buffer.write(b"x"*2048)'],**kwargs)
+                target=command[command.index('--output')+1]
+                return original(['python3','-c','import sys;open(sys.argv[1],"wb").write(sys.stdin.buffer.read())',target],**kwargs)
+            with patch('subprocess.Popen',side_effect=synthetic_pipeline):
+                new=backup['perform_backup'](base,config)
+            self.assertTrue(new.is_file())
+            self.assertTrue(all(p.read_bytes()==b'old synthetic point' for p in existing))
+
     def test_fail_closed_lock_timeout_and_previous_backup(self):
         with tempfile.TemporaryDirectory(prefix='configsentinel-backup-review-') as folder:
             base=Path(folder)/'backup';base.mkdir();config=Path(folder)/'config';config.mkdir()

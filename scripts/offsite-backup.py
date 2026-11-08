@@ -90,14 +90,8 @@ def perform_backup(base, config, timeout=300):
                 shutil.copyfile(final, week)
                 checksum(week)
             atomic_write(base/'last-success.txt', now.isoformat()+' '+final.name+'\n')
-            # Preserve the existing policy: seven calendar days and four weeks.
-            # Multiple successful same-day recovery points are all retained.
-            dates = sorted({p.name[:10] for p in daily.glob('*.dump.gpg')}, reverse=True)
-            old_files = [p for p in daily.glob('*.dump.gpg') if p.name[:10] not in dates[:7]]
-            old_files += sorted(weekly.glob('*.dump.gpg'), reverse=True)[4:]
-            for old in old_files:
-                old.unlink()
-                old.with_suffix(old.suffix+'.sha256').unlink(missing_ok=True)
+            # Preserve all existing recovery points until a retention policy
+            # and deletion procedure have been explicitly approved.
             return final
         except subprocess.TimeoutExpired:
             raise RuntimeError('Encrypted backup deadline exceeded; previous backups preserved') from None

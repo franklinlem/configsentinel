@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "separate_host": "frank-note",
+  "original_host": "frank-note2",
+  "recovery_key_copy_matches": true,
+  "local_mode_0600": true,
+  "disaster_recovery_of_both_hosts_tested": false,
+  "fingerprints_disclosed": false
+}

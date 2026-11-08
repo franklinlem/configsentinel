@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "old_recovery_files": 18,
+  "all_old_recovery_files_preserved": true,
+  "new_recovery_files": 2,
+  "service_exit": 0,
+  "previous_script_preserved": true,
+  "secrets_disclosed": false
+}
