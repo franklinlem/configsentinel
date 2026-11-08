@@ -403,12 +403,36 @@ form label {
 }
 .env-pill {
   font-size: 10px;
+  font-weight: 600;
   letter-spacing: 1px;
+  border-radius: 5px;
+  padding: 5px 8px;
+  text-transform: uppercase;
+}
+.env-pill.homolog {
   color: var(--orange-pill-text);
   background: var(--orange-subtle);
   border: 1px solid var(--orange-subtle-border);
-  border-radius: 5px;
-  padding: 5px 8px;
+}
+.env-pill.prod {
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+body.light-theme .env-pill.prod {
+  color: #047857;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+.env-pill.dev {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+body.light-theme .env-pill.dev {
+  color: #0284c7;
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.35);
 }
 .version {
   font-family: monospace;

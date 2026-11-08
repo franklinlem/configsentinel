@@ -275,6 +275,16 @@ const nav = [
   ["/members", "Membros", Users],
   ["/audit", "Auditoria", ScrollText],
 ] as const;
+function getEnvironment() {
+  const host = typeof window !== "undefined" ? window.location.hostname.toLowerCase() : "";
+  if (host === "configsentinel.franklem.uk" || host === "configsentinel.com" || (!host.includes("dev") && !host.includes("homolog") && !host.includes("localhost") && !host.includes("127.0.0.1") && host.length > 0)) {
+    return { name: "PRODUÇÃO", className: "prod" };
+  }
+  if (host.includes("dev") || host.includes("homolog")) {
+    return { name: "HOMOLOGAÇÃO", className: "homolog" };
+  }
+  return { name: "DEV LOCAL", className: "dev" };
+}
 function Shell({
   email,
   logout,
@@ -356,7 +366,9 @@ function Shell({
             Workspace <ChevronRight size={13} /> Observatório
           </span>
           <div>
-            <span className="env-pill">HOMOLOGAÇÃO</span>
+            <span className={`env-pill ${getEnvironment().className}`}>
+              {getEnvironment().name}
+            </span>
             <span className="version">v0.1.0</span>
             <button
               type="button"
