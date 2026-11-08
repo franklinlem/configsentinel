@@ -1,0 +1,118 @@
+services:
+  db:
+    image: postgres:17-alpine@sha256:266d3c257594e195b309ae9d1805e54c788f1d7b375f56bf6c367aac6c917e7b
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: configsentinel_prod
+      POSTGRES_USER: configsentinel
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?required}
+    volumes:
+      - configsentinel_prod_postgres_data:/var/lib/postgresql/data
+    networks:
+      - database
+    mem_limit: 512m
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U configsentinel -d configsentinel_prod']
+      interval: 10s
+      timeout: 5s
+      retries: 15
+    labels:
+      - traefik.enable=false
+
+  migrate:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    command: ["/app/server", "--migrate"]
+    restart: "no"
+    environment:
+      DATABASE_URL: postgresql://configsentinel:${POSTGRES_PASSWORD}@db:5432/configsentinel_prod?sslmode=disable
+      PUBLIC_URL: https://configsentinel.franklem.uk
+      COOKIE_SECURE: 'true'
+    networks:
+      - database
+    depends_on:
+      db:
+        condition: service_healthy
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    labels:
+      - traefik.enable=false
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://configsentinel:${POSTGRES_PASSWORD}@db:5432/configsentinel_prod?sslmode=disable
+      PUBLIC_URL: https://configsentinel.franklem.uk
+      COOKIE_SECURE: 'true'
+      ADMIN_EMAIL: ${ADMIN_EMAIL:?required}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?required}
+    networks:
+      - database
+      - app
+    mem_limit: 512m
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: [CMD, wget, -q, -O, /dev/null, 'http://127.0.0.1:8081/api/health/ready']
+      interval: 10s
+      timeout: 5s
+      retries: 15
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    labels:
+      - traefik.enable=false
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    restart: unless-stopped
+    networks:
+      - app
+      - coolify
+    mem_limit: 128m
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD, wget, -q, -O, /dev/null, 'http://127.0.0.1:8080/healthz']
+      interval: 10s
+      timeout: 5s
+      retries: 15
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=coolify
+      - traefik.http.routers.configsentinel-prod-http.rule=Host(`configsentinel.franklem.uk`)
+      - traefik.http.routers.configsentinel-prod-http.entrypoints=http
+      - traefik.http.routers.configsentinel-prod-http.middlewares=redirect-to-https@docker
+      - traefik.http.routers.configsentinel-prod.rule=Host(`configsentinel.franklem.uk`)
+      - traefik.http.routers.configsentinel-prod.entrypoints=https
+      - traefik.http.routers.configsentinel-prod.tls=true
+      - traefik.http.routers.configsentinel-prod.tls.certresolver=letsencrypt
+      - traefik.http.routers.configsentinel-prod.service=configsentinel-prod
+      - traefik.http.services.configsentinel-prod.loadbalancer.server.port=8080
+
+networks:
+  database:
+    internal: true
+  app: {}
+  coolify:
+    external: true
+
+volumes:
+  configsentinel_prod_postgres_data: {}
