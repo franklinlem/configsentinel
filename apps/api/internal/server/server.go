@@ -158,7 +158,12 @@ func (s *Server) admin(next http.Handler) http.Handler {
 			return
 		}
 		if r.Method != "GET" {
-			if r.Header.Get("Origin") != s.Origin || digest(r.Header.Get("X-CSRF-Token")) != csrf {
+			if r.URL.Path == "/api/v1/auth/logout" {
+				if r.Header.Get("Origin") != s.Origin {
+					problem(w, 403, "Origem inválida")
+					return
+				}
+			} else if r.Header.Get("Origin") != s.Origin || digest(r.Header.Get("X-CSRF-Token")) != csrf {
 				problem(w, 403, "Origem ou CSRF inválido")
 				return
 			}

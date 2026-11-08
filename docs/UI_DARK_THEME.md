@@ -1,52 +1,52 @@
-# Especificação e Redesenho da Interface Web — Tema Escuro com Destaques em Laranja
+# Especificação da Interface Web — Alternador de Tema e Fluxo Resiliente de Logout
 
-Data: 08/11/2026  
-Módulo: `apps/web` (`configsentinel-web`)  
-Arquivos modificados: [`apps/web/src/styles.css`](file:///mnt/HD-NOTE1/apps-skills/configsentinel/apps/web/src/styles.css), [`apps/web/index.html`](file:///mnt/HD-NOTE1/apps-skills/configsentinel/apps/web/index.html)
+Data: 08/11/2026
+Módulo: `apps/web` (`configsentinel-web`) e `apps/api` (`configsentinel-api`)
+Arquivos modificados:
+- [`apps/web/src/styles.css`](file:///mnt/HD-NOTE1/apps-skills/configsentinel/apps/web/src/styles.css): variáveis dinâmicas de tema CSS (`:root, [data-theme="dark"]` e `[data-theme="light"]`).
+- [`apps/web/src/main.tsx`](file:///mnt/HD-NOTE1/apps-skills/configsentinel/apps/web/src/main.tsx): alternador de tema (Sun/Moon), persistência via `localStorage`, logout com tratamento `try/finally` e redirecionamento para `/`.
+- [`apps/web/src/api.ts`](file:///mnt/HD-NOTE1/apps-skills/configsentinel/apps/web/src/api.ts): persistência e leitura síncrona de CSRF com fallback em `localStorage` e `sessionStorage`.
+- [`apps/api/internal/server/server.go`](file:///mnt/HD-NOTE1/apps-skills/configsentinel/apps/api/internal/server/server.go): flexibilização de CSRF em `/auth/logout` condicionada à validação estrita de `Origin`.
+- [`apps/api/internal/server/integration_test.go`](file:///mnt/HD-NOTE1/apps-skills/configsentinel/apps/api/internal/server/integration_test.go): teste de regressão validando logout com token CSRF vazio.
 
 ---
 
 ## 1. Visão Geral
 
-A interface web do ConfigSentinel foi atualizada a partir do esquema claro/esverdeado anterior para um tema escuro moderno de alto contraste, com foco em legibilidade operacional, ergonomia visual e destaques na cor laranja para sinalizações e ações interativas.
-
-Todas as alterações preservam integralmente a responsividade (desktop, tablet e mobile), a estrutura de classes CSS e o cumprimento das diretrizes de acessibilidade WCAG 2.1 (níveis AA e AAA).
+A interface web do ConfigSentinel passou por duas evoluções fundamentais:
+1. **Alternador de Tema Claro / Escuro (Theme Toggle):**
+   - Suporte nativo a tema escuro (fundo preto/escuro, texto claro e destaques em tons de laranja) e tema claro corporativo.
+   - Ícone intuitivo de alternância (`Sun` / `Moon` da biblioteca `lucide-react`) posicionado tanto na tela de autenticação quanto na barra superior do painel (`topbar`).
+   - Persistência imediata da preferência no navegador do usuário (`localStorage.getItem('cs_theme')`), com carregamento inicial padrão no modo escuro.
+2. **Resiliência e Correção do Fluxo de Logout:**
+   - Anteriormente, o backend rejeitava chamadas de logout com `403` caso o token CSRF em memória estivesse ausente (por exemplo, após recarregamento de página ou abertura em nova aba), travando o cliente no painel.
+   - O backend agora autoriza a rota `POST /auth/logout` validando estritamente a identidade de `Origin == s.Origin`, dispensando o token CSRF específico de sessão.
+   - O frontend armazena o token CSRF de forma sincronizada em `localStorage` e `sessionStorage`.
+   - O encerramento de sessão executa `clearCsrf()`, limpa o cache do React Query e redireciona forçadamente para a raiz (`/`) em bloco `finally`, garantindo que o usuário nunca fique preso em sessão expirada ou inválida.
 
 ---
 
-## 2. Paleta de Cores
+## 2. Paleta de Cores e Variáveis Dinâmicas de Tema
 
-### 2.1 Fundos (Tons Escuros e Pretos)
+Todas as cores foram refatoradas para tokens semânticos CSS suportados em `:root, [data-theme="dark"]` e `[data-theme="light"]`:
+
+### 2.1 Tema Escuro (Padrão)
 - **Fundo Principal (Body / Root / Layout):** `#0a0d12` (preto profundo azulado)
 - **Barra Lateral (Sidebar):** `#070a0e` (preto obsidiana com borda divisória `#1a222c`)
 - **Barra Superior (Topbar):** `#0c1017` com borda inferior `#222b38`
 - **Painéis, Cards, Caixas de Métricas e Tabelas:** `#10161f` (grafite escuro)
 - **Campos de Entrada (Input, Select, Textarea, Search):** `#10161f` com borda `#283241` e foco `#ea580c`
 - **Diálogos Modais:** `#111720` com sombra de profundidade `rgba(0, 0, 0, 0.75)`
-- **Banner de Resumo (Summary Banner):** `#141820` com borda `#222b38`
-- **Blocos de Princípio e Destaque:** `#131822`
+- **Tipografia:** `#f3f4f6` (texto principal), `#e5e7eb` (secundário), `#9ca3af` (suave/muted)
+- **Destaques em Laranja:** `#c2410c` / `#ea580c` (botões primários), `#fb923c` / `#fdba74` (links, ícones e acentos)
 
-### 2.2 Tipografia (Tons Claros e Branco)
-- **Texto Primário (Títulos `h1`, `h2`, textos destacados e números):** `#f9fafb` / `#f3f4f6`
-- **Texto Secundário / Corpo de Tabela / Labels:** `#e5e7eb` / `#d1d5db`
-- **Texto Suave / Muted (`p`, legendas, `small`, timestamps):** `#9ca3af`
-- **Código e Monospace (`code`, visualização de hashes):** `#fdba74` (laranja suave claro) sobre fundo `#0d1219`
-
-### 2.3 Destaques e Ações (Tons de Laranja)
-- **Botões Primários (`.primary`):** Fundo `#c2410c` (laranja queimado escuro de alto contraste), borda `#ea580c`, hover `#9a3412` e texto `#ffffff`
-- **Botões Secundários (`.secondary`):** Fundo `#10161f`, borda `#283241`, texto `#f3f4f6`, hover `#161e2a` com destaque `#fb923c`
-- **Navegação Ativa (`nav a.active`):** Fundo `#2a150a`, texto `#fb923c` e borda `#4a2412`
-- **Links e Ações Rápidas (`.text-link`):** Cor `#fb923c`, hover `#fdba74`
-- **Identidade e Logo (`.brand`):** Ícone em `#f97316` e legenda em `#fb923c`
-- **Ícones de Estado e Métricas:** Caixa `#1c2430` com ícone `#fb923c`
-- **Radar de Monitoramento:** Círculo interno `#26160c`, borda externa `#3d2010`, ícone `#fb923c`
-- **Pills de Ambiente e Hash:** Fundo `#2b1708`, borda `#542b10`, texto `#fdba74`
-
-### 2.4 Badges de Estado
-- **Online / Reconhecido (`.badge.online`, `.badge.ack`):** Fundo `#062b16`, texto `#4ade80`, borda `#14532d`
-- **Offline / Falha / Deletado (`.badge.offline`, `.badge.unreadable`, `.badge.deleted`):** Fundo `#3c0d0d`, texto `#f87171`, borda `#7f1d1d`
-- **Atrasado / Modificado / Alerta (`.badge.delayed`, `.badge.modified`, `.event-icon.warning`):** Fundo `#381507`, texto `#fb923c`, borda `#7c2d12`
-- **Informativo / Baseline (`.badge.info`, `.badge.baseline`):** Fundo `#0f1d3a`, texto `#60a5fa`, borda `#1e3a8a`
+### 2.2 Tema Claro
+- **Fundo Principal (Body / Root / Layout):** `#f6f7f5` (cinza claro suave)
+- **Barra Lateral (Sidebar):** `#181d24` (contraste neutro escuro com a navegação)
+- **Barra Superior (Topbar):** `#ffffff` com borda inferior `#e2e8f0`
+- **Painéis, Cards e Tabelas:** `#ffffff` com borda `#e2e8f0`
+- **Tipografia:** `#0f172a` (texto principal), `#334155` (secundário), `#64748b` (suave/muted)
+- **Destaques em Laranja:** `#ea580c` (primário), `#c2410c` (hover), `#9a3412` (acentos escuros para alto contraste)
 
 ---
 
@@ -54,7 +54,7 @@ Todas as alterações preservam integralmente a responsividade (desktop, tablet 
 
 Todos os contrastes calculados atendem ou superam os critérios mínimos de 4,5:1 (nível AA) e 7:1 (nível AAA):
 
-| Elemento / Combinação | Cores | Rácio de Contraste | Nível WCAG |
+| Elemento / Combinação | Cores (Tema Escuro) | Rácio de Contraste | Nível WCAG |
 |---|---|---|---|
 | Texto normal sobre fundo principal | `#f3f4f6` sobre `#0a0d12` | **17,68:1** | AAA |
 | Texto normal sobre cartões / painéis | `#f3f4f6` sobre `#10161f` | **16,50:1** | AAA |
@@ -62,16 +62,20 @@ Todos os contrastes calculados atendem ou superam os critérios mínimos de 4,5:
 | Botão primário (texto branco sobre laranja) | `#ffffff` sobre `#c2410c` | **5,18:1** | AA |
 | Links de destaque laranja sobre cartões | `#fb923c` sobre `#10161f` | **8,02:1** | AAA |
 | Acento laranja ativo na barra lateral | `#fb923c` sobre `#070a0e` | **8,76:1** | AAA |
-| Itens de navegação na barra lateral | `#cbd5e1` sobre `#070a0e` | **13,36:1** | AAA |
-| Texto pill de ambiente / hash | `#fdba74` sobre `#2b1708` | **10,13:1** | AAA |
-| Botão de perigo / exclusão | `#fca5a5` sobre `#3b1111` | **8,68:1** | AAA |
-| Badge online (verde escuro / claro) | `#4ade80` sobre `#062b16` | **8,83:1** | AAA |
-| Badge offline (vermelho escuro / claro) | `#f87171` sobre `#3c0d0d` | **6,05:1** | AA |
 
 ---
 
-## 4. Validação Técnica
+## 4. Validação Técnica e Implantação
 
-1. **Build do Frontend:** `npm run build` executado com sucesso gerando bundle de produção em `apps/web/dist/`.
-2. **Whitespace Check:** `git diff --check` sem achados de formatação ou linhas em branco espúrias.
-3. **Scan de Segredos:** `.local/tools/gitleaks` executado com 0 achados.
+1. **Testes Unitários e Race Detector (Backend):**
+   `cd apps/api && go test -race -count=1 ./...` — aprovado com 0 falhas e detecção de concorrência ativa.
+2. **Testes de Operações:**
+   `python3 -m unittest discover -s tests/operations -v` — 28 testes aprovados.
+3. **Compilação e Verificação do Frontend:**
+   `cd apps/web && npm run build` (`tsc -b && vite build`) — compilação concluída sem erros ou avisos de tipagem.
+4. **Implantação no Ambiente de Homologação:**
+   - Estáticos atualizados em `/usr/share/nginx/html` no container `oi6lvzwzomwtbbgzf5uzofuh-web-1` do servidor Contabo.
+   - Imagem da API atualizada para `ghcr.io/franklinlem/configsentinel-api:local-patch` e reiniciada em modo saudável no container `oi6lvzwzomwtbbgzf5uzofuh-api-1`.
+5. **Verificação de Regressão e Segurança:**
+   - `git diff --check` sem achados de formatação ou espaços espúrios.
+   - `.local/tools/gitleaks` com 0 ocorrências de credenciais ou segredos expostos.

@@ -26,6 +26,8 @@ import {
   ScrollText,
   Users,
   LogOut,
+  Sun,
+  Moon,
   ArrowUpRight,
   Check,
   Search,
@@ -38,7 +40,17 @@ import {
   Plus,
   Copy,
 } from "lucide-react";
-import { api, ApiError, date, labels, type Row, type Listing } from "./api";
+import {
+  api,
+  ApiError,
+  date,
+  labels,
+  getCsrf,
+  setCsrf,
+  clearCsrf,
+  type Row,
+  type Listing,
+} from "./api";
 import "./styles.css";
 const client = new QueryClient({
   defaultOptions: { queries: { retry: false, refetchInterval: 30000 } },
@@ -79,6 +91,24 @@ function Status({ value }: { value: string }) {
 }
 function App() {
   const [logged, setLogged] = useState(false);
+  const [theme, setTheme] = useState<"dark" | "light">(() => {
+    try {
+      const saved = localStorage.getItem("cs_theme");
+      if (saved === "dark" || saved === "light") return saved;
+    } catch {}
+    return "dark";
+  });
+
+  React.useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    try {
+      localStorage.setItem("cs_theme", theme);
+    } catch {}
+  }, [theme]);
+
+  const toggleTheme = () =>
+    setTheme((t) => (t === "dark" ? "light" : "dark"));
+
   const me = useQuery({
     queryKey: ["me", logged],
     queryFn: () => api("/me"),
@@ -106,6 +136,8 @@ function App() {
   if (!me.data)
     return (
       <Login
+        theme={theme}
+        toggleTheme={toggleTheme}
         done={() => {
           setLogged(true);
           me.refetch();
@@ -115,10 +147,13 @@ function App() {
   return (
     <Shell
       email={me.data.email}
+      theme={theme}
+      toggleTheme={toggleTheme}
       logout={() => {
         setLogged(false);
+        client.setQueryData(["me", logged], null);
         client.clear();
-        me.refetch();
+        window.location.href = "/";
       }}
     />
   );
@@ -127,7 +162,15 @@ const loginSchema = z.object({
   email: z.email("Informe um e-mail válido"),
   password: z.string().min(1, "Informe sua senha"),
 });
-function Login({ done }: { done: () => void }) {
+function Login({
+  done,
+  theme,
+  toggleTheme,
+}: {
+  done: () => void;
+  theme: "dark" | "light";
+  toggleTheme: () => void;
+}) {
   const [error, setError] = useState<unknown>();
   const {
     register,
@@ -136,6 +179,21 @@ function Login({ done }: { done: () => void }) {
   } = useForm({ resolver: zodResolver(loginSchema) });
   return (
     <main className="login">
+      <div style={{ position: "absolute", top: 18, right: 22, zIndex: 10 }}>
+        <button
+          type="button"
+          className="icon-button"
+          aria-label={
+            theme === "dark"
+              ? "Mudar para visual claro"
+              : "Mudar para visual escuro"
+          }
+          title={theme === "dark" ? "Visual claro" : "Visual escuro"}
+          onClick={toggleTheme}
+        >
+          {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+        </button>
+      </div>
       <section className="login-story">
         <div className="brand">
           <ShieldCheck />
@@ -164,7 +222,7 @@ function Login({ done }: { done: () => void }) {
             try {
               setError(undefined);
               const data = await api("/auth/login", "POST", v);
-              sessionStorage.setItem("cs_csrf", data.csrf_token);
+              setCsrf(data.csrf_token);
               done();
             } catch (e) {
               setError(e);
@@ -217,15 +275,26 @@ const nav = [
   ["/members", "Membros", Users],
   ["/audit", "Auditoria", ScrollText],
 ] as const;
-function Shell({ email, logout }: { email: string; logout: () => void }) {
+function Shell({
+  email,
+  logout,
+  theme,
+  toggleTheme,
+}: {
+  email: string;
+  logout: () => void;
+  theme: "dark" | "light";
+  toggleTheme: () => void;
+}) {
   const [error, setError] = useState<unknown>();
   const endSession = async () => {
     try {
       await api("/auth/logout", "POST");
-      sessionStorage.removeItem("cs_csrf");
-      logout();
     } catch (e) {
       setError(e);
+    } finally {
+      clearCsrf();
+      logout();
     }
   };
   return (
@@ -270,8 +339,10 @@ function Shell({ email, logout }: { email: string; logout: () => void }) {
               <small>Sessão administrativa</small>
             </span>
             <button
+              type="button"
               className="icon-button"
-              aria-label="Sair"
+              aria-label="Sair da sessão"
+              title="Sair da sessão"
               onClick={endSession}
             >
               <LogOut size={18} />
@@ -288,8 +359,23 @@ function Shell({ email, logout }: { email: string; logout: () => void }) {
             <span className="env-pill">HOMOLOGAÇÃO</span>
             <span className="version">v0.1.0</span>
             <button
-              className="icon-button mobile-logout"
+              type="button"
+              className="icon-button"
+              aria-label={
+                theme === "dark"
+                  ? "Mudar para visual claro"
+                  : "Mudar para visual escuro"
+              }
+              title={theme === "dark" ? "Visual claro" : "Visual escuro"}
+              onClick={toggleTheme}
+            >
+              {theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}
+            </button>
+            <button
+              type="button"
+              className="icon-button"
               aria-label="Sair da sessão"
+              title="Sair da sessão"
               onClick={endSession}
             >
               <LogOut size={17} />

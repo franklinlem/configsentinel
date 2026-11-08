@@ -214,6 +214,7 @@ func TestPostgresAuthorizationAndIngestion(t *testing.T) {
 	if n := len(request("GET", "/events", nil, "", 200)["items"].([]any)); n != 0 {
 		t.Fatal("tenant event leak")
 	}
+	csrf = ""
 	request("POST", "/auth/logout", nil, "", 200)
 	request("GET", "/me", nil, "", 401)
 	cookie, csrf = ownerCookie, ownerCSRF

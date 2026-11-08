@@ -9,6 +9,24 @@ export class ApiError extends Error {
     this.name = "ApiError";
   }
 }
+export function getCsrf(): string {
+  try {
+    return localStorage.getItem("cs_csrf") || sessionStorage.getItem("cs_csrf") || "";
+  } catch {
+    return "";
+  }
+}
+
+export function setCsrf(token: string): void {
+  try { localStorage.setItem("cs_csrf", token); } catch {}
+  try { sessionStorage.setItem("cs_csrf", token); } catch {}
+}
+
+export function clearCsrf(): void {
+  try { localStorage.removeItem("cs_csrf"); } catch {}
+  try { sessionStorage.removeItem("cs_csrf"); } catch {}
+}
+
 export async function api<T = Row>(
   path: string,
   method = "GET",
@@ -19,7 +37,7 @@ export async function api<T = Row>(
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
-      "X-CSRF-Token": sessionStorage.getItem("cs_csrf") || "",
+      "X-CSRF-Token": getCsrf(),
     },
     body: body === undefined ? undefined : JSON.stringify(body),
   });
