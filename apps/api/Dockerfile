@@ -5,7 +5,7 @@ RUN go mod download
 COPY apps/api/ ./
 RUN CGO_ENABLED=0 go build -trimpath -ldflags='-s -w' -o /out/server ./cmd/server
 FROM alpine:3.23@sha256:ff7f0c727dd796aa36787bfcd9a64bf35a6ce72a73451b3359fde849b6703d63
-RUN apk add --no-cache ca-certificates && addgroup -g 10001 app && adduser -D -u 10001 -G app app
+RUN apk add --no-cache ca-certificates zlib=1.4-r0 && addgroup -g 10001 app && adduser -D -u 10001 -G app app
 WORKDIR /app
 COPY --from=build /out/server /app/server
 COPY db/migrations /app/migrations

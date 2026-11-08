@@ -1,0 +1,9 @@
+{
+  "previous_workflow": 42481964937,
+  "previous_web_build": "FAIL",
+  "cause": "Alpine repository no longer provided the pinned zlib 1.3.2-r1; zlib 1.4-r0 was available",
+  "correction_commit": "64a297f",
+  "new_workflow": 42482086283,
+  "new_web_build": "PASS",
+  "scope": "candidate image only; no deployment inferred"
+}

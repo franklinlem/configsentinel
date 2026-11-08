@@ -253,3 +253,7 @@ O rollback para a API anterior restabelece a exclusão de eventos após 90 dias 
 ## Heartbeat e horário de coleta — correção local em 05/11/2026
 
 O agente passa a executar heartbeat em rotina independente da coleta e do flush, mantendo horário da última coleta separadamente. `sent_at` opcional permite à API calcular diferença de relógio sem confundir coleta atrasada com relógio incorreto; no 422 de central antiga, o agente retira primeiro `sent_at` e só remove `queue_capacity` se a central ainda o rejeitar. Agentes antigos continuam usando a interpretação legada do horário observado. Testes com detector de corridas e PostgreSQL sintético passaram, inclusive teste de compatibilidade e de coleta atrasada com relógio correto. A mudança ainda não foi implantada; faltam imagens verificadas e ensaio no piloto com indisponibilidade de I/O simulada.
+
+## Continuação em 08/11/2026
+
+O timer e o monitor de backup estavam ativos, e o backup verificado foi produzido em 08/11. O job de backup preserva os pontos existentes; o monitor passou a sinalizar espaço livre abaixo de 1 GiB ou 5%, com teste sintético e consulta real saudável. O `npm audit` da web reportou zero vulnerabilidades. Um build candidato da web falhou porque a versão exata do zlib foi retirada do repositório Alpine; a versão fixada foi atualizada e o build web seguinte passou. A avaliação do candidato completo continua em andamento. [Evidências](evidence/production-prep-20261108/). Produção permanece NO-GO.
