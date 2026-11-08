@@ -12,3 +12,11 @@ Estado em 05/11/2026. Esta lista resume o estado posterior aos registros histór
 - [ ] **Operação e aceite:** definir ambiente, domínios, capacidade, responsáveis, alertas, runbooks, janela e critérios de rollback; concluir verificações e registrar decisão fundamentada. Aceite de homologação não implica aprovação de produção.
 
 Já concluído em homologação: API otimizada promovida por digest, schema 2 e agente sintético atualizados; backup restaurado isoladamente; monitor de agente dedicado com recebimento humano confirmado. Ver [prontidão](PRODUCTION_READINESS.md), [ingestão](INGESTION_OPTIMIZATION.md) e [alertas](CAPACITY_AND_ALERT_DELIVERY.md).
+
+## Próxima sequência de trabalho
+
+1. Validar as imagens do heartbeat independente e sua compatibilidade com a central e com a fila existentes; preparar retorno usando a versão já ativa, que preserva eventos.
+2. Renovar backup e restore isolado, conferir os recursos e a configuração da homologação, implantar a API candidata e validar acesso e integridade. Atualizar o agente sintético em seguida, preservando configuração e fila, e confirmar um heartbeat novo.
+3. Exercitar os alertas de coleta, fila e indisponibilidade com dados sintéticos; confirmar a operação do monitor e registrar limites de cobertura.
+4. Medir desempenho em um caminho de rede representativo e preparar os procedimentos específicos de produção, incluindo recuperação, capacidade, retenção, credenciais e rollback.
+5. Repetir as verificações finais, atualizar manifestos e evidências e registrar a decisão de prontidão. A criação ou implantação em produção permanece sujeita à autorização específica anteriormente solicitada.
