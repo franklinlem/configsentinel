@@ -1,18 +1,22 @@
 services:
   db:
-    image: postgres:17-alpine@sha256:266d3c257594e195b309ae9d1805e54c788f1d7b375f56bf6c367aac6c917e7b
+    build:
+      context: .
+      dockerfile: deploy/postgres/Dockerfile
     restart: unless-stopped
     environment:
-      POSTGRES_DB: configsentinel_prod
+      POSTGRES_DB: configsentinel
       POSTGRES_USER: configsentinel
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?required}
+      CONFIGSENTINEL_RUNTIME_PASSWORD: ${RUNTIME_DB_PASSWORD:?required}
+      CONFIGSENTINEL_MIGRATOR_PASSWORD: ${MIGRATOR_DB_PASSWORD:?required}
     volumes:
       - configsentinel_prod_postgres_data:/var/lib/postgresql/data
     networks:
       - database
     mem_limit: 512m
     healthcheck:
-      test: [CMD-SHELL, 'pg_isready -U configsentinel -d configsentinel_prod']
+      test: [CMD-SHELL, 'pg_isready -U configsentinel -d configsentinel']
       interval: 10s
       timeout: 5s
       retries: 15
@@ -26,8 +30,10 @@ services:
     command: ["/app/server", "--migrate"]
     restart: "no"
     environment:
-      DATABASE_URL: postgresql://configsentinel:${POSTGRES_PASSWORD}@db:5432/configsentinel_prod?sslmode=disable
+      DATABASE_URL: postgresql://configsentinel_migrator:${MIGRATOR_DB_PASSWORD}@db:5432/configsentinel?sslmode=disable
       PUBLIC_URL: https://configsentinel.franklem.uk
+      ADMIN_EMAIL: ${ADMIN_EMAIL:?required}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?required}
       COOKIE_SECURE: 'true'
     networks:
       - database
@@ -48,11 +54,9 @@ services:
       dockerfile: apps/api/Dockerfile
     restart: unless-stopped
     environment:
-      DATABASE_URL: postgresql://configsentinel:${POSTGRES_PASSWORD}@db:5432/configsentinel_prod?sslmode=disable
+      DATABASE_URL: postgresql://configsentinel_runtime:${RUNTIME_DB_PASSWORD}@db:5432/configsentinel?sslmode=disable
       PUBLIC_URL: https://configsentinel.franklem.uk
       COOKIE_SECURE: 'true'
-      ADMIN_EMAIL: ${ADMIN_EMAIL:?required}
-      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?required}
     networks:
       - database
       - app
