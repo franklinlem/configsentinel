@@ -425,10 +425,49 @@ function Heading({
 }
 function Refresh() {
   const qc = useQueryClient();
+  const [refreshing, setRefreshing] = useState(false);
+  const [done, setDone] = useState(false);
+
+  const handleRefresh = async () => {
+    if (refreshing) return;
+    setRefreshing(true);
+    setDone(false);
+    try {
+      await Promise.all([
+        qc.invalidateQueries({ refetchType: "active" }),
+        new Promise((resolve) => setTimeout(resolve, 500)),
+      ]);
+      setDone(true);
+      setTimeout(() => setDone(false), 2000);
+    } catch {
+      //
+    } finally {
+      setRefreshing(false);
+    }
+  };
+
   return (
-    <button className="secondary" onClick={() => qc.invalidateQueries()}>
-      <RefreshCw size={15} />
-      Atualizar
+    <button
+      type="button"
+      className="secondary refresh-button"
+      onClick={handleRefresh}
+      disabled={refreshing}
+      aria-busy={refreshing}
+      aria-live="polite"
+      title={
+        refreshing
+          ? "Atualizando dados…"
+          : done
+          ? "Dados atualizados com sucesso!"
+          : "Atualizar dados agora"
+      }
+    >
+      {done ? (
+        <Check size={15} className="success-icon" />
+      ) : (
+        <RefreshCw size={15} className={refreshing ? "spin-icon" : ""} />
+      )}
+      <span>{refreshing ? "Atualizando…" : done ? "Atualizado!" : "Atualizar"}</span>
     </button>
   );
 }

@@ -13,7 +13,7 @@ Arquivos modificados:
 
 ## 1. Visão Geral
 
-A interface web do ConfigSentinel passou por duas evoluções fundamentais:
+A interface web do ConfigSentinel passou por três evoluções fundamentais:
 1. **Alternador de Tema Claro / Escuro (Theme Toggle):**
    - Suporte nativo a tema escuro (fundo preto/escuro, texto claro e destaques em tons de laranja) e tema claro corporativo.
    - Ícone intuitivo de alternância (`Sun` / `Moon` da biblioteca `lucide-react`) posicionado tanto na tela de autenticação quanto na barra superior do painel (`topbar`).
@@ -23,6 +23,10 @@ A interface web do ConfigSentinel passou por duas evoluções fundamentais:
    - O backend agora autoriza a rota `POST /auth/logout` validando estritamente a identidade de `Origin == s.Origin`, dispensando o token CSRF específico de sessão.
    - O frontend armazena o token CSRF de forma sincronizada em `localStorage` e `sessionStorage`.
    - O encerramento de sessão executa `clearCsrf()`, limpa o cache do React Query e redireciona forçadamente para a raiz (`/`) em bloco `finally`, garantindo que o usuário nunca fique preso em sessão expirada ou inválida.
+3. **Feedback Visual e Interativo no Botão "Atualizar":**
+   - Nas telas de "Visão geral" e "Histórico de eventos", o botão `Refresh` agora fornece resposta visual e semântica imediata.
+   - Enquanto as consultas estão sendo revalidadas no TanStack Query (`qc.invalidateQueries({ refetchType: "active" })`), o ícone gira continuamente (`@keyframes spin 0.8s linear infinite`), o texto muda para "Atualizando…", o cursor assume `wait`, e atributos de acessibilidade (`aria-busy="true"`, `aria-live="polite"`) são ativados.
+   - Ao concluir a atualização dos dados, o ícone transita suavemente para um visto (`Check`) de confirmação verde e o texto indica "Atualizado!", retornando de forma elegante ao estado inicial após 2 segundos.
 
 ---
 
