@@ -265,3 +265,7 @@ A API do commit `d7c25360c42e31ac872c7b28d0a102e6ea63900b` (workflow 42482302342
 Backup criptografado de homologação foi verificado e restaurado em PostgreSQL isolado (`configsentinel-j3-only-75b83f38d188-db`); todas as tabelas (schema 2) e identidades dos 4 eventos e 2 reconhecimentos conferiram com a base ativa. Após o deploy, smoke tests autenticados/não-autenticados passaram com HTTP 200/401; integridade do banco foi confirmada; containers api, web e db reportam healthy. Monitores Uptime Kuma 20 (Central HTTP), 21 (Backup push) e 22 (Agente push) reportam UP. [Evidências](evidence/heartbeat-promotion-20261108/).
 
 Produção permanece NO-GO até conclusão dos testes de bloqueio de I/O, medição representativa de desempenho e aprovação explícita dos gates finais de ativação.
+
+## Atualização visual da interface web — Tema escuro e destaques em laranja — 08/11/2026
+
+A interface web (`apps/web`) foi atualizada para um tema escuro integral (`#0a0d12` / `#10161f`), tipografia clara (`#f9fafb` / `#9ca3af`) e destaques operacionais em tons de laranja (`#ea580c` / `#fb923c` / `#c2410c`). Todos os elementos interativos e de texto foram validados para cumprir requisitos de contraste WCAG 2.1 AA/AAA. A estrutura de componentes e a responsividade (desktop, tablet e mobile) permanecem inalteradas. [Detalhes da especificação](UI_DARK_THEME.md).
