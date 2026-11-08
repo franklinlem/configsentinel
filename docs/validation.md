@@ -289,3 +289,11 @@ O rollback para a API anterior restabelece a exclusão de eventos após 90 dias 
 ## Heartbeat e horário de coleta — correção local em 05/11/2026
 
 O agente passa a executar heartbeat em rotina independente da coleta e do flush, mantendo horário da última coleta separadamente. `sent_at` opcional permite à API calcular diferença de relógio sem confundir coleta atrasada com relógio incorreto; no 422 de central antiga, o agente retira primeiro `sent_at` e só remove `queue_capacity` se a central ainda o rejeitar. Agentes antigos continuam usando a interpretação legada do horário observado. Testes com detector de corridas e PostgreSQL sintético passaram, inclusive teste de compatibilidade e de coleta atrasada com relógio correto. A mudança ainda não foi implantada; faltam imagens verificadas e ensaio no piloto com indisponibilidade de I/O simulada.
+
+## Promoção do heartbeat desacoplado e zlib atualizado — 08/11/2026
+
+A API do commit `d7c25360c42e31ac872c7b28d0a102e6ea63900b` (workflow 42482302342) foi promovida por digest ao recurso de homologação pelo job `97edf06b-62c2-4e25-9d0e-810f99eec4b9`; suporta `sent_at` opcional para desacoplar atraso de coleta de clock skew e runtime zlib atualizado. O agente sintético no host frank-note2 recebeu o binário assinado (`630defce90a50a98736c97d66dfcc2d1c748ee28d9afa7edad5d017fd4091511`), mantendo fila `/state` e configuração preservadas, com backup da versão anterior.
+
+Backup criptografado de homologação foi verificado e restaurado em PostgreSQL isolado (`configsentinel-j3-only-75b83f38d188-db`); todas as tabelas (schema 2) e identidades dos 4 eventos e 2 reconhecimentos conferiram com a base ativa. Após o deploy, smoke tests autenticados/não-autenticados passaram com HTTP 200/401; integridade do banco foi confirmada; containers api, web e db reportam healthy. Monitores Uptime Kuma 20 (Central HTTP), 21 (Backup push) e 22 (Agente push) reportam UP. [Evidências](evidence/heartbeat-promotion-20261108/).
+
+Produção permanece NO-GO até conclusão dos testes de bloqueio de I/O, medição representativa de desempenho e aprovação explícita dos gates finais de ativação.

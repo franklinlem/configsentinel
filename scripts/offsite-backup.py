@@ -87,7 +87,16 @@ def perform_backup(base, config, timeout=300):
             checksum(final)
             week = weekly/(now.strftime('%G-W%V')+'.dump.gpg')
             if not week.exists():
-                shutil.copyfile(final, week)
+                weekly_fd, weekly_temporary = tempfile.mkstemp(prefix='.pending-week-', dir=weekly)
+                try:
+                    with os.fdopen(weekly_fd, 'wb') as destination, final.open('rb') as source:
+                        shutil.copyfileobj(source, destination)
+                        destination.flush()
+                        os.fsync(destination.fileno())
+                    # Publish only a complete copy and never replace an existing point.
+                    os.link(weekly_temporary, week)
+                finally:
+                    Path(weekly_temporary).unlink(missing_ok=True)
                 checksum(week)
             atomic_write(base/'last-success.txt', now.isoformat()+' '+final.name+'\n')
             # Preserve all existing recovery points until a retention policy

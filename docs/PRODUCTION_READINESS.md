@@ -257,3 +257,11 @@ O agente passa a executar heartbeat em rotina independente da coleta e do flush,
 ## Continuação em 08/11/2026
 
 O timer e o monitor de backup estavam ativos, e o backup verificado foi produzido em 08/11. O job de backup preserva os pontos existentes; o monitor passou a sinalizar espaço livre abaixo de 1 GiB ou 5%, com teste sintético e consulta real saudável. O `npm audit` da web reportou zero vulnerabilidades. Um build candidato da web falhou porque a versão exata do zlib foi retirada do repositório Alpine; a versão fixada foi atualizada e o build web seguinte passou. A avaliação do candidato completo continua em andamento. [Evidências](evidence/production-prep-20261108/). Produção permanece NO-GO.
+
+## Promoção do heartbeat desacoplado e zlib atualizado — 08/11/2026
+
+A API do commit `d7c25360c42e31ac872c7b28d0a102e6ea63900b` (workflow 42482302342) foi promovida por digest ao recurso de homologação pelo job `97edf06b-62c2-4e25-9d0e-810f99eec4b9`; suporta `sent_at` opcional para desacoplar atraso de coleta de clock skew e runtime zlib atualizado. O agente sintético no host frank-note2 recebeu o binário assinado (`630defce90a50a98736c97d66dfcc2d1c748ee28d9afa7edad5d017fd4091511`), mantendo fila `/state` e configuração preservadas, com backup da versão anterior.
+
+Backup criptografado de homologação foi verificado e restaurado em PostgreSQL isolado (`configsentinel-j3-only-75b83f38d188-db`); todas as tabelas (schema 2) e identidades dos 4 eventos e 2 reconhecimentos conferiram com a base ativa. Após o deploy, smoke tests autenticados/não-autenticados passaram com HTTP 200/401; integridade do banco foi confirmada; containers api, web e db reportam healthy. Monitores Uptime Kuma 20 (Central HTTP), 21 (Backup push) e 22 (Agente push) reportam UP. [Evidências](evidence/heartbeat-promotion-20261108/).
+
+Produção permanece NO-GO até conclusão dos testes de bloqueio de I/O, medição representativa de desempenho e aprovação explícita dos gates finais de ativação.

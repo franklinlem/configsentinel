@@ -16,6 +16,24 @@ check=runpy.run_path(str(SCRIPTS/'check-backup-health.py'))['check']
 
 
 class BackupReview(unittest.TestCase):
+    def test_incomplete_weekly_copy_is_not_published(self):
+        with tempfile.TemporaryDirectory(prefix='configsentinel-weekly-copy-') as folder:
+            base=Path(folder)/'backup';base.mkdir();config=Path(folder)/'config';config.mkdir()
+            key=config/'encryption.key';key.write_text('synthetic fixture '*4);key.chmod(0o600)
+            marker=base/'last-success.txt';marker.write_text('previous recovery point')
+            original=subprocess.Popen
+            def synthetic_pipeline(command, **kwargs):
+                if command[0]=='ssh':
+                    return original(['python3','-c','import sys;sys.stdout.buffer.write(b"x"*2048)'],**kwargs)
+                target=command[command.index('--output')+1]
+                return original(['python3','-c','import sys;open(sys.argv[1],"wb").write(sys.stdin.buffer.read())',target],**kwargs)
+            with patch('subprocess.Popen',side_effect=synthetic_pipeline), patch('shutil.copyfileobj',side_effect=OSError('synthetic write failure')):
+                with self.assertRaises(OSError):backup['perform_backup'](base,config)
+            self.assertEqual(marker.read_text(),'previous recovery point')
+            self.assertFalse(list((base/'weekly').glob('*.dump.gpg')))
+            self.assertFalse(list((base/'weekly').glob('.pending-week-*')))
+            self.assertEqual(len(list((base/'daily').glob('*.dump.gpg'))),1)
+
     def test_success_preserves_all_existing_recovery_points(self):
         with tempfile.TemporaryDirectory(prefix='configsentinel-backup-retention-') as folder:
             base=Path(folder)/'backup';config=Path(folder)/'config';config.mkdir();(base/'daily').mkdir(parents=True);(base/'weekly').mkdir()

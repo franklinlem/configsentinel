@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "old_sha256": "0369d823c0a8e02406945ecac9ffe1db1cbd155ff2018bea480626f92a9f14bb",
+  "new_sha256": "630defce90a50a98736c97d66dfcc2d1c748ee28d9afa7edad5d017fd4091511",
+  "backup_path": "/home/franklin/apps/configsentinel-lab/configsentinel-agent-linux-amd64.before-heartbeat-4a6773d788cd",
+  "queue_before": 0,
+  "queue_after": 0,
+  "queue_identity_preserved": true,
+  "config_hash_unchanged": true,
+  "container_id": "37ffc24535409a1793920aab2bad359c40523a37cc4e9c81ead978091da843d4"
+}

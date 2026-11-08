@@ -1,0 +1,21 @@
+{
+  "sqlite": {
+    "rollback": "PASS",
+    "invalid_digest": "PASS",
+    "queue_guard": "PASS",
+    "update": "PASS",
+    "idempotence": "PASS",
+    "fallback": "PASS",
+    "scope": "synthetic sqlite in memory"
+  },
+  "postgres": {
+    "scope": "synthetic PostgreSQL only",
+    "rollback": "PASS",
+    "queue_guard": "PASS",
+    "update": "PASS",
+    "idempotence": "PASS",
+    "fallback": "PASS",
+    "schema_preserved": "web_review_a99c1f8d",
+    "credentials_disclosed": false
+  }
+}
