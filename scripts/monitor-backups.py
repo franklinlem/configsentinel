@@ -27,10 +27,11 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--base',type=Path,default=Path.home()/'.local/share/configsentinel-backups')
     parser.add_argument('--config',type=Path,default=Path.home()/'.config/configsentinel-backup')
+    parser.add_argument('--service-name',type=str,default='configsentinel-backup.service')
     args=parser.parse_args()
     probe=Path(__file__).with_name('check-backup-health.py')
     try:
-        result=subprocess.run([sys.executable,str(probe),'--base',str(args.base),'--check-systemd'],capture_output=True,text=True,timeout=30)
+        result=subprocess.run([sys.executable,str(probe),'--base',str(args.base),'--check-systemd','--service-name',args.service_name],capture_output=True,text=True,timeout=30)
         report=json.loads(result.stdout)
         if report['status']=='ok':
             key=args.config/'encryption.key'

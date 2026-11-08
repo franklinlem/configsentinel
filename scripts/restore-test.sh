@@ -12,5 +12,10 @@ for restore_try in $(seq 1 30); do
  if docker exec "$restore_name" pg_isready -U configsentinel >/dev/null 2>&1; then break;fi
  sleep 1
 done
+docker exec "$restore_name" psql -U configsentinel -d configsentinel -c "
+CREATE ROLE configsentinel_owner NOLOGIN;
+CREATE ROLE configsentinel_migrator LOGIN;
+CREATE ROLE configsentinel_runtime LOGIN;
+" >/dev/null 2>&1 || true
 gpg --batch --pinentry-mode loopback --passphrase-file "$BACKUP_PASSPHRASE_FILE" --decrypt "$BACKUP_FILE" 2>/dev/null | docker exec -i "$restore_name" pg_restore --exit-on-error --no-owner -U configsentinel -d configsentinel
 docker exec "$restore_name" psql -U configsentinel -d configsentinel -Atc 'SELECT version FROM schema_migrations; SELECT count(*) FROM organizations; SELECT count(*) FROM change_events;'

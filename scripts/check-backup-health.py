@@ -40,12 +40,13 @@ def main():
     parser.add_argument('--base',type=Path,default=Path.home()/'.local/share/configsentinel-backups')
     parser.add_argument('--max-age-hours',type=float,default=26)
     parser.add_argument('--check-systemd',action='store_true')
+    parser.add_argument('--service-name',type=str,default='configsentinel-backup.service')
     args=parser.parse_args()
     if args.max_age_hours<=0:parser.error('positive age required')
     result='success'
     if args.check_systemd:
         try:
-            response=subprocess.run(['systemctl','--user','show','configsentinel-backup.service','--property=Result','--value'],capture_output=True,text=True,timeout=5)
+            response=subprocess.run(['systemctl','--user','show',args.service_name,'--property=Result','--value'],capture_output=True,text=True,timeout=5)
             result=response.stdout.strip() if response.returncode==0 else 'unavailable'
         except (OSError,subprocess.TimeoutExpired):result='unavailable'
     report=check(args.base,args.max_age_hours,service_result=result)
